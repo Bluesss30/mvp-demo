@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotionForge — 30 秒生成你專屬的 Notion 工作系統</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            notion: {
+              50:  '#f5f4f0',
+              100: '#e8e5db',
+              200: '#d0cbb7',
+              300: '#b5ae94',
+              400: '#9a9070',
+              500: '#7f7350',
+              600: '#5c5239',
+              700: '#3d3727',
+              800: '#1e1b14',
+              900: '#0f0d0a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+
+    .gradient-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+    }
+    .glow-purple {
+      box-shadow: 0 0 40px rgba(118,75,162,0.25);
+    }
+    .glow-on-hover:hover {
+      box-shadow: 0 0 30px rgba(118,75,162,0.4);
+      transform: translateY(-2px);
+      transition: all 0.2s ease;
+    }
+    .json-preview {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .usage-dot {
+      width: 12px; height: 12px; border-radius: 50%; display: inline-block;
+    }
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 20px; height: 20px;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fade-in { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-active {
+      border-bottom: 2px solid #7c3aed;
+      color: #7c3aed;
+      font-weight: 600;
+    }
+    .structure-item {
+      border-left: 3px solid #7c3aed;
+      padding-left: 12px;
+      margin-bottom: 8px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl font-black bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">NotionForge</span>
+      <span class="badge bg-violet-900 text-violet-300 ml-1">Beta</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="usageIndicator" class="text-sm text-gray-400"></span>
+      <button onclick="scrollToGenerator()"
+        class="bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-all glow-on-hover">
+        立即試用
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="pt-28 pb-20 px-4 text-center relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-1/4 w-72 h-72 bg-violet-700/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-32 right-1/4 w-64 h-64 bg-fuchsia-700/20 rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 bg-violet-900/40 border border-violet-700/50 rounded-full px-4 py-1.5 text-sm text-violet-300 mb-8">
+      <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+      由 Claude AI 驅動 &mdash; 30 秒生成客製化工作系統
+    </div>
+    <h1 class="text-5xl sm:text-6xl font-black leading-tight mb-6">
+      <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+        用對話，打造<br />你的 Notion 系統
+      </span>
+    </h1>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+      不再為空白頁面卡關。描述你的工作情境，NotionForge 立即生成客製化的 Notion 頁面結構，直接注入你的工作區。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <button onclick="scrollToGenerator()"
+        class="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold px-8 py-4 rounded-2xl transition-all glow-on-hover text-lg">
+        免費試用 3 次
+      </button>
+      <button onclick="scrollToHowItWorks()"
+        class="border border-gray-700 hover:border-gray-500 text-gray-300 hover:text-white font-semibold px-8 py-4 rounded-2xl transition-all">
+        了解如何運作
+      </button>
+    </div>
+    <p class="text-sm text-gray-600 mt-4">無需註冊 &middot; 前 3 次完全免費 &middot; 30 秒出結果</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS
+============================================================ -->
+<section class="py-10 border-y border-gray-800">
+  <div class="max-w-4xl mx-auto px-4 grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
+    <div>
+      <div class="text-3xl font-black text-white">4,000萬</div>
+      <div class="text-sm text-gray-500 mt-1">Notion 活躍用戶</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-white">30秒</div>
+      <div class="text-sm text-gray-500 mt-1">平均生成時間</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-violet-400">3小時</div>
+      <div class="text-sm text-gray-500 mt-1">平均節省建置時間</div>
+    </div>
+    <div>
+      <div class="text-3xl font-black text-fuchsia-400">100%</div>
+      <div class="text-sm text-gray-500 mt-1">客製化輸出</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section id="howItWorks" class="py-20 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <h2 class="text-3xl font-bold text-white mb-3">三步驟，30 秒搞定</h2>
+      <p class="text-gray-400">不需要技術背景，只需要描述你的工作情境</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6 relative">
+        <div class="w-10 h-10 rounded-xl bg-violet-600 text-white font-bold text-lg flex items-center justify-center mb-4">1</div>
+        <h3 class="font-bold text-white text-lg mb-2">描述你的需求</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">用自然語言說明你的工作情境。「我是接案設計師，需要管理客戶、報價和交付物」</p>
+      </div>
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6 relative">
+        <div class="w-10 h-10 rounded-xl bg-fuchsia-600 text-white font-bold text-lg flex items-center justify-center mb-4">2</div>
+        <h3 class="font-bold text-white text-lg mb-2">AI 生成結構</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Claude AI 分析需求，輸出完整的 Notion 頁面結構，包含資料庫欄位、視圖設定與範例資料</p>
+      </div>
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6 relative">
+        <div class="w-10 h-10 rounded-xl bg-pink-600 text-white font-bold text-lg flex items-center justify-center mb-4">3</div>
+        <h3 class="font-bold text-white text-lg mb-2">一鍵注入工作區</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">確認結構後，透過 Notion API 自動建立頁面，立即可以開始使用</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GENERATOR (Main App)
+============================================================ -->
+<section id="generator" class="py-20 px-4 bg-gray-900/50">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold text-white mb-3">立即生成你的 Notion 系統</h2>
+      <p class="text-gray-400">輸入你的 Claude API Key，描述需求，30 秒見證魔法</p>
+    </div>
+
+    <!-- API Key Config Panel -->
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5 mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+          </svg>
+          <span class="font-semibold text-sm text-gray-200">Claude API 設定</span>
+        </div>
+        <button onclick="toggleApiPanel()" id="apiToggleBtn"
+          class="text-xs text-violet-400 hover:text-violet-300 transition-colors">
+          展開設定
+        </button>
+      </div>
+      <div id="apiPanel" class="hidden">
+        <p class="text-xs text-gray-500 mb-3">
+          需要 Anthropic API Key。
+          <a href="https://console.anthropic.com/" target="_blank" class="text-violet-400 hover:underline">前往取得 &rarr;</a>
+          &nbsp;Key 僅存於瀏覽器本地，不會傳送至任何伺服器。
+        </p>
+        <div class="flex gap-2">
+          <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..."
+            class="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors" />
+          <button onclick="saveApiKey()"
+            class="bg-violet-700 hover:bg-violet-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            儲存
+          </button>
+        </div>
+        <p id="apiKeyStatus" class="text-xs mt-2 text-gray-600"></p>
+      </div>
+      <div id="apiKeyIndicator" class="text-xs text-gray-500">
+        <span id="keyStatusDot" class="usage-dot bg-gray-700 mr-1.5"></span>
+        <span id="keyStatusText">尚未設定 API Key</span>
+      </div>
+    </div>
+
+    <!-- Usage Counter -->
+    <div class="flex items-center justify-between mb-4 px-1">
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-400">免費使用次數</span>
+        <div class="flex gap-1" id="usageDots"></div>
+      </div>
+      <span id="usageText" class="text-sm text-gray-500"></span>
+    </div>
+
+    <!-- Example Prompts -->
+    <div class="mb-4">
+      <p class="text-xs text-gray-500 mb-2 px-1">快速範例 &darr;</p>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="setExample(0)" class="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-violet-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-full transition-all">
+          接案設計師工作系統
+        </button>
+        <button onclick="setExample(1)" class="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-violet-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-full transition-all">
+          PM 專案追蹤 + OKR
+        </button>
+        <button onclick="setExample(2)" class="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-violet-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-full transition-all">
+          個人知識庫 PARA 系統
+        </button>
+        <button onclick="setExample(3)" class="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-violet-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-full transition-all">
+          內容創作者排程管理
+        </button>
+        <button onclick="setExample(4)" class="text-xs bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-violet-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-full transition-all">
+          新創公司產品開發流程
+        </button>
+      </div>
+    </div>
+
+    <!-- Input Form -->
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-5 mb-4 glow-purple">
+      <label class="block text-sm font-semibold text-gray-300 mb-3">
+        描述你的工作情境
+      </label>
+      <textarea id="promptInput" rows="5"
+        placeholder="例如：我是一個自由接案設計師，需要管理客戶資訊、追蹤每個案子的進度（從提案、報價、設計、交付到收款），還需要記錄每個客戶的聯絡人和偏好。希望能快速看到哪些案子逾期未收款。"
+        class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors resize-none leading-relaxed">
+      </textarea>
+      <div class="flex items-center justify-between mt-3">
+        <span id="charCount" class="text-xs text-gray-600">0 / 500 字</span>
+        <button id="generateBtn" onclick="generateNotionStructure()"
+          class="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold px-6 py-2.5 rounded-xl transition-all glow-on-hover flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          生成 Notion 結構
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMsg" class="hidden bg-red-900/40 border border-red-700 text-red-300 text-sm rounded-xl px-4 py-3 mb-4"></div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="hidden text-center py-12">
+      <div class="spinner mx-auto mb-4"></div>
+      <p class="text-gray-400 text-sm animate-pulse" id="loadingText">Claude AI 正在分析你的需求...</p>
+    </div>
+
+    <!-- Result Panel -->
+    <div id="resultPanel" class="hidden fade-in">
+      <div class="bg-gray-900 border border-violet-700/50 rounded-2xl overflow-hidden glow-purple">
+        <!-- Result Header -->
+        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-800">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="font-bold text-white">生成完成</span>
+            <span id="resultTitle" class="text-gray-400 text-sm"></span>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="copyJSON()" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              複製 JSON
+            </button>
+            <button onclick="resetGenerator()" class="text-xs bg-violet-900/50 hover:bg-violet-800/50 text-violet-300 hover:text-violet-200 border border-violet-700/50 px-3 py-1.5 rounded-lg transition-colors">
+              重新生成
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex border-b border-gray-800 px-5">
+          <button onclick="switchTab('preview')" id="tab-preview"
+            class="text-sm py-3 mr-6 text-gray-300 tab-active transition-colors">
+            結構預覽
+          </button>
+          <button onclick="switchTab('json')" id="tab-json"
+            class="text-sm py-3 mr-6 text-gray-500 hover:text-gray-300 transition-colors">
+            JSON 原始碼
+          </button>
+          <button onclick="switchTab('notion')" id="tab-notion"
+            class="text-sm py-3 text-gray-500 hover:text-gray-300 transition-colors">
+            Notion 注入
+          </button>
+        </div>
+
+        <!-- Tab: Preview -->
+        <div id="tabContent-preview" class="p-5">
+          <div id="previewContent"></div>
+        </div>
+
+        <!-- Tab: JSON -->
+        <div id="tabContent-json" class="hidden">
+          <div class="relative">
+            <pre class="json-preview overflow-auto max-h-96 p-5 text-xs"><code id="jsonContent" class="language-json"></code></pre>
+          </div>
+        </div>
+
+        <!-- Tab: Notion Inject -->
+        <div id="tabContent-notion" class="hidden p-5">
+          <div class="bg-amber-900/20 border border-amber-700/50 rounded-xl p-4 mb-5">
+            <p class="text-amber-300 text-sm font-semibold mb-1">Notion API 注入（Day 3 功能）</p>
+            <p class="text-amber-400/80 text-xs leading-relaxed">
+              此功能正在開發中（計畫 Day 3 上線）。目前你可以：<br/>
+              1. 複製 JSON 結構，手動在 Notion 建立頁面<br/>
+              2. 或使用下方的 Notion Integration Token 提前體驗注入流程
+            </p>
+          </div>
+          <label class="block text-sm font-semibold text-gray-300 mb-2">
+            Notion Integration Token（選填）
+          </label>
+          <input type="password" id="notionToken" placeholder="secret_xxxxxxxxxxxx"
+            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors mb-3" />
+          <input type="text" id="notionPageId" placeholder="父頁面 ID（32 位字元）"
+            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors mb-4" />
+          <button onclick="injectToNotion()"
+            class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+            注入到 Notion 工作區
+          </button>
+          <div id="injectStatus" class="mt-3 text-sm text-center text-gray-500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upgrade CTA (shown when free uses exhausted) -->
+    <div id="upgradeCTA" class="hidden mt-6 bg-gradient-to-r from-violet-900/50 to-fuchsia-900/50 border border-violet-700/50 rounded-2xl p-6 text-center">
+      <p class="text-lg font-bold text-white mb-1">你已用完 3 次免費體驗</p>
+      <p class="text-gray-400 text-sm mb-4">升級到付費版，享受無限生成 + 歷史記錄 + 批量生成</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <button class="bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold px-6 py-3 rounded-xl">
+          早鳥價 $9 美元（限前 50 名）
+        </button>
+        <button class="border border-gray-600 text-gray-300 px-6 py-3 rounded-xl text-sm">
+          $8 美元/月訂閱
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     USE CASES
+============================================================ -->
+<section class="py-20 px-4">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-white mb-3">適合哪些人？</h2>
+    <p class="text-gray-400 text-center mb-14">任何 Notion 用戶都能立即受益</p>
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6">
+        <div class="text-3xl mb-3">🎨</div>
+        <h3 class="font-bold text-white text-lg mb-2">獨立接案者</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          設計師、文字工作者、行銷顧問。需要客戶 CRM + 專案追蹤 + 發票管理，但不想花三小時搭系統。
+        </p>
+        <div class="text-xs text-violet-400 bg-violet-900/30 rounded-lg px-3 py-2">
+          「管理我的設計案、報價單和客戶付款狀態」&rarr; 30 秒生成
+        </div>
+      </div>
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6">
+        <div class="text-3xl mb-3">📊</div>
+        <h3 class="font-bold text-white text-lg mb-2">PM / 研究員</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          科技公司產品經理、新創研究員。想要 PARA 知識系統或 OKR 追蹤，但光複製教學結構就要兩個下午。
+        </p>
+        <div class="text-xs text-fuchsia-400 bg-fuchsia-900/30 rounded-lg px-3 py-2">
+          「建立 PARA 系統加上季度 OKR 追蹤」&rarr; 30 秒生成
+        </div>
+      </div>
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6">
+        <div class="text-3xl mb-3">✍️</div>
+        <h3 class="font-bold text-white text-lg mb-2">內容創作者</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          YouTuber、Podcast 主持人、電子報作者。需要內容排程、製作追蹤、合作品牌管理。
+        </p>
+        <div class="text-xs text-pink-400 bg-pink-900/30 rounded-lg px-3 py-2">
+          「追蹤影片製作進度和品牌合作案」&rarr; 30 秒生成
+        </div>
+      </div>
+      <div class="gradient-card border border-gray-800 rounded-2xl p-6">
+        <div class="text-3xl mb-3">🚀</div>
+        <h3 class="font-bold text-white text-lg mb-2">新創團隊</h3>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+          早期創業團隊。需要產品路線圖、用戶回饋管理、Sprint 追蹤，零時間建系統。
+        </p>
+        <div class="text-xs text-green-400 bg-green-900/30 rounded-lg px-3 py-2">
+          「產品開發 + 用戶回饋 + 投資人更新管理」&rarr; 30 秒生成
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+============================================================ -->
+<section class="py-20 px-4 bg-gray-900/50">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-bold text-white mb-3">簡單定價</h2>
+    <p class="text-gray-400 mb-12">免費試用，滿意再付費</p>
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div class="bg-gray-900 border border-gray-700 rounded-2xl p-6 text-left">
+        <div class="text-xl font-bold text-white mb-1">免費方案</div>
+        <div class="text-3xl font-black text-gray-300 mb-4">$0</div>
+        <ul class="space-y-2 text-sm text-gray-400 mb-6">
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 3 次免費生成</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 完整 JSON 輸出</li>
+          <li class="flex items-center gap-2"><span class="text-green-500">✓</span> 結構預覽</li>
+          <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> 歷史記錄</li>
+          <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> Notion 一鍵注入</li>
+        </ul>
+        <button onclick="scrollToGenerator()" class="w-full border border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white font-semibold py-2.5 rounded-xl transition-colors text-sm">
+          免費開始
+        </button>
+      </div>
+      <div class="bg-gradient-to-b from-violet-900/40 to-fuchsia-900/40 border border-violet-600 rounded-2xl p-6 text-left relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span class="badge bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xs px-3 py-1">早鳥優惠</span>
+        </div>
+        <div class="text-xl font-bold text-white mb-1">終身方案</div>
+        <div class="flex items-baseline gap-2 mb-4">
+          <span class="text-3xl font-black text-white">$9</span>
+          <span class="text-gray-400 line-through text-sm">$15</span>
+          <span class="text-xs text-violet-400">前 50 名</span>
+        </div>
+        <ul class="space-y-2 text-sm text-gray-300 mb-6">
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 無限次生成</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 歷史記錄保存</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Notion 一鍵注入</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 中英文需求支援</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 未來 6 個月更新</li>
+        </ul>
+        <button class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-bold py-2.5 rounded-xl transition-all text-sm">
+          立即解鎖（即將開放）
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+<section class="py-20 px-4">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-white mb-12">常見問題</h2>
+    <div class="space-y-4" id="faqContainer"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="py-12 px-4 border-t border-gray-800">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="text-2xl font-black bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent mb-3">
+      NotionForge
+    </div>
+    <p class="text-gray-600 text-sm mb-6">由 Claude AI 驅動 &middot; 為 Notion 用戶而生</p>
+    <p class="text-gray-700 text-xs">
+      &copy; 2026 NotionForge &middot;
+      <span class="text-gray-600">此工具使用你自己的 Claude API Key，不儲存任何個人資料</span>
+    </p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// ─── Constants ──────────────────────────────────────────────
+const FREE_LIMIT = 3;
+const STORAGE_KEY_USAGE = 'notionforge_usage';
+const STORAGE_KEY_APIKEY = 'notionforge_apikey';
+
+const EXAMPLES = [
+  `我是自由接案設計師，需要管理客戶資訊（聯絡人、公司、預算）、追蹤每個案子的進度（提案→報價→設計→交付→收款），還需要記錄設計交付物清單。希望能一眼看出哪些案子逾期未收款，哪些在等客戶確認。`,
+  `我是科技公司的產品經理，需要管理季度 OKR、追蹤每個 Key Result 的進度，同時管理 Sprint 任務和 Backlog。需要能關聯 KR 和具體任務，並追蹤每個功能的上線日期和負責工程師。`,
+  `我想建立 PARA 個人知識管理系統，包含：Projects（進行中的事項）、Areas（持續維護的領域，如健康、財務）、Resources（主題資料庫）、Archives（封存）。每個筆記需要標記類型、相關項目和重要程度。`,
+  `我是 YouTube 創作者，每週發布 2 支影片，需要管理影片製作流程（發想→腳本→拍攝→剪輯→上架）、排程、每支影片的數據表現，以及品牌合作案的追蹤（廠商、金額、交付規格、付款狀態）。`,
+  `我們是 5 人新創，需要產品開發管理系統：功能 Backlog（含優先級、工作量估算）、Sprint 追蹤、Bug 回報、用戶回饋收集、以及給投資人的月報更新記錄。需要能從功能連結到相關 Bug 和用戶回饋。`
+];
+
+const FAQS = [
+  { q: '我的 API Key 安全嗎？', a: 'API Key 只存在你的瀏覽器 localStorage，不會傳送到任何伺服器。所有 AI 請求都直接從你的瀏覽器發送給 Anthropic。' },
+  { q: '生成的 JSON 可以直接用在 Notion API 嗎？', a: '生成的結構是 NotionForge 的標準化格式，包含頁面層級、資料庫結構和欄位定義。注入功能（Day 3 上線）會自動轉換並呼叫 Notion API。' },
+  { q: '支援中文描述嗎？', a: '完全支援中英文混合輸入。Claude AI 能理解中文描述並生成對應的 Notion 結構，欄位名稱也會根據你的語言偏好輸出。' },
+  { q: '免費次數用完後怎麼辦？', a: '免費 3 次後可以升級到付費方案（早鳥價 $9 美元終身制）享受無限生成。或者你可以清除瀏覽器 localStorage 重置計數（但這樣會失去其他設定）。' },
+  { q: 'Notion 注入功能什麼時候上線？', a: '預計 Day 3（2026-04-29）上線，包含完整的 Notion OAuth 流程和一鍵注入功能。' }
+];
+
+// ─── System Prompt ───────────────────────────────────────────
+const SYSTEM_PROMPT = `You are NotionForge, an expert Notion workspace architect. Your job is to analyze a user's work context description and generate a comprehensive, ready-to-use Notion workspace structure.
+
+Output ONLY valid JSON in this exact schema (no markdown, no explanation, just JSON):
+
+{
+  "workspace": {
+    "name": "Workspace name based on user's context",
+    "description": "Brief description of what this workspace does",
+    "emoji": "Single emoji representing the workspace"
+  },
+  "pages": [
+    {
+      "id": "unique_id_1",
+      "title": "Page title",
+      "emoji": "emoji",
+      "type": "page | database",
+      "description": "What this page/database is for",
+      "properties": [
+        {
+          "name": "Property name",
+          "type": "title | rich_text | number | select | multi_select | date | checkbox | url | email | phone_number | files | relation | formula | rollup | people | created_time | last_edited_time",
+          "options": ["option1", "option2"],
+          "description": "What this property tracks"
+        }
+      ],
+      "views": ["Table", "Board", "Calendar", "Gallery", "List", "Timeline"],
+      "sample_data": [
+        {"title": "Example entry 1", "notes": "Example note"},
+        {"title": "Example entry 2", "notes": "Example note"}
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from_page": "page_id",
+      "to_page": "page_id",
+      "description": "Why these are related"
+    }
+  ],
+  "setup_tips": [
+    "Actionable tip 1 for using this workspace effectively",
+    "Actionable tip 2"
+  ]
+}
+
+Rules:
+- Generate 3-6 pages/databases based on the user's actual needs
+- Only include properties that make sense for the use case
+- For select/multi_select, provide realistic options in the user's language
+- Sample data should be realistic examples, not placeholders
+- Setup tips should be practical and specific
+- Use the user's language (Chinese if they write in Chinese)
+- Do NOT include any text outside the JSON object`;
+
+// ─── State ───────────────────────────────────────────────────
+let currentResult = null;
+let currentTab = 'preview';
+let usageCount = parseInt(localStorage.getItem(STORAGE_KEY_USAGE) || '0');
+
+// ─── Init ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initUsageDisplay();
+  initApiKeyDisplay();
+  initFAQ();
+  initCharCount();
+  checkApiPanel();
+});
+
+function initFAQ() {
+  const container = document.getElementById('faqContainer');
+  container.innerHTML = FAQS.map((faq, i) => `
+    <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+      <button onclick="toggleFAQ(${i})" class="w-full text-left px-5 py-4 flex items-center justify-between">
+        <span class="font-semibold text-gray-200 text-sm">${faq.q}</span>
+        <svg id="faqIcon${i}" class="w-4 h-4 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div id="faqAnswer${i}" class="hidden px-5 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800 pt-3">
+        ${faq.a}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFAQ(i) {
+  const answer = document.getElementById(`faqAnswer${i}`);
+  const icon = document.getElementById(`faqIcon${i}`);
+  const isOpen = !answer.classList.contains('hidden');
+  answer.classList.toggle('hidden', isOpen);
+  icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+function initCharCount() {
+  const input = document.getElementById('promptInput');
+  const counter = document.getElementById('charCount');
+  input.addEventListener('input', () => {
+    const len = input.value.length;
+    counter.textContent = `${len} / 500 字`;
+    counter.className = `text-xs ${len > 450 ? 'text-amber-400' : 'text-gray-600'}`;
+  });
+}
+
+function initUsageDisplay() {
+  const dots = document.getElementById('usageDots');
+  const text = document.getElementById('usageText');
+  const navIndicator = document.getElementById('usageIndicator');
+  const remaining = FREE_LIMIT - usageCount;
+
+  dots.innerHTML = Array.from({length: FREE_LIMIT}, (_, i) => {
+    const used = i < usageCount;
+    return `<span class="usage-dot ${used ? 'bg-gray-700' : 'bg-violet-500'}"></span>`;
+  }).join('');
+
+  text.textContent = remaining > 0 ? `剩餘 ${remaining} 次免費機會` : '免費次數已用完';
+  navIndicator.textContent = remaining > 0 ? `免費 ${remaining} 次` : '';
+}
+
+function initApiKeyDisplay() {
+  const savedKey = localStorage.getItem(STORAGE_KEY_APIKEY);
+  const dot = document.getElementById('keyStatusDot');
+  const statusText = document.getElementById('keyStatusText');
+
+  if (savedKey) {
+    const masked = savedKey.substring(0, 12) + '...' + savedKey.slice(-4);
+    dot.className = 'usage-dot bg-green-500 mr-1.5';
+    statusText.textContent = `已設定 Key：${masked}`;
+    document.getElementById('apiKeyInput').value = savedKey;
+  }
+}
+
+function checkApiPanel() {
+  const savedKey = localStorage.getItem(STORAGE_KEY_APIKEY);
+  if (!savedKey) {
+    // Auto-expand if no key saved
+    document.getElementById('apiPanel').classList.remove('hidden');
+    document.getElementById('apiToggleBtn').textContent = '收起';
+  }
+}
+
+function toggleApiPanel() {
+  const panel = document.getElementById('apiPanel');
+  const btn = document.getElementById('apiToggleBtn');
+  const isHidden = panel.classList.contains('hidden');
+  panel.classList.toggle('hidden', !isHidden);
+  btn.textContent = isHidden ? '收起' : '展開設定';
+}
+
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key.startsWith('sk-ant-')) {
+    showApiKeyStatus('Key 格式不正確，應以 sk-ant- 開頭', 'error');
+    return;
+  }
+  localStorage.setItem(STORAGE_KEY_APIKEY, key);
+  initApiKeyDisplay();
+  showApiKeyStatus('API Key 已儲存', 'success');
+  document.getElementById('apiPanel').classList.add('hidden');
+  document.getElementById('apiToggleBtn').textContent = '展開設定';
+}
+
+function showApiKeyStatus(msg, type) {
+  const el = document.getElementById('apiKeyStatus');
+  el.textContent = msg;
+  el.className = `text-xs mt-2 ${type === 'success' ? 'text-green-400' : 'text-red-400'}`;
+  setTimeout(() => { el.textContent = ''; }, 3000);
+}
+
+function setExample(idx) {
+  document.getElementById('promptInput').value = EXAMPLES[idx];
+  document.getElementById('promptInput').dispatchEvent(new Event('input'));
+  scrollToGenerator();
+}
+
+function scrollToGenerator() {
+  document.getElementById('generator').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function scrollToHowItWorks() {
+  document.getElementById('howItWorks').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── Generation ──────────────────────────────────────────────
+async function generateNotionStructure() {
+  const prompt = document.getElementById('promptInput').value.trim();
+  const apiKey = localStorage.getItem(STORAGE_KEY_APIKEY);
+
+  // Validate
+  if (!prompt) {
+    showError('請先描述你的工作情境，或點選上方範例快速填入。');
+    return;
+  }
+  if (prompt.length < 20) {
+    showError('描述太短了！請詳細說明你的工作情境（至少 20 字），AI 才能生成精準的結構。');
+    return;
+  }
+  if (!apiKey) {
+    showError('請先設定你的 Claude API Key（點擊上方「展開設定」）。');
+    toggleApiPanel();
+    return;
+  }
+  if (usageCount >= FREE_LIMIT) {
+    showError('免費次數已用完，請升級到付費方案繼續使用。');
+    document.getElementById('upgradeCTA').classList.remove('hidden');
+    return;
+  }
+
+  // UI: loading
+  hideError();
+  showLoading(true);
+  setGenerateBtn(false);
+
+  try {
+    const result = await callClaudeAPI(apiKey, prompt);
+    const parsed = parseResult(result);
+    currentResult = parsed;
+
+    // Increment usage
+    usageCount++;
+    localStorage.setItem(STORAGE_KEY_USAGE, usageCount.toString());
+    initUsageDisplay();
+
+    // Show result
+    renderResult(parsed);
+    showLoading(false);
+    document.getElementById('resultPanel').classList.remove('hidden');
+    document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (usageCount >= FREE_LIMIT) {
+      document.getElementById('upgradeCTA').classList.remove('hidden');
+    }
+  } catch (err) {
+    showLoading(false);
+    showError(formatError(err));
+  } finally {
+    setGenerateBtn(true);
+  }
+}
+
+async function callClaudeAPI(apiKey, userPrompt) {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4096,
+      system: SYSTEM_PROMPT,
+      messages: [
+        {
+          role: 'user',
+          content: `請根據以下工作情境描述，生成完整的 Notion 工作區結構：\n\n${userPrompt}`
+        }
+      ]
+    })
+  });
+
+  if (!response.ok) {
+    const errBody = await response.json().catch(() => ({}));
+    throw new Error(`API 錯誤 ${response.status}: ${errBody.error?.message || response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.content[0].text;
+}
+
+function parseResult(text) {
+  // Extract JSON from response
+  const jsonMatch = text.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error('AI 回傳格式異常，無法解析 JSON。請重試。');
+  try {
+    return JSON.parse(jsonMatch[0]);
+  } catch {
+    throw new Error('JSON 解析失敗，請重試一次。');
+  }
+}
+
+function formatError(err) {
+  const msg = err.message || '未知錯誤';
+  if (msg.includes('401')) return '❌ API Key 無效或已失效，請檢查後重新設定。';
+  if (msg.includes('429')) return '⏳ API 請求過於頻繁，請稍後再試。';
+  if (msg.includes('500') || msg.includes('529')) return '🔧 Anthropic 伺服器暫時繁忙，請稍後再試。';
+  if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) return '🌐 網路連線失敗，請確認網路狀態後再試。';
+  return `錯誤：${msg}`;
+}
+
+// ─── Render Result ───────────────────────────────────────────
+function renderResult(data) {
+  const title = data.workspace?.name || '你的 Notion 工作區';
+  document.getElementById('resultTitle').textContent = `— ${data.workspace?.emoji || ''} ${title}`;
+
+  renderPreview(data);
+  renderJSON(data);
+  switchTab('preview');
+}
+
+function renderPreview(data) {
+  const ws = data.workspace || {};
+  const pages = data.pages || [];
+  const relations = data.relations || [];
+  const tips = data.setup_tips || [];
+
+  let html = `
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-3xl">${ws.emoji || '📋'}</span>
+        <div>
+          <h3 class="font-bold text-white text-lg">${ws.name || '工作區'}</h3>
+          <p class="text-gray-400 text-sm">${ws.description || ''}</p>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-4 mb-6">
+      <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-widest">頁面 / 資料庫（${pages.length} 個）</h4>
+  `;
+
+  pages.forEach(page => {
+    const props = page.properties || [];
+    const views = page.views || [];
+    const samples = page.sample_data || [];
+    const typeLabel = page.type === 'database' ? '資料庫' : '頁面';
+    const typeBg = page.type === 'database' ? 'bg-violet-900/40 text-violet-300 border-violet-700/50' : 'bg-blue-900/40 text-blue-300 border-blue-700/50';
+
+    html += `
+      <div class="bg-gray-800/60 rounded-xl p-4 border border-gray-700/50">
+        <div class="flex items-start justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${page.emoji || '📄'}</span>
+            <div>
+              <div class="font-semibold text-white text-sm">${page.title}</div>
+              <div class="text-xs text-gray-500 mt-0.5">${page.description || ''}</div>
+            </div>
+          </div>
+          <span class="badge border ${typeBg} ml-2 shrink-0">${typeLabel}</span>
+        </div>
+    `;
+
+    if (props.length > 0) {
+      html += `<div class="mb-3">
+        <p class="text-xs text-gray-600 mb-2 font-medium">欄位（${props.length} 個）</p>
+        <div class="flex flex-wrap gap-1.5">
+          ${props.map(p => `
+            <span class="text-xs bg-gray-700/60 text-gray-300 px-2 py-0.5 rounded-md border border-gray-600/50" title="${p.description || ''}">
+              ${p.name}
+              <span class="text-gray-500 ml-1">${p.type}</span>
+            </span>
+          `).join('')}
+        </div>
+      </div>`;
+    }
+
+    if (views.length > 0) {
+      html += `<div class="mb-3 flex items-center gap-2">
+        <span class="text-xs text-gray-600">視圖：</span>
+        ${views.map(v => `<span class="text-xs text-fuchsia-400 bg-fuchsia-900/20 px-2 py-0.5 rounded">${v}</span>`).join('')}
+      </div>`;
+    }
+
+    if (samples.length > 0) {
+      html += `<div>
+        <p class="text-xs text-gray-600 mb-1.5 font-medium">範例資料</p>
+        ${samples.slice(0, 2).map(s => `
+          <div class="text-xs text-gray-400 bg-gray-700/30 rounded px-2 py-1 mb-1">
+            ${s.title || Object.values(s)[0] || '—'}
+          </div>
+        `).join('')}
+      </div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  html += `</div>`;
+
+  if (relations.length > 0) {
+    html += `
+      <div class="mb-6">
+        <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">資料庫關聯</h4>
+        <div class="space-y-2">
+          ${relations.map(r => {
+            const fromPage = pages.find(p => p.id === r.from_page);
+            const toPage = pages.find(p => p.id === r.to_page);
+            return `
+              <div class="flex items-center gap-2 text-sm text-gray-400 bg-gray-800/60 rounded-lg px-3 py-2">
+                <span class="text-violet-400">${fromPage?.emoji || '📄'} ${fromPage?.title || r.from_page}</span>
+                <span class="text-gray-600">→</span>
+                <span class="text-fuchsia-400">${toPage?.emoji || '📄'} ${toPage?.title || r.to_page}</span>
+                ${r.description ? `<span class="text-gray-600 text-xs ml-auto">${r.description}</span>` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  if (tips.length > 0) {
+    html += `
+      <div>
+        <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">使用建議</h4>
+        <ul class="space-y-2">
+          ${tips.map((tip, i) => `
+            <li class="flex items-start gap-2 text-sm text-gray-400">
+              <span class="w-5 h-5 rounded-full bg-violet-900/60 text-violet-400 text-xs flex items-center justify-center shrink-0 mt-0.5">${i+1}</span>
+              ${tip}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  document.getElementById('previewContent').innerHTML = html;
+}
+
+function renderJSON(data) {
+  const jsonStr = JSON.stringify(data, null, 2);
+  const codeEl = document.getElementById('jsonContent');
+  codeEl.textContent = jsonStr;
+  hljs.highlightElement(codeEl);
+}
+
+// ─── Tab switching ───────────────────────────────────────────
+function switchTab(tab) {
+  ['preview', 'json', 'notion'].forEach(t => {
+    document.getElementById(`tabContent-${t}`).classList.toggle('hidden', t !== tab);
+    const btn = document.getElementById(`tab-${t}`);
+    if (t === tab) {
+      btn.classList.add('tab-active');
+      btn.classList.remove('text-gray-500');
+    } else {
+      btn.classList.remove('tab-active');
+      btn.classList.add('text-gray-500');
+    }
+  });
+  currentTab = tab;
+}
+
+// ─── Actions ─────────────────────────────────────────────────
+function copyJSON() {
+  if (!currentResult) return;
+  navigator.clipboard.writeText(JSON.stringify(currentResult, null, 2))
+    .then(() => {
+      const btn = event.currentTarget;
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 已複製';
+      btn.classList.add('text-green-400');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('text-green-400'); }, 2000);
+    });
+}
+
+function resetGenerator() {
+  document.getElementById('resultPanel').classList.add('hidden');
+  document.getElementById('promptInput').focus();
+  currentResult = null;
+}
+
+async function injectToNotion() {
+  const token = document.getElementById('notionToken').value.trim();
+  const pageId = document.getElementById('notionPageId').value.trim();
+  const statusEl = document.getElementById('injectStatus');
+
+  if (!token || !pageId) {
+    statusEl.textContent = '請填入 Notion Token 和父頁面 ID';
+    statusEl.className = 'mt-3 text-sm text-center text-red-400';
+    return;
+  }
+  if (!currentResult) {
+    statusEl.textContent = '請先生成 Notion 結構';
+    return;
+  }
+
+  statusEl.textContent = '正在連接 Notion API（Day 3 功能，即將上線）...';
+  statusEl.className = 'mt-3 text-sm text-center text-amber-400';
+
+  // Placeholder — full inject logic ships Day 3
+  setTimeout(() => {
+    statusEl.innerHTML = `
+      <div class="bg-amber-900/20 border border-amber-700/50 rounded-lg p-3 text-left">
+        <p class="text-amber-300 font-semibold text-xs mb-1">注入功能預計 2026-04-29 上線</p>
+        <p class="text-amber-400/70 text-xs">目前你可以複製 JSON 後手動建立，或訂閱更新通知等候正式版本。</p>
+      </div>
+    `;
+  }, 1500);
+}
+
+// ─── UI Helpers ──────────────────────────────────────────────
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideError() {
+  document.getElementById('errorMsg').classList.add('hidden');
+}
+
+function showLoading(show) {
+  const el = document.getElementById('loadingState');
+  el.classList.toggle('hidden', !show);
+
+  if (show) {
+    const messages = [
+      'Claude AI 正在分析你的需求...',
+      '理解工作流程中...',
+      '設計資料庫結構...',
+      '生成欄位定義和視圖...',
+      '加入範例資料和使用建議...'
+    ];
+    let i = 0;
+    window._loadingInterval = setInterval(() => {
+      document.getElementById('loadingText').textContent = messages[i % messages.length];
+      i++;
+    }, 1200);
+  } else {
+    clearInterval(window._loadingInterval);
+  }
+}
+
+function setGenerateBtn(enabled) {
+  const btn = document.getElementById('generateBtn');
+  if (enabled) {
+    btn.disabled = false;
+    btn.innerHTML = `
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      生成 Notion 結構
+    `;
+  } else {
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> 生成中...`;
+  }
+}
+</script>
+</body>
+</html>
