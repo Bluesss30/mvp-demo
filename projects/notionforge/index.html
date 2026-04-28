@@ -813,7 +813,7 @@ CONTENT RULES:
                 workspacePageId = workspacePage.id;
                 updateStep(steps, 'workspace', 'done', { url: workspacePage.url });
             } catch (err) {
-                if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('CORS')) {
+                if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('CORS') || err.message.includes('Load failed') || err.message.includes('network error')) {
                     updateStep(steps, 'workspace', 'error', { error: 'CORS 限制' });
                     progressEl.classList.add('hidden');
                     corsFallback.classList.remove('hidden');
