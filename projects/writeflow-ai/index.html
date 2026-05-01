@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WriteFlow AI — 讓每個人都能寫出專業級內容</title>
+  <meta name="description" content="30 秒生成初稿，3 分鐘完成修改，你的名字掛在上面。專為中文內容創作者設計的 AI 寫作夥伴。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { font-family: 'Noto Sans TC', sans-serif; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #f9fafb; color: #111827; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #0ea5e9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 60%, #0ea5e9 100%);
+    }
+    .gradient-bg-soft {
+      background: linear-gradient(135deg, #f5f3ff 0%, #eff6ff 100%);
+    }
+
+    /* Page transitions */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Floating toolbar */
+    #floating-toolbar {
+      position: fixed;
+      z-index: 9999;
+      background: #1f2937;
+      border-radius: 10px;
+      padding: 6px 8px;
+      display: none;
+      gap: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+    #floating-toolbar.visible { display: flex; }
+    #floating-toolbar button {
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    #floating-toolbar button:hover { background: #374151; }
+
+    /* Editor area */
+    #editor-area {
+      min-height: 400px;
+      outline: none;
+      line-height: 1.9;
+      font-size: 15px;
+      color: #1f2937;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #editor-area:empty::before {
+      content: attr(data-placeholder);
+      color: #9ca3af;
+      pointer-events: none;
+    }
+
+    /* Streaming cursor */
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #7c3aed;
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+    /* Card hover */
+    .card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(124,58,237,0.12); }
+
+    /* Notification */
+    #notification {
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      z-index: 10000;
+      transition: all 0.3s;
+      transform: translateX(120%);
+      max-width: 320px;
+    }
+    #notification.show { transform: translateX(0); }
+
+    /* Tab active */
+    .scene-tab.active {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: white;
+      box-shadow: 0 4px 12px rgba(124,58,237,0.35);
+    }
+    .scene-tab { transition: all 0.2s; }
+
+    /* Progress bar */
+    .usage-bar { transition: width 0.5s ease; }
+
+    /* Modal overlay */
+    #modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 8000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #modal-overlay.open { display: flex; }
+
+    /* Tone profile panel */
+    .panel-slide {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Nav link active */
+    .nav-link { transition: color 0.15s; }
+    .nav-link:hover { color: #7c3aed; }
+
+    /* Pricing card highlight */
+    .pricing-highlight {
+      background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* FAQ item */
+    .faq-item { cursor: pointer; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-answer.open { max-height: 200px; }
+
+    /* Typing loader */
+    .typing-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #7c3aed;
+      animation: typing-bounce 1.2s infinite;
+      margin: 0 2px;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+    @media (max-width: 768px) {
+      .desktop-only { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====================== NOTIFICATION ====================== -->
+<div id="notification">
+  <div id="notification-inner" class="rounded-xl shadow-xl px-4 py-3 flex items-start gap-3">
+    <span id="notification-icon" class="text-xl mt-0.5"></span>
+    <div>
+      <div id="notification-title" class="font-semibold text-sm"></div>
+      <div id="notification-msg" class="text-xs opacity-80 mt-0.5"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== FLOATING AI TOOLBAR ====================== -->
+<div id="floating-toolbar">
+  <button onclick="inlineEdit('shorten')">縮短</button>
+  <div style="width:1px;height:16px;background:#4b5563;margin:0 2px;"></div>
+  <button onclick="inlineEdit('expand')">展開</button>
+  <div style="width:1px;height:16px;background:#4b5563;margin:0 2px;"></div>
+  <button onclick="inlineEdit('rephrase')">換語氣</button>
+  <div style="width:1px;height:16px;background:#4b5563;margin:0 2px;"></div>
+  <button onclick="inlineEdit('grammar')">修正文法</button>
+  <div style="width:1px;height:16px;background:#4b5563;margin:0 2px;"></div>
+  <button onclick="inlineEdit('formal')">更正式</button>
+</div>
+
+<!-- ====================== MODAL ====================== -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative" onclick="event.stopPropagation()">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ====================== PAGE: LANDING ====================== -->
+<div id="page-landing" class="page active">
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-1000 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="navigate('landing')">
+        <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">W</span>
+        </div>
+        <span class="font-bold text-gray-900 text-lg">WriteFlow <span class="gradient-text">AI</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#features" class="nav-link text-sm text-gray-600">功能特色</a>
+        <a href="#pricing" class="nav-link text-sm text-gray-600">定價方案</a>
+        <a href="#faq" class="nav-link text-sm text-gray-600">常見問題</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="navigate('login')" class="text-sm text-gray-600 hover:text-violet-600 font-medium">登入</button>
+        <button onclick="navigate('register')" class="gradient-bg text-white text-sm px-4 py-2 rounded-lg font-medium hover:opacity-90 transition">免費開始</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="pt-28 pb-20 px-4 gradient-bg-soft">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-violet-100 text-violet-700 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
+        <span class="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></span>
+        AI 寫作助理 — 現已支援繁體中文
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight mb-6">
+        讓每個人都能寫出<br/>
+        <span class="gradient-text">專業級內容</span>
+      </h1>
+      <p class="text-xl text-gray-500 mb-4 leading-relaxed">
+        30 秒生成初稿，3 分鐘完成修改，<strong class="text-gray-700">你的名字掛在上面</strong>
+      </p>
+      <p class="text-base text-gray-400 mb-10">
+        不是取代你寫作，而是讓你寫得更快、更好、更有自信
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+        <button onclick="navigate('register')" class="gradient-bg text-white px-8 py-3.5 rounded-xl font-semibold text-base hover:opacity-90 transition shadow-lg shadow-violet-200">
+          免費試用 7 天 →
+        </button>
+        <button onclick="demoPreview()" class="bg-white text-gray-700 px-8 py-3.5 rounded-xl font-semibold text-base border border-gray-200 hover:border-violet-300 transition">
+          觀看示範
+        </button>
+      </div>
+      <!-- Demo Card -->
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden text-left">
+        <div class="bg-gray-50 border-b border-gray-100 px-4 py-3 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-400"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          <span class="text-xs text-gray-400 ml-3">WriteFlow AI — 編輯器</span>
+        </div>
+        <div class="p-6">
+          <div class="flex gap-2 mb-4">
+            <span class="text-xs bg-violet-100 text-violet-600 px-2.5 py-1 rounded-full font-medium">部落格文章</span>
+            <span class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full">社群貼文</span>
+            <span class="text-xs bg-gray-100 text-gray-500 px-2.5 py-1 rounded-full">電子報</span>
+          </div>
+          <div id="demo-preview-text" class="text-sm text-gray-700 leading-relaxed min-h-16">
+            <span class="text-gray-400">輸入主題關鍵字，AI 立即生成專業文章...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-12 bg-white border-y border-gray-100">
+    <div class="max-w-4xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-3xl font-black gradient-text">30秒</div>
+        <div class="text-sm text-gray-500 mt-1">初稿生成速度</div>
+      </div>
+      <div>
+        <div class="text-3xl font-black gradient-text">4種</div>
+        <div class="text-sm text-gray-500 mt-1">核心場景模板</div>
+      </div>
+      <div>
+        <div class="text-3xl font-black gradient-text">5種</div>
+        <div class="text-sm text-gray-500 mt-1">行內編輯指令</div>
+      </div>
+      <div>
+        <div class="text-3xl font-black gradient-text">免費</div>
+        <div class="text-sm text-gray-500 mt-1">7 天完整試用</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-20 px-4 bg-gray-50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">三個核心功能，解決寫作所有痛點</h2>
+        <p class="text-gray-500 text-lg">專為繁體中文創作者設計，理解你的語境</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover">
+          <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4 text-2xl">✍️</div>
+          <h3 class="font-bold text-gray-900 text-lg mb-2">場景化內容生成</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">選擇場景（部落格 / 社群 / 電子報 / 產品描述），輸入關鍵字，30 秒內取得完整初稿。再也不用對著空白頁發呆。</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover">
+          <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4 text-2xl">🎭</div>
+          <h3 class="font-bold text-gray-900 text-lg mb-2">語氣風格儲存</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">貼上 3 篇你的舊文章，系統自動學習你的獨特語氣。往後每次生成，都保持一致的個人風格。</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 card-hover">
+          <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4 text-2xl">⚡</div>
+          <h3 class="font-bold text-gray-900 text-lg mb-2">行內 AI 編輯</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">選取任意段落，浮現 AI 工具列 — 縮短、展開、換語氣、修正文法，一鍵即時改寫，無需離開編輯器。</p>
+        </div>
+      </div>
+
+      <!-- Detail Feature -->
+      <div class="mt-12 grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="text-xs text-violet-600 font-semibold uppercase tracking-widest mb-2">場景模板系統</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">不知道怎麼下筆？<br/>讓模板幫你破冰</h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-violet-100 text-violet-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+              <p class="text-gray-600 text-sm">選擇你要寫的場景類型（部落格、社群、電子報、產品描述）</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-violet-100 text-violet-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+              <p class="text-gray-600 text-sm">輸入主題關鍵字與目標受眾，設定文章長度</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 bg-violet-100 text-violet-600 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">3</div>
+              <p class="text-gray-600 text-sm">點擊生成，30 秒內收到完整結構化初稿，直接進入編輯</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="bg-gray-50 px-4 py-2.5 border-b border-gray-100 text-xs text-gray-500 font-medium">場景選擇</div>
+          <div class="p-4 grid grid-cols-2 gap-2">
+            <div class="border-2 border-violet-500 rounded-lg p-3 text-center cursor-pointer">
+              <div class="text-xl mb-1">📝</div>
+              <div class="text-xs font-semibold text-violet-700">部落格文章</div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3 text-center cursor-pointer hover:border-violet-300">
+              <div class="text-xl mb-1">📱</div>
+              <div class="text-xs font-semibold text-gray-600">社群貼文</div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3 text-center cursor-pointer hover:border-violet-300">
+              <div class="text-xl mb-1">📧</div>
+              <div class="text-xs font-semibold text-gray-600">電子報</div>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-3 text-center cursor-pointer hover:border-violet-300">
+              <div class="text-xl mb-1">🛍️</div>
+              <div class="text-xs font-semibold text-gray-600">產品描述</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-gray-900 mb-3">創作者們這樣說</h2>
+        <p class="text-gray-500">真實用戶，真實回饋</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-50 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-gray-700 text-sm leading-relaxed mb-4">「以前寫一篇部落格要花三小時，現在 30 分鐘搞定。最驚訝的是語氣真的很像我自己寫的！」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-sm">陳</div>
+            <div><div class="text-sm font-medium text-gray-800">陳小萱</div><div class="text-xs text-gray-400">美食部落客 · 5 萬粉絲</div></div>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-gray-700 text-sm leading-relaxed mb-4">「行銷團隊每天要產出 10+ 篇社群文案，WriteFlow 讓我們效率提升三倍，主管再也不用退稿了。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-sm">林</div>
+            <div><div class="text-sm font-medium text-gray-800">林大明</div><div class="text-xs text-gray-400">電商行銷主任 · 新竹</div></div>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 card-hover">
+          <div class="flex items-center gap-1 text-yellow-400 mb-3 text-sm">★★★★★</div>
+          <p class="text-gray-700 text-sm leading-relaxed mb-4">「接案寫手的救星！一個月多接兩個客戶，訂閱費早就回本了。強烈推薦給每一位自由工作者。」</p>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white font-bold text-sm">吳</div>
+            <div><div class="text-sm font-medium text-gray-800">吳珍珍</div><div class="text-xs text-gray-400">自由文案寫手 · 台北</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-20 px-4 gradient-bg-soft">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-gray-900 mb-3">簡單透明的定價</h2>
+        <p class="text-gray-500">免費試用 7 天，不需信用卡</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 items-center">
+        <!-- Free -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div class="text-sm font-semibold text-gray-500 mb-1">免費方案</div>
+          <div class="text-3xl font-black text-gray-900 mb-1">NT$0 <span class="text-base font-normal text-gray-400">/月</span></div>
+          <p class="text-xs text-gray-400 mb-6">每月固定額度</p>
+          <ul class="space-y-2.5 mb-8">
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 每月 5,000 字生成額度</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 3 種場景模板</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 行內 AI 編輯</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="text-gray-300">✗</span> 語氣檔案儲存</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="text-gray-300">✗</span> 有浮水印輸出</li>
+          </ul>
+          <button onclick="navigate('register')" class="w-full py-2.5 rounded-xl border border-gray-300 text-gray-700 font-medium text-sm hover:border-violet-400 hover:text-violet-600 transition">免費開始</button>
+        </div>
+        <!-- Pro (highlighted) -->
+        <div class="pricing-highlight rounded-2xl p-6 shadow-xl relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">最受歡迎</div>
+          <div class="text-sm font-semibold text-violet-200 mb-1">Pro 方案</div>
+          <div class="text-3xl font-black text-white mb-1">NT$399 <span class="text-base font-normal text-violet-200">/月</span></div>
+          <p class="text-xs text-violet-200 mb-6">約 NT$13/天</p>
+          <ul class="space-y-2.5 mb-8">
+            <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200">✓</span> 無限字數生成</li>
+            <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200">✓</span> 全部 4 種場景模板</li>
+            <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200">✓</span> 語氣檔案儲存</li>
+            <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200">✓</span> 無浮水印輸出</li>
+            <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200">✓</span> 優先 AI 速度</li>
+          </ul>
+          <button onclick="navigate('register')" class="w-full py-2.5 rounded-xl bg-white text-violet-700 font-semibold text-sm hover:bg-violet-50 transition">7 天免費試用</button>
+        </div>
+        <!-- Team (future) -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+          <div class="text-sm font-semibold text-gray-500 mb-1">Team 方案</div>
+          <div class="text-3xl font-black text-gray-900 mb-1">NT$999 <span class="text-base font-normal text-gray-400">/月</span></div>
+          <p class="text-xs text-gray-400 mb-6">即將推出</p>
+          <ul class="space-y-2.5 mb-8">
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Pro 全部功能</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 3 個成員席位</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 共用語氣檔案庫</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 使用數據報告</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 優先客服</li>
+          </ul>
+          <button class="w-full py-2.5 rounded-xl border border-gray-300 text-gray-400 font-medium text-sm cursor-not-allowed">敬請期待</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 px-4 bg-white">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-gray-900 mb-3">常見問題</h2>
+      </div>
+      <div class="space-y-3" id="faq-list">
+        <div class="faq-item bg-gray-50 rounded-xl px-5 py-4" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-800 text-sm">需要 AI 提示詞技巧嗎？</span>
+            <span class="text-gray-400 text-xl faq-arrow">+</span>
+          </div>
+          <div class="faq-answer text-sm text-gray-500 leading-relaxed">
+            <div class="pt-3">完全不需要！WriteFlow AI 已將最佳提示詞內建在場景模板中。你只需要輸入主題關鍵字，系統會自動處理其餘一切。新手也能立刻上手。</div>
+          </div>
+        </div>
+        <div class="faq-item bg-gray-50 rounded-xl px-5 py-4" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-800 text-sm">生成的內容是原創的嗎？</span>
+            <span class="text-gray-400 text-xl faq-arrow">+</span>
+          </div>
+          <div class="faq-answer text-sm text-gray-500 leading-relaxed">
+            <div class="pt-3">每次生成的內容都是獨一無二的，不會與其他用戶重複。AI 根據你的關鍵字和語氣設定即時創作，生成的內容完全屬於你。</div>
+          </div>
+        </div>
+        <div class="faq-item bg-gray-50 rounded-xl px-5 py-4" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-800 text-sm">語氣風格學習效果如何？</span>
+            <span class="text-gray-400 text-xl faq-arrow">+</span>
+          </div>
+          <div class="faq-answer text-sm text-gray-500 leading-relaxed">
+            <div class="pt-3">建議貼上 3-5 篇你的代表作品（共 1,000 字以上效果更佳）。系統會分析你的用詞習慣、句型結構和語氣調性，確保後續生成的內容保持一致。</div>
+          </div>
+        </div>
+        <div class="faq-item bg-gray-50 rounded-xl px-5 py-4" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-800 text-sm">可以隨時取消訂閱嗎？</span>
+            <span class="text-gray-400 text-xl faq-arrow">+</span>
+          </div>
+          <div class="faq-answer text-sm text-gray-500 leading-relaxed">
+            <div class="pt-3">當然可以！隨時在帳號設定中取消，無需說明原因，不收任何違約金。取消後仍可使用到當期結束日期。</div>
+          </div>
+        </div>
+        <div class="faq-item bg-gray-50 rounded-xl px-5 py-4" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-gray-800 text-sm">支援哪些中文？</span>
+            <span class="text-gray-400 text-xl faq-arrow">+</span>
+          </div>
+          <div class="faq-answer text-sm text-gray-500 leading-relaxed">
+            <div class="pt-3">主要針對繁體中文優化，同時支援簡體中文輸出。系統理解台灣慣用語境和用詞習慣，生成的內容自然道地，不像機器翻譯。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 px-4 gradient-bg text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-black text-white mb-4">準備好讓寫作變得更輕鬆了嗎？</h2>
+      <p class="text-violet-200 mb-8 text-lg">免費試用 7 天，不需信用卡，隨時可取消</p>
+      <button onclick="navigate('register')" class="bg-white text-violet-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-violet-50 transition shadow-xl">
+        立即免費試用 →
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 px-4 bg-gray-900 text-center">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <div class="w-7 h-7 gradient-bg rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xs">W</span>
+        </div>
+        <span class="font-bold text-white">WriteFlow AI</span>
+      </div>
+      <p class="text-gray-500 text-sm mb-4">讓每個人都能寫出專業級內容的 AI 寫作夥伴</p>
+      <div class="flex justify-center gap-6 text-sm text-gray-600 mb-4">
+        <a href="#" class="hover:text-gray-400">隱私政策</a>
+        <a href="#" class="hover:text-gray-400">服務條款</a>
+        <a href="#" class="hover:text-gray-400">聯絡我們</a>
+      </div>
+      <p class="text-xs text-gray-700">© 2026 WriteFlow AI. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ====================== PAGE: LOGIN ====================== -->
+<div id="page-login" class="page">
+  <div class="min-h-screen gradient-bg-soft flex items-center justify-center px-4">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 cursor-pointer mb-4" onclick="navigate('landing')">
+          <div class="w-9 h-9 gradient-bg rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold">W</span>
+          </div>
+          <span class="font-bold text-gray-900 text-xl">WriteFlow <span class="gradient-text">AI</span></span>
+        </div>
+        <h2 class="text-2xl font-black text-gray-900">歡迎回來</h2>
+        <p class="text-gray-500 text-sm mt-1">登入你的帳號繼續創作</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div id="login-error" class="hidden mb-4 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-3 py-2"></div>
+        <div class="space-y-4">
+          <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1.5">電子郵件</label>
+            <input id="login-email" type="email" placeholder="your@email.com" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1.5">密碼</label>
+            <input id="login-password" type="password" placeholder="••••••••" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition" onkeydown="if(event.key==='Enter')doLogin()" />
+          </div>
+          <button onclick="doLogin()" class="w-full gradient-bg text-white py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition mt-2">
+            登入
+          </button>
+        </div>
+        <div class="relative my-5">
+          <div class="border-t border-gray-100"></div>
+          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-xs text-gray-400">或</span>
+        </div>
+        <button onclick="googleLogin()" class="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          使用 Google 帳號登入
+        </button>
+        <p class="text-center text-sm text-gray-500 mt-5">
+          還沒有帳號？
+          <span onclick="navigate('register')" class="text-violet-600 font-medium cursor-pointer hover:underline">免費註冊</span>
+        </p>
+      </div>
+      <p class="text-center text-xs text-gray-400 mt-4">繼續即表示你同意我們的服務條款與隱私政策</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== PAGE: REGISTER ====================== -->
+<div id="page-register" class="page">
+  <div class="min-h-screen gradient-bg-soft flex items-center justify-center px-4 py-10">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 cursor-pointer mb-4" onclick="navigate('landing')">
+          <div class="w-9 h-9 gradient-bg rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold">W</span>
+          </div>
+          <span class="font-bold text-gray-900 text-xl">WriteFlow <span class="gradient-text">AI</span></span>
+        </div>
+        <h2 class="text-2xl font-black text-gray-900">開始免費試用</h2>
+        <p class="text-gray-500 text-sm mt-1">7 天完整功能，不需信用卡</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div id="register-error" class="hidden mb-4 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-3 py-2"></div>
+        <div class="space-y-4">
+          <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1.5">名稱</label>
+            <input id="reg-name" type="text" placeholder="你的名字" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1.5">電子郵件</label>
+            <input id="reg-email" type="email" placeholder="your@email.com" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition" />
+          </div>
+          <div>
+            <label class="text-sm font-medium text-gray-700 block mb-1.5">密碼</label>
+            <input id="reg-password" type="password" placeholder="至少 8 個字元" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 focus:border-transparent transition" onkeydown="if(event.key==='Enter')doRegister()" />
+          </div>
+          <div class="flex items-start gap-2">
+            <input id="reg-agree" type="checkbox" class="mt-0.5 rounded accent-violet-600" />
+            <label for="reg-agree" class="text-xs text-gray-500 leading-relaxed">我同意 <a href="#" class="text-violet-600">服務條款</a> 及 <a href="#" class="text-violet-600">隱私政策</a></label>
+          </div>
+          <button onclick="doRegister()" class="w-full gradient-bg text-white py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition">
+            建立帳號
+          </button>
+        </div>
+        <div class="relative my-5">
+          <div class="border-t border-gray-100"></div>
+          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-xs text-gray-400">或</span>
+        </div>
+        <button onclick="googleLogin()" class="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          使用 Google 帳號繼續
+        </button>
+        <p class="text-center text-sm text-gray-500 mt-5">
+          已有帳號？
+          <span onclick="navigate('login')" class="text-violet-600 font-medium cursor-pointer hover:underline">立即登入</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== PAGE: APP (EDITOR) ====================== -->
+<div id="page-app" class="page">
+  <!-- App Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <div class="max-w-full px-4 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="navigate('landing')">
+          <div class="w-7 h-7 gradient-bg rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-xs">W</span>
+          </div>
+          <span class="font-bold text-gray-900 hidden sm:block">WriteFlow <span class="gradient-text">AI</span></span>
+        </div>
+        <span class="text-gray-300 hidden sm:block">|</span>
+        <span id="doc-title" class="text-sm text-gray-600 font-medium hidden sm:block cursor-pointer hover:text-violet-600" onclick="renameDoc()">未命名文件</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div id="save-status" class="text-xs text-gray-400 hidden sm:block">已儲存</div>
+        <button onclick="copyToClipboard()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-lg transition font-medium">複製</button>
+        <button onclick="downloadDoc()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-lg transition font-medium">下載</button>
+        <button onclick="showTonePanel()" id="tone-btn" class="text-xs border border-violet-300 text-violet-600 hover:bg-violet-50 px-3 py-1.5 rounded-lg transition font-medium">語氣設定</button>
+        <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white text-xs font-bold cursor-pointer" id="user-avatar" onclick="showUserMenu()">U</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- App Layout -->
+  <div class="flex h-screen pt-14">
+    <!-- Sidebar -->
+    <div class="w-64 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col overflow-y-auto desktop-only">
+      <!-- Scene Selection -->
+      <div class="p-4 border-b border-gray-100">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">選擇場景</div>
+        <div class="space-y-1.5">
+          <button class="scene-tab active w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2.5" data-scene="blog" onclick="selectScene(this)">
+            <span class="text-base">📝</span> 部落格文章
+          </button>
+          <button class="scene-tab w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2.5 text-gray-600 hover:bg-gray-50" data-scene="social" onclick="selectScene(this)">
+            <span class="text-base">📱</span> 社群貼文
+          </button>
+          <button class="scene-tab w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2.5 text-gray-600 hover:bg-gray-50" data-scene="newsletter" onclick="selectScene(this)">
+            <span class="text-base">📧</span> 電子報
+          </button>
+          <button class="scene-tab w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2.5 text-gray-600 hover:bg-gray-50" data-scene="product" onclick="selectScene(this)">
+            <span class="text-base">🛍️</span> 產品描述
+          </button>
+        </div>
+      </div>
+
+      <!-- Generation Settings -->
+      <div class="p-4 flex-1">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">生成設定</div>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-500 block mb-1.5">主題關鍵字 <span class="text-red-400">*</span></label>
+            <textarea id="topic-input" rows="3" placeholder="e.g. 台灣咖啡文化、遠端工作心法..." class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 resize-none transition" style="font-family: 'Noto Sans TC', sans-serif;"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 block mb-1.5">目標受眾</label>
+            <input id="audience-input" type="text" placeholder="e.g. 上班族、創業者" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 transition" />
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 block mb-1.5">內容長度</label>
+            <select id="length-select" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 transition" style="font-family: 'Noto Sans TC', sans-serif;">
+              <option value="short">短文（300-500 字）</option>
+              <option value="medium" selected>中篇（500-800 字）</option>
+              <option value="long">長文（800-1200 字）</option>
+            </select>
+          </div>
+          <button onclick="generateContent()" id="generate-btn" class="w-full gradient-bg text-white py-2.5 rounded-lg font-semibold text-sm hover:opacity-90 transition flex items-center justify-center gap-2">
+            <span id="gen-btn-icon">✨</span>
+            <span id="gen-btn-text">生成內容</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Usage -->
+      <div class="p-4 border-t border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-gray-500">本月使用量</span>
+          <span class="text-xs font-medium text-gray-700"><span id="usage-count">0</span> / <span id="usage-limit">5,000</span> 字</span>
+        </div>
+        <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+          <div id="usage-bar" class="usage-bar h-full gradient-bg rounded-full" style="width: 0%"></div>
+        </div>
+        <button onclick="navigate('pricing')" class="w-full mt-3 text-xs text-violet-600 border border-violet-200 hover:bg-violet-50 rounded-lg py-2 transition font-medium">升級 Pro 無限使用</button>
+      </div>
+    </div>
+
+    <!-- Mobile Scene Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 flex md:hidden">
+      <button class="scene-tab-mobile active flex-1 flex flex-col items-center py-2 text-xs" data-scene="blog" onclick="selectScene(this)">
+        <span class="text-lg">📝</span>部落格
+      </button>
+      <button class="scene-tab-mobile flex-1 flex flex-col items-center py-2 text-xs text-gray-500" data-scene="social" onclick="selectScene(this)">
+        <span class="text-lg">📱</span>社群
+      </button>
+      <button class="scene-tab-mobile flex-1 flex flex-col items-center py-2 text-xs text-gray-500" data-scene="newsletter" onclick="selectScene(this)">
+        <span class="text-lg">📧</span>電子報
+      </button>
+      <button class="scene-tab-mobile flex-1 flex flex-col items-center py-2 text-xs text-gray-500" data-scene="product" onclick="selectScene(this)">
+        <span class="text-lg">🛍️</span>產品
+      </button>
+    </div>
+
+    <!-- Main Editor -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Editor Toolbar -->
+      <div class="bg-white border-b border-gray-100 px-6 py-2.5 flex items-center gap-2 text-sm text-gray-400 overflow-x-auto">
+        <button onclick="formatText('bold')" class="p-1.5 hover:bg-gray-100 rounded font-bold text-gray-600 transition" title="粗體">B</button>
+        <button onclick="formatText('italic')" class="p-1.5 hover:bg-gray-100 rounded italic text-gray-600 transition" title="斜體">I</button>
+        <button onclick="formatText('underline')" class="p-1.5 hover:bg-gray-100 rounded underline text-gray-600 transition" title="底線">U</button>
+        <div class="w-px h-5 bg-gray-200 mx-1"></div>
+        <button onclick="clearEditor()" class="text-xs px-2 py-1 hover:bg-gray-100 rounded text-gray-500 transition">清空</button>
+        <div class="flex-1"></div>
+        <span id="word-counter" class="text-xs text-gray-400">0 字</span>
+      </div>
+
+      <!-- Editor Content -->
+      <div class="flex-1 overflow-y-auto bg-white">
+        <div class="max-w-3xl mx-auto px-6 py-8 pb-24 md:pb-8">
+          <!-- Empty State -->
+          <div id="empty-state" class="text-center py-16">
+            <div class="text-6xl mb-4">✍️</div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">準備好開始創作了嗎？</h3>
+            <p class="text-gray-400 text-sm mb-6">在左側輸入主題關鍵字，點擊「生成內容」讓 AI 幫你破冰</p>
+            <div class="md:hidden">
+              <div class="bg-gray-50 rounded-xl p-4 text-left space-y-3 max-w-sm mx-auto">
+                <div>
+                  <label class="text-xs text-gray-500 block mb-1">主題關鍵字</label>
+                  <textarea id="topic-mobile" rows="2" placeholder="輸入你的主題..." class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 resize-none" style="font-family: 'Noto Sans TC', sans-serif;"></textarea>
+                </div>
+                <button onclick="generateContentMobile()" class="w-full gradient-bg text-white py-2.5 rounded-lg font-semibold text-sm">✨ 生成內容</button>
+              </div>
+            </div>
+          </div>
+          <!-- Editor -->
+          <div id="editor-area" contenteditable="true" data-placeholder="在這裡開始編輯你的內容，或選取文字使用 AI 工具列改寫..." class="hidden"></div>
+          <!-- Generating indicator -->
+          <div id="generating-indicator" class="hidden text-center py-8">
+            <div class="inline-flex items-center gap-2 bg-violet-50 text-violet-600 rounded-xl px-4 py-3 text-sm font-medium">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="ml-1">AI 正在生成內容中...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tone Profile Panel (Slide-in) -->
+    <div id="tone-panel" class="fixed right-0 top-14 bottom-0 w-80 bg-white border-l border-gray-100 shadow-xl z-40 transform translate-x-full transition-transform duration-300 overflow-y-auto">
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-bold text-gray-800">語氣風格設定</h3>
+          <button onclick="hideTonePanel()" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-500 block mb-2 uppercase tracking-wide">快速風格選擇</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setTonePreset('professional')" class="tone-preset-btn border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:border-violet-400 hover:text-violet-600 transition">💼 專業正式</button>
+              <button onclick="setTonePreset('friendly')" class="tone-preset-btn border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:border-violet-400 hover:text-violet-600 transition">😊 親切友善</button>
+              <button onclick="setTonePreset('witty')" class="tone-preset-btn border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:border-violet-400 hover:text-violet-600 transition">✨ 幽默風趣</button>
+              <button onclick="setTonePreset('educational')" class="tone-preset-btn border border-gray-200 rounded-lg px-3 py-2 text-xs font-medium text-gray-600 hover:border-violet-400 hover:text-violet-600 transition">📚 知識教學</button>
+            </div>
+          </div>
+          <div class="border-t border-gray-100 pt-4">
+            <label class="text-xs font-semibold text-gray-500 block mb-2 uppercase tracking-wide">自訂語氣範本</label>
+            <p class="text-xs text-gray-400 mb-2 leading-relaxed">貼上你過去的文章（建議 300 字以上），AI 會學習你的個人語氣</p>
+            <textarea id="tone-sample" rows="8" placeholder="貼上你過去的文章範本..." class="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-violet-400 resize-none transition" style="font-family: 'Noto Sans TC', sans-serif;"></textarea>
+            <button onclick="saveToneProfile()" class="w-full gradient-bg text-white py-2 rounded-lg font-medium text-sm mt-3 hover:opacity-90 transition">儲存語氣設定</button>
+          </div>
+          <div id="saved-tone-info" class="hidden bg-violet-50 rounded-xl p-3 text-xs text-violet-700">
+            <div class="font-semibold mb-1">✓ 語氣設定已儲存</div>
+            <div id="saved-tone-preview" class="text-violet-500 line-clamp-2 overflow-hidden" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== PAGE: PRICING ====================== -->
+<div id="page-pricing" class="page">
+  <nav class="bg-white border-b border-gray-100 px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="navigate('landing')">
+      <div class="w-7 h-7 gradient-bg rounded-lg flex items-center justify-center">
+        <span class="text-white font-bold text-xs">W</span>
+      </div>
+      <span class="font-bold text-gray-900">WriteFlow <span class="gradient-text">AI</span></span>
+    </div>
+    <button onclick="navigate('app')" class="gradient-bg text-white text-sm px-4 py-1.5 rounded-lg font-medium hover:opacity-90 transition">進入編輯器</button>
+  </nav>
+  <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-black text-gray-900 mb-3">選擇適合你的方案</h1>
+      <p class="text-gray-500">7 天免費試用，隨時可取消，不需信用卡</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 items-center">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 card-hover">
+        <div class="text-sm font-semibold text-gray-500 mb-1">免費方案</div>
+        <div class="text-3xl font-black text-gray-900 mb-1">NT$0</div>
+        <p class="text-xs text-gray-400 mb-6">永久免費</p>
+        <ul class="space-y-2.5 mb-8">
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 每月 5,000 字額度</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 3 種場景模板</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 行內 AI 編輯</li>
+          <li class="flex items-center gap-2 text-sm text-gray-400"><span>✗</span> 語氣風格儲存</li>
+          <li class="flex items-center gap-2 text-sm text-gray-400"><span>✗</span> 無浮水印</li>
+        </ul>
+        <button onclick="navigate('register')" class="w-full py-2.5 rounded-xl border border-gray-300 text-gray-700 font-medium text-sm hover:border-violet-400 hover:text-violet-600 transition">開始免費使用</button>
+      </div>
+      <div class="pricing-highlight rounded-2xl p-6 shadow-xl relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">最受歡迎</div>
+        <div class="text-sm font-semibold text-violet-200 mb-1">Pro 方案</div>
+        <div class="text-3xl font-black text-white mb-1">NT$399<span class="text-sm font-normal text-violet-200">/月</span></div>
+        <p class="text-xs text-violet-200 mb-6">約 NT$13/天，少一杯咖啡</p>
+        <ul class="space-y-2.5 mb-8">
+          <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200 font-bold">✓</span> 無限字數生成</li>
+          <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200 font-bold">✓</span> 全部 4 種場景</li>
+          <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200 font-bold">✓</span> 語氣風格儲存</li>
+          <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200 font-bold">✓</span> 無浮水印輸出</li>
+          <li class="flex items-center gap-2 text-sm text-white"><span class="text-violet-200 font-bold">✓</span> 優先 AI 速度</li>
+        </ul>
+        <button onclick="showUpgradeFlow()" class="w-full py-2.5 rounded-xl bg-white text-violet-700 font-bold text-sm hover:bg-violet-50 transition">7 天免費試用 →</button>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 card-hover">
+        <div class="text-sm font-semibold text-gray-500 mb-1">Team 方案</div>
+        <div class="text-3xl font-black text-gray-900 mb-1">NT$999<span class="text-sm font-normal text-gray-400">/月</span></div>
+        <p class="text-xs text-gray-400 mb-6">最多 3 位成員</p>
+        <ul class="space-y-2.5 mb-8">
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> Pro 全部功能</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 3 個成員席位</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 共用語氣檔案庫</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 使用數據報告</li>
+          <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500 font-bold">✓</span> 優先客服</li>
+        </ul>
+        <button class="w-full py-2.5 rounded-xl border border-gray-300 text-gray-400 font-medium text-sm cursor-not-allowed bg-gray-50">即將推出</button>
+      </div>
+    </div>
+    <!-- FAQ Mini -->
+    <div class="mt-16 text-center">
+      <h3 class="text-xl font-bold text-gray-800 mb-6">常見問題</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-left">
+        <div class="bg-gray-50 rounded-xl p-4">
+          <div class="font-medium text-gray-800 text-sm mb-1">可以隨時取消嗎？</div>
+          <div class="text-gray-500 text-xs leading-relaxed">可以，任何時候取消都不收違約金。取消後功能持續到當期結束。</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <div class="font-medium text-gray-800 text-sm mb-1">試用期結束會自動扣款嗎？</div>
+          <div class="text-xs text-gray-500 leading-relaxed">不會，試用期不需信用卡。只有你選擇升級才需輸入付款資訊。</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <div class="font-medium text-gray-800 text-sm mb-1">字數如何計算？</div>
+          <div class="text-xs text-gray-500 leading-relaxed">以 AI 生成的輸出文字計算。你自己輸入或編輯的文字不計入使用量。</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4">
+          <div class="font-medium text-gray-800 text-sm mb-1">支援發票嗎？</div>
+          <div class="text-xs text-gray-500 leading-relaxed">支援，可申請電子發票。企業客戶可聯絡我們申請統一發票。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====================== JAVASCRIPT ====================== -->
+<script>
+  // ============ STATE ============
+  const state = {
+    currentPage: 'landing',
+    currentScene: 'blog',
+    generating: false,
+    editorContent: '',
+    wordCount: 0,
+    usageCount: parseInt(localStorage.getItem('wf_usage') || '0'),
+    usageLimit: 5000,
+    toneProfile: localStorage.getItem('wf_tone') || '',
+    tonePreset: localStorage.getItem('wf_tone_preset') || '',
+    user: null,
+  };
+
+  function getUser() {
+    try { return JSON.parse(localStorage.getItem('wf_user') || 'null'); } catch { return null; }
+  }
+  function setUser(u) { localStorage.setItem('wf_user', JSON.stringify(u)); state.user = u; }
+
+  // ============ ROUTER ============
+  function navigate(page) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+    if (page === 'app') {
+      const user = getUser();
+      if (!user) { navigate('login'); return; }
+      document.getElementById('page-app').classList.add('active');
+      initApp();
+    } else if (page === 'login') {
+      document.getElementById('page-login').classList.add('active');
+    } else if (page === 'register') {
+      document.getElementById('page-register').classList.add('active');
+    } else if (page === 'pricing') {
+      document.getElementById('page-pricing').classList.add('active');
+    } else {
+      document.getElementById('page-landing').classList.add('active');
+    }
+
+    state.currentPage = page;
+    window.scrollTo(0, 0);
+  }
+
+  // ============ AUTH ============
+  function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+
+    if (!email || !password) {
+      errEl.textContent = '請輸入電子郵件和密碼';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    // Check against registered users
+    const users = JSON.parse(localStorage.getItem('wf_users') || '{}');
+    if (!users[email] || users[email].password !== password) {
+      errEl.textContent = '電子郵件或密碼不正確';
+      errEl.classList.remove('hidden');
+      return;
+    }
+
+    errEl.classList.add('hidden');
+    setUser({ email, name: users[email].name, plan: 'free', trial: true });
+    showNotification('success', '登入成功', `歡迎回來，${users[email].name}！`);
+    navigate('app');
+  }
+
+  function doRegister() {
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const agree = document.getElementById('reg-agree').checked;
+    const errEl = document.getElementById('register-error');
+
+    if (!name) { errEl.textContent = '請輸入你的名稱'; errEl.classList.remove('hidden'); return; }
+    if (!email || !email.includes('@')) { errEl.textContent = '請輸入有效的電子郵件'; errEl.classList.remove('hidden'); return; }
+    if (password.length < 8) { errEl.textContent = '密碼至少需要 8 個字元'; errEl.classList.remove('hidden'); return; }
+    if (!agree) { errEl.textContent = '請同意服務條款及隱私政策'; errEl.classList.remove('hidden'); return; }
+
+    errEl.classList.add('hidden');
+    const users = JSON.parse(localStorage.getItem('wf_users') || '{}');
+    if (users[email]) { errEl.textContent = '此電子郵件已被註冊'; errEl.classList.remove('hidden'); return; }
+
+    users[email] = { name, password, plan: 'free', createdAt: Date.now() };
+    localStorage.setItem('wf_users', JSON.stringify(users));
+    setUser({ email, name, plan: 'free', trial: true, trialEnd: Date.now() + 7 * 86400000 });
+    showNotification('success', '歡迎加入！', `帳號建立成功，開始你的 7 天試用！`);
+    navigate('app');
+  }
+
+  function googleLogin() {
+    // Simulate Google OAuth
+    const mockUser = {
+      email: 'user@gmail.com',
+      name: 'Google 用戶',
+      plan: 'free',
+      trial: true,
+      trialEnd: Date.now() + 7 * 86400000
+    };
+    const users = JSON.parse(localStorage.getItem('wf_users') || '{}');
+    users[mockUser.email] = { name: mockUser.name, password: '__google__', plan: 'free', createdAt: Date.now() };
+    localStorage.setItem('wf_users', JSON.stringify(users));
+    setUser(mockUser);
+    showNotification('success', 'Google 登入成功', `歡迎，${mockUser.name}！`);
+    navigate('app');
+  }
+
+  function logout() {
+    localStorage.removeItem('wf_user');
+    state.user = null;
+    showNotification('info', '已登出', '期待你再次回來！');
+    navigate('landing');
+  }
+
+  function showUserMenu() {
+    const user = getUser();
+    if (!user) return;
+    document.getElementById('modal-body').innerHTML = `
+      <div class="text-center mb-5">
+        <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3">${user.name[0]}</div>
+        <div class="font-bold text-gray-800">${user.name}</div>
+        <div class="text-sm text-gray-500">${user.email}</div>
+        <div class="mt-2 inline-flex items-center gap-1.5 bg-violet-100 text-violet-700 text-xs px-2.5 py-1 rounded-full font-medium">
+          ${user.plan === 'pro' ? '⭐ Pro 方案' : '免費方案 · 7 天試用中'}
+        </div>
+      </div>
+      <div class="space-y-2">
+        <div class="bg-gray-50 rounded-xl px-4 py-3">
+          <div class="text-xs text-gray-400 mb-1">本月使用量</div>
+          <div class="text-sm font-medium text-gray-700">${state.usageCount} / ${state.usageLimit} 字</div>
+          <div class="mt-1.5 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full gradient-bg rounded-full" style="width:${Math.min((state.usageCount/state.usageLimit)*100, 100)}%"></div>
+          </div>
+        </div>
+        <button onclick="navigate('pricing');closeModal()" class="w-full py-2.5 gradient-bg text-white rounded-xl font-medium text-sm hover:opacity-90 transition">升級 Pro 方案</button>
+        <button onclick="logout();closeModal()" class="w-full py-2.5 border border-gray-200 text-gray-600 rounded-xl font-medium text-sm hover:bg-gray-50 transition">登出</button>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (!e || e.target === document.getElementById('modal-overlay')) {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+  }
+
+  // ============ APP INIT ============
+  function initApp() {
+    const user = getUser();
+    if (!user) return;
+
+    // Update avatar
+    const avatar = document.getElementById('user-avatar');
+    if (avatar) avatar.textContent = user.name[0].toUpperCase();
+
+    // Load tone
+    const savedTone = localStorage.getItem('wf_tone');
+    if (savedTone) {
+      const el = document.getElementById('tone-sample');
+      if (el) el.value = savedTone;
+      showSavedToneInfo(savedTone);
+    }
+
+    // Update usage
+    updateUsageDisplay();
+  }
+
+  function updateUsageDisplay() {
+    const count = state.usageCount;
+    const limit = state.usageLimit;
+    const el = document.getElementById('usage-count');
+    const barEl = document.getElementById('usage-bar');
+    if (el) el.textContent = count.toLocaleString();
+    if (barEl) {
+      const pct = Math.min((count / limit) * 100, 100);
+      barEl.style.width = pct + '%';
+      if (pct > 80) barEl.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+    }
+  }
+
+  // ============ SCENE SELECTION ============
+  function selectScene(btn) {
+    state.currentScene = btn.dataset.scene;
+    // Desktop tabs
+    document.querySelectorAll('.scene-tab').forEach(t => {
+      t.classList.remove('active');
+      t.classList.add('text-gray-600');
+    });
+    // Mobile tabs
+    document.querySelectorAll('.scene-tab-mobile').forEach(t => {
+      t.classList.remove('active');
+      t.style.color = '';
+    });
+
+    if (btn.classList.contains('scene-tab')) {
+      btn.classList.add('active');
+      btn.classList.remove('text-gray-600');
+    } else {
+      btn.classList.add('active');
+    }
+  }
+
+  // ============ CONTENT GENERATION ============
+  const DEMO_CONTENT = {
+    blog: (topic, audience) => `# ${topic || '探索新視野'} — 你不能錯過的深度指南
+
+在這個資訊爆炸的時代，${topic || '這個主題'}已經成為每一位${audience || '現代人'}不可忽視的重要課題。
+
+## 為什麼這件事如此重要？
+
+當我第一次接觸${topic || '這個領域'}時，我以為這只是另一個過眼雲煙的流行趨勢。但深入研究之後，我才發現它對我們日常生活的影響遠比想象中深遠。
+
+根據最新的研究數據，超過 73% 的${audience || '受訪者'}表示，他們在日常工作中都曾面臨相關的挑戰。這不只是個數字，這代表著你我身邊幾乎每一個人，都在默默尋找解決方案。
+
+## 三個你必須知道的關鍵
+
+**第一：從基礎開始，不要跳躍**
+
+很多人犯的最大錯誤，就是在還沒有扎實基礎的情況下，就急著追求進階技巧。就像蓋房子一樣，地基不穩，再美的外觀都只是空中樓閣。
+
+**第二：找到適合你的節奏**
+
+沒有一套方法適用於所有人。關鍵在於了解自己的學習和工作模式，然後量身打造最有效的策略。
+
+**第三：持續迭代，不要追求完美**
+
+完成比完美更重要。先做出一個「夠好」的版本，然後根據反饋不斷改進。這才是真正有效的成長路徑。
+
+## 實際可行的下一步
+
+如果你看完這篇文章，只能記住一件事，那就是：**立刻行動**。
+
+從今天起，每天只花 15 分鐘在這件事上，一個月後你就會看到令你驚喜的改變。
+
+---
+
+*喜歡這篇文章嗎？歡迎分享給同樣在探索${topic || '這個主題'}的朋友！*`,
+
+    social: (topic, audience) => `✨ 關於「${topic || '今天的靈感'}」，我想說的是...
+
+你有沒有想過，為什麼有些人總是能輕鬆應對${topic || '各種挑戰'}，而有些人卻一直在原地踏步？
+
+💡 答案其實很簡單——
+
+他們都有一個共同的習慣：**每天刻意練習，哪怕只有 10 分鐘。**
+
+作為${audience || '一個普通人'}，我花了很長時間才學到這個道理。
+
+過去我總是在等「準備好的那一天」。但那一天從來不會自己到來。
+
+---
+
+現在的我每天這樣做：
+✅ 早上 8 點：15 分鐘深度思考
+✅ 下午 3 點：回顧當天的進展
+✅ 晚上睡前：記錄一個小小的收穫
+
+三個月下來，變化超乎我的預期 💪
+
+---
+
+你現在最想改變的一件事是什麼？
+
+在留言告訴我，我會一一回覆 👇
+
+#個人成長 #${topic ? topic.replace(/\s/g,'') : '生活感悟'} #每日精進`,
+
+    newsletter: (topic, audience) => `親愛的讀者，
+
+首先謝謝你訂閱這份電子報。每週一次，我會把關於「${topic || '你關心的主題'}」最有價值的內容整理給你。
+
+---
+
+**本期重點**
+
+這週最讓我有感觸的，是關於${topic || '學習與成長'}的一個小故事。
+
+一位朋友跟我說，她已經「打算」開始學習某項技能超過兩年了，但直到上個月，她才真正邁出第一步。
+
+而那個第一步，只花了她 20 分鐘。
+
+這讓我想到一個問題：我們花在「打算做某件事」的時間，是不是遠遠超過「真正去做」的時間？
+
+---
+
+**本週精選資源**
+
+📌 **深度閱讀**：一篇值得你花 10 分鐘靜下來讀的文章，關於${topic || '效率與深度工作'}
+
+📌 **工具推薦**：我最近在用的一個小工具，讓我的${topic || '日常工作流程'}效率提升了 40%
+
+📌 **思考題**：如果你現在可以改變生活中的一個習慣，你會選擇改變什麼？
+
+---
+
+如果這期內容對你有所啟發，可以轉發給一個你覺得需要看到這些內容的朋友。
+
+那是對我最大的支持 🙏
+
+期待下週再見，
+
+[你的名字]
+
+P.S. 有任何問題或想法，直接回覆這封郵件就能找到我。`,
+
+    product: (topic, audience) => `**${topic || '全新產品'}** — 專為${audience || '你'}打造的完美解決方案
+
+---
+
+你是否曾經...
+- 浪費大量時間在重複性的工作上？
+- 感覺現有工具都不夠好用？
+- 希望有一個專門針對中文環境優化的選擇？
+
+**現在，這些問題都有了答案。**
+
+---
+
+### 為什麼選擇我們？
+
+**極致的使用體驗**
+我們花了 6 個月，訪談超過 200 位${audience || '用戶'}，才打造出這個產品。每一個設計細節，都是為了讓你的使用過程更流暢、更直覺。
+
+**真正解決問題**
+不是錦上添花，而是實實在在地幫你省下每天 2-3 小時的時間。這些時間，你可以用來做更有意義的事情。
+
+**完整的繁體中文支援**
+我們深刻理解台灣使用者的需求，提供在地化的使用體驗和客服支援。
+
+---
+
+### 客戶怎麼說
+
+> 「使用後工作效率提升了 3 倍，每個月可以多接兩個案子。費用早就回本了！」
+> — 陳小姐，自由接案工作者
+
+---
+
+**立即開始 → 前 100 名享有早鳥優惠**
+
+💳 免費試用 7 天 | 不需信用卡 | 隨時可取消`
+  };
+
+  async function generateContent(topicOverride) {
+    if (state.generating) return;
+    const user = getUser();
+    if (!user) { navigate('login'); return; }
+
+    const topic = topicOverride || document.getElementById('topic-input')?.value?.trim() || '';
+    if (!topic) {
+      showNotification('warning', '請輸入主題', '在左側輸入你的主題關鍵字後再生成');
+      document.getElementById('topic-input')?.focus();
+      return;
+    }
+
+    // Usage check
+    if (state.usageCount >= state.usageLimit && user.plan !== 'pro') {
+      showUpgradeLimitModal();
+      return;
+    }
+
+    state.generating = true;
+    const genBtn = document.getElementById('generate-btn');
+    const genText = document.getElementById('gen-btn-text');
+    const genIcon = document.getElementById('gen-btn-icon');
+    if (genBtn) { genBtn.disabled = true; genBtn.style.opacity = '0.7'; }
+    if (genText) genText.textContent = '生成中...';
+    if (genIcon) genIcon.innerHTML = '<span class="typing-dot"></span>';
+
+    const audience = document.getElementById('audience-input')?.value?.trim() || '';
+    const editorArea = document.getElementById('editor-area');
+    const emptyState = document.getElementById('empty-state');
+    const genIndicator = document.getElementById('generating-indicator');
+
+    if (emptyState) emptyState.classList.add('hidden');
+    if (editorArea) editorArea.classList.remove('hidden');
+    if (genIndicator) genIndicator.classList.remove('hidden');
+    if (editorArea) editorArea.innerHTML = '';
+
+    // Simulate streaming
+    const content = DEMO_CONTENT[state.currentScene]?.(topic, audience) || DEMO_CONTENT.blog(topic, audience);
+    const chars = content.split('');
+    let idx = 0;
+    const delay = content.length > 800 ? 15 : 20;
+
+    if (genIndicator) genIndicator.classList.add('hidden');
+
+    await new Promise(resolve => {
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor-blink';
+      if (editorArea) editorArea.appendChild(cursor);
+
+      const interval = setInterval(() => {
+        const chunk = Math.floor(Math.random() * 4) + 2;
+        for (let i = 0; i < chunk && idx < chars.length; i++, idx++) {
+          if (editorArea) {
+            editorArea.removeChild(cursor);
+            editorArea.appendChild(document.createTextNode(chars[idx]));
+            editorArea.appendChild(cursor);
+          }
+        }
+        if (editorArea) editorArea.scrollTop = editorArea.scrollHeight;
+
+        if (idx >= chars.length) {
+          clearInterval(interval);
+          if (editorArea) editorArea.removeChild(cursor);
+          resolve();
+        }
+      }, delay);
+    });
+
+    // Update word count
+    const wordCount = content.replace(/\s+/g, '').length;
+    state.usageCount = Math.min(state.usageCount + wordCount, state.usageLimit);
+    localStorage.setItem('wf_usage', state.usageCount.toString());
+    updateUsageDisplay();
+    updateWordCounter();
+
+    state.generating = false;
+    if (genBtn) { genBtn.disabled = false; genBtn.style.opacity = '1'; }
+    if (genText) genText.textContent = '重新生成';
+    if (genIcon) genIcon.textContent = '✨';
+
+    showNotification('success', '生成完成', `已生成約 ${wordCount} 字，點擊內容開始編輯`);
+
+    // Save status
+    const saveStatus = document.getElementById('save-status');
+    if (saveStatus) { saveStatus.textContent = '已儲存'; saveStatus.classList.remove('hidden'); }
+  }
+
+  function generateContentMobile() {
+    const topic = document.getElementById('topic-mobile')?.value?.trim();
+    if (topic) {
+      document.getElementById('topic-input').value = topic;
+    }
+    generateContent(topic);
+  }
+
+  // ============ INLINE EDITING ============
+  const INLINE_PROMPTS = {
+    shorten: { label: '縮短', mock: (t) => t.split('。')[0] + '。' },
+    expand: { label: '展開', mock: (t) => t + '\n\n更重要的是，我們需要深入思考這個概念背後的意涵。從不同的角度來看，這不僅僅是一個技術問題，更是一個關於思維方式和行動模式的根本性挑戰。' },
+    rephrase: { label: '換語氣', mock: (t) => '換個說法：' + t.replace(/！/g, '。').replace(/非常/g, '相當') },
+    grammar: { label: '修正文法', mock: (t) => t.replace(/的的/g, '的').replace(/了了/g, '了').replace(/  +/g, ' ') },
+    formal: { label: '更正式', mock: (t) => t.replace(/你/g, '您').replace(/好/g, '良好').replace(/做/g, '執行') },
+  };
+
+  let currentSelection = null;
+  let currentRange = null;
+
+  function inlineEdit(type) {
+    if (!currentSelection || !currentSelection.toString().trim()) return;
+
+    const selected = currentSelection.toString();
+    const mock = INLINE_PROMPTS[type]?.mock(selected) || selected;
+
+    hideFloatingToolbar();
+
+    // Simulate streaming replacement
+    if (currentRange) {
+      currentRange.deleteContents();
+      const textNode = document.createTextNode('');
+      currentRange.insertNode(textNode);
+
+      let idx = 0;
+      const chars = mock.split('');
+      const interval = setInterval(() => {
+        const chunk = Math.floor(Math.random() * 3) + 1;
+        for (let i = 0; i < chunk && idx < chars.length; i++, idx++) {
+          textNode.textContent += chars[idx];
+        }
+        if (idx >= chars.length) {
+          clearInterval(interval);
+          updateWordCounter();
+          showNotification('success', INLINE_PROMPTS[type]?.label + ' 完成', '點擊其他地方繼續編輯');
+        }
+      }, 20);
+    }
+  }
+
+  function hideFloatingToolbar() {
+    const tb = document.getElementById('floating-toolbar');
+    if (tb) tb.classList.remove('visible');
+    currentSelection = null;
+    currentRange = null;
+  }
+
+  document.addEventListener('mouseup', () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+      hideFloatingToolbar();
+      return;
+    }
+    const editorArea = document.getElementById('editor-area');
+    if (!editorArea || !editorArea.contains(sel.anchorNode)) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    currentSelection = sel;
+    currentRange = sel.getRangeAt(0).cloneRange();
+
+    const rect = sel.getRangeAt(0).getBoundingClientRect();
+    const tb = document.getElementById('floating-toolbar');
+    if (tb) {
+      tb.style.left = Math.max(8, rect.left + rect.width / 2 - 160) + 'px';
+      tb.style.top = Math.max(60, rect.top - 44 + window.scrollY) + 'px';
+      tb.classList.add('visible');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideFloatingToolbar();
+  });
+
+  // ============ TONE PROFILE ============
+  function showTonePanel() {
+    const panel = document.getElementById('tone-panel');
+    if (panel) panel.style.transform = 'translateX(0)';
+  }
+
+  function hideTonePanel() {
+    const panel = document.getElementById('tone-panel');
+    if (panel) panel.style.transform = 'translateX(100%)';
+  }
+
+  function saveToneProfile() {
+    const sample = document.getElementById('tone-sample')?.value?.trim();
+    if (!sample) {
+      showNotification('warning', '請輸入範本', '貼上你的文章範本後再儲存');
+      return;
+    }
+    localStorage.setItem('wf_tone', sample);
+    state.toneProfile = sample;
+    showSavedToneInfo(sample);
+    showNotification('success', '語氣設定已儲存', 'AI 將在下次生成時套用你的語氣風格');
+  }
+
+  function showSavedToneInfo(sample) {
+    const el = document.getElementById('saved-tone-info');
+    const preview = document.getElementById('saved-tone-preview');
+    if (el) el.classList.remove('hidden');
+    if (preview) preview.textContent = sample.substring(0, 80) + '...';
+  }
+
+  const TONE_PRESETS = {
+    professional: { label: '專業正式', desc: '使用正式語氣，適合商業文章和專業內容' },
+    friendly: { label: '親切友善', desc: '輕鬆對話語氣，適合部落格和社群貼文' },
+    witty: { label: '幽默風趣', desc: '帶有幽默感，適合娛樂性內容' },
+    educational: { label: '知識教學', desc: '清晰結構化，適合教學和解說內容' },
+  };
+
+  function setTonePreset(preset) {
+    state.tonePreset = preset;
+    localStorage.setItem('wf_tone_preset', preset);
+    document.querySelectorAll('.tone-preset-btn').forEach(btn => {
+      btn.classList.remove('border-violet-500', 'bg-violet-50', 'text-violet-700');
+      btn.classList.add('border-gray-200', 'text-gray-600');
+    });
+    event.currentTarget.classList.remove('border-gray-200', 'text-gray-600');
+    event.currentTarget.classList.add('border-violet-500', 'bg-violet-50', 'text-violet-700');
+    showNotification('success', '風格已選擇：' + TONE_PRESETS[preset].label, TONE_PRESETS[preset].desc);
+  }
+
+  // ============ EDITOR HELPERS ============
+  function formatText(cmd) {
+    document.execCommand(cmd, false, null);
+    document.getElementById('editor-area')?.focus();
+  }
+
+  function clearEditor() {
+    const editorArea = document.getElementById('editor-area');
+    const emptyState = document.getElementById('empty-state');
+    if (editorArea) {
+      editorArea.innerHTML = '';
+      editorArea.classList.add('hidden');
+    }
+    if (emptyState) emptyState.classList.remove('hidden');
+    updateWordCounter();
+  }
+
+  function updateWordCounter() {
+    const editorArea = document.getElementById('editor-area');
+    if (!editorArea) return;
+    const text = editorArea.innerText || '';
+    const count = text.replace(/\s+/g, '').length;
+    const el = document.getElementById('word-counter');
+    if (el) el.textContent = count + ' 字';
+  }
+
+  function copyToClipboard() {
+    const editorArea = document.getElementById('editor-area');
+    if (!editorArea || !editorArea.innerText.trim()) {
+      showNotification('warning', '沒有內容', '先生成或輸入一些內容再複製');
+      return;
+    }
+    navigator.clipboard.writeText(editorArea.innerText).then(() => {
+      showNotification('success', '已複製', '內容已複製到剪貼簿');
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = editorArea.innerText;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showNotification('success', '已複製', '內容已複製到剪貼簿');
+    });
+  }
+
+  function downloadDoc() {
+    const editorArea = document.getElementById('editor-area');
+    const title = document.getElementById('doc-title')?.textContent || '未命名文件';
+    if (!editorArea || !editorArea.innerText.trim()) {
+      showNotification('warning', '沒有內容', '先生成或輸入一些內容再下載');
+      return;
+    }
+    const blob = new Blob([editorArea.innerText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = title + '.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    showNotification('success', '下載成功', title + '.txt');
+  }
+
+  function renameDoc() {
+    const current = document.getElementById('doc-title')?.textContent || '未命名文件';
+    const newName = prompt('文件名稱', current);
+    if (newName && newName.trim()) {
+      const el = document.getElementById('doc-title');
+      if (el) el.textContent = newName.trim();
+    }
+  }
+
+  document.addEventListener('input', (e) => {
+    if (e.target?.id === 'editor-area') updateWordCounter();
+  });
+
+  // ============ UPGRADE MODAL ============
+  function showUpgradeLimitModal() {
+    document.getElementById('modal-body').innerHTML = `
+      <div class="text-center">
+        <div class="text-5xl mb-4">⚡</div>
+        <h3 class="font-bold text-gray-900 text-xl mb-2">本月額度已用完</h3>
+        <p class="text-gray-500 text-sm mb-6 leading-relaxed">你已使用完免費方案的每月 5,000 字額度。升級 Pro 方案，享有無限字數生成。</p>
+        <div class="bg-violet-50 rounded-xl p-4 mb-5">
+          <div class="text-sm font-semibold text-violet-800 mb-1">Pro 方案 — NT$399/月</div>
+          <div class="text-xs text-violet-600">無限字數 · 語氣風格儲存 · 所有場景模板</div>
+        </div>
+        <button onclick="navigate('pricing');closeModal()" class="w-full gradient-bg text-white py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition">升級 Pro 方案 →</button>
+        <button onclick="closeModal()" class="w-full mt-2 text-gray-400 text-sm py-2 hover:text-gray-600 transition">下個月再說</button>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function showUpgradeFlow() {
+    document.getElementById('modal-body').innerHTML = `
+      <div class="text-center">
+        <div class="text-5xl mb-4">🚀</div>
+        <h3 class="font-bold text-gray-900 text-xl mb-2">升級 Pro 方案</h3>
+        <p class="text-gray-500 text-sm mb-5">前 7 天完全免費，之後 NT$399/月</p>
+        <div class="bg-gray-50 rounded-xl p-4 mb-5 text-left space-y-2">
+          <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-violet-500">✓</span> 無限字數生成</div>
+          <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-violet-500">✓</span> 語氣風格儲存</div>
+          <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-violet-500">✓</span> 所有場景模板</div>
+          <div class="flex items-center gap-2 text-sm text-gray-700"><span class="text-violet-500">✓</span> 無浮水印輸出</div>
+        </div>
+        <button onclick="simulateUpgrade()" class="w-full gradient-bg text-white py-3 rounded-xl font-semibold text-sm hover:opacity-90 transition">前往付款（Stripe）→</button>
+        <p class="text-xs text-gray-400 mt-3">7 天試用結束前可隨時取消，不收費</p>
+      </div>
+    `;
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function simulateUpgrade() {
+    closeModal();
+    showNotification('success', '升級成功！', '你已成為 Pro 方案用戶，享有無限字數生成');
+    const user = getUser();
+    if (user) {
+      user.plan = 'pro';
+      setUser(user);
+      state.usageLimit = 999999;
+      document.getElementById('usage-limit').textContent = '無限';
+    }
+  }
+
+  // ============ FAQ ============
+  function toggleFaq(item) {
+    const answer = item.querySelector('.faq-answer');
+    const arrow = item.querySelector('.faq-arrow');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-arrow').forEach(a => a.textContent = '+');
+    if (!isOpen) {
+      answer.classList.add('open');
+      arrow.textContent = '−';
+    }
+  }
+
+  // ============ DEMO PREVIEW ============
+  function demoPreview() {
+    const el = document.getElementById('demo-preview-text');
+    if (!el) return;
+
+    const demos = [
+      '# 台灣咖啡文化的崛起\n\n從路邊攤到精品咖啡館，台灣人對咖啡的熱情從未停歇...',
+      '# 遠端工作的 5 個黃金法則\n\n在家工作三年，我學到了很多教訓，也發現了一些讓效率翻倍的秘訣...',
+      '# 個人品牌從 0 到 1 萬粉\n\n一年前我還是個沒有人認識的素人，現在卻有超過一萬人每天等著看我的文章...',
+    ];
+
+    let demoIdx = 0;
+    const text = demos[demoIdx];
+    el.innerHTML = '<span class="text-gray-400">正在生成...</span>';
+
+    setTimeout(() => {
+      el.innerHTML = '';
+      let i = 0;
+      const chars = text.split('');
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor-blink';
+      el.appendChild(cursor);
+
+      const iv = setInterval(() => {
+        const chunk = Math.floor(Math.random() * 5) + 2;
+        for (let j = 0; j < chunk && i < chars.length; j++, i++) {
+          el.removeChild(cursor);
+          el.appendChild(document.createTextNode(chars[i]));
+          el.appendChild(cursor);
+        }
+        if (i >= chars.length) {
+          clearInterval(iv);
+          el.removeChild(cursor);
+        }
+      }, 18);
+    }, 600);
+  }
+
+  // ============ NOTIFICATION ============
+  function showNotification(type, title, msg) {
+    const colors = {
+      success: { bg: 'bg-green-50 border border-green-200', icon: '✅', title: 'text-green-800', msg: 'text-green-600' },
+      warning: { bg: 'bg-yellow-50 border border-yellow-200', icon: '⚠️', title: 'text-yellow-800', msg: 'text-yellow-600' },
+      error: { bg: 'bg-red-50 border border-red-200', icon: '❌', title: 'text-red-800', msg: 'text-red-600' },
+      info: { bg: 'bg-blue-50 border border-blue-200', icon: 'ℹ️', title: 'text-blue-800', msg: 'text-blue-600' },
+    };
+    const c = colors[type] || colors.info;
+    const inner = document.getElementById('notification-inner');
+    const iconEl = document.getElementById('notification-icon');
+    const titleEl = document.getElementById('notification-title');
+    const msgEl = document.getElementById('notification-msg');
+    const notif = document.getElementById('notification');
+
+    inner.className = `rounded-xl shadow-xl px-4 py-3 flex items-start gap-3 ${c.bg}`;
+    iconEl.textContent = c.icon;
+    titleEl.className = `font-semibold text-sm ${c.title}`;
+    titleEl.textContent = title;
+    msgEl.className = `text-xs mt-0.5 ${c.msg}`;
+    msgEl.textContent = msg;
+    notif.classList.add('show');
+
+    clearTimeout(notif._timeout);
+    notif._timeout = setTimeout(() => notif.classList.remove('show'), 3500);
+  }
+
+  // ============ AUTO DEMO ============
+  setTimeout(() => {
+    if (state.currentPage === 'landing') demoPreview();
+  }, 1000);
+
+  // ============ INIT ============
+  navigate('landing');
+</script>
+</body>
+</html>
