@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketPulse AI — 10 分鐘專業市場調查報告</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#f0f4ff',
+              100: '#dde6ff',
+              200: '#c0cfff',
+              300: '#93adff',
+              400: '#6382ff',
+              500: '#3d57ff',
+              600: '#2b3ef5',
+              700: '#2230e1',
+              800: '#1e28b6',
+              900: '#1e278f',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .gradient-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    }
+    .gradient-card {
+      background: linear-gradient(135deg, rgba(61,87,255,0.08) 0%, rgba(147,93,255,0.08) 100%);
+    }
+    .glow {
+      box-shadow: 0 0 40px rgba(61,87,255,0.25);
+    }
+    .step-line::after {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: calc(50% + 28px);
+      width: calc(100% - 56px);
+      height: 2px;
+      background: linear-gradient(90deg, #3d57ff, #935dff);
+      opacity: 0.3;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .pulse-dot { animation: pulse-dot 1.2s ease-in-out infinite; }
+    @keyframes progress-fill {
+      from { width: 0%; }
+      to { width: var(--target-width); }
+    }
+    .progress-bar { transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up { animation: fade-in-up 0.5s ease forwards; }
+    .report-section { animation: fade-in-up 0.4s ease forwards; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #1e293b 25%, #263148 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.2s ease-in-out infinite;
+      border-radius: 4px;
+    }
+    @keyframes skeleton-loading {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .tab-active {
+      border-bottom: 2px solid #3d57ff;
+      color: #3d57ff;
+    }
+    .price-popular {
+      box-shadow: 0 0 0 2px #3d57ff, 0 20px 60px rgba(61,87,255,0.2);
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .tooltip {
+      position: relative;
+    }
+    .tooltip:hover .tooltip-text {
+      display: block;
+    }
+    .tooltip-text {
+      display: none;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+
+<!-- ===== NAV ===== -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background:rgba(15,23,42,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 12 L5 7 L8 9 L11 4 L14 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="4" r="1.5" fill="white"/>
+        </svg>
+      </div>
+      <span class="font-bold text-white text-sm tracking-tight">MarketPulse <span class="text-brand-400">AI</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-sm text-slate-400">
+      <a href="#how-it-works" class="hover:text-white transition-colors">如何運作</a>
+      <a href="#pricing" class="hover:text-white transition-colors">定價</a>
+      <a href="#demo" class="hover:text-white transition-colors">立即試用</a>
+    </div>
+    <button onclick="scrollToDemo()" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors">
+      免費體驗
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="gradient-hero min-h-screen flex flex-col items-center justify-center px-4 pt-14 pb-20 relative overflow-hidden">
+  <!-- Background grid -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(61,87,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(61,87,255,0.05) 1px,transparent 1px);background-size:64px 64px;"></div>
+  <!-- Glow blobs -->
+  <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(61,87,255,0.15) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 text-brand-300 text-xs font-medium px-3 py-1.5 rounded-full mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-green-400 pulse-dot"></span>
+      Day 1 MVP — 驗證中
+    </div>
+
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6">
+      原本要花 <span class="text-brand-400">3 天</span>的市場研究<br/>
+      現在只要 <span class="text-green-400">$29</span> 和 <span class="text-brand-400">10 分鐘</span>
+    </h1>
+
+    <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+      輸入產品方向或關鍵字，AI 自動爬取公開資料、分析競品、估算市場規模，
+      生成一份包含 TAM/SAM/SOM、競品比較、用戶痛點的<strong class="text-slate-200">專業 PDF 報告</strong>。
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+      <button onclick="scrollToDemo()" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-8 py-3.5 rounded-xl transition-all glow hover:scale-105 active:scale-100 text-base">
+        立即免費試用 →
+      </button>
+      <a href="#how-it-works" class="border border-slate-700 hover:border-slate-500 text-slate-300 font-medium px-8 py-3.5 rounded-xl transition-colors text-base">
+        了解更多
+      </a>
+    </div>
+
+    <!-- Social proof -->
+    <div class="flex items-center justify-center gap-6 text-sm text-slate-500">
+      <div class="flex items-center gap-1.5">
+        <svg width="14" height="14" fill="currentColor" class="text-yellow-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg width="14" height="14" fill="currentColor" class="text-yellow-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg width="14" height="14" fill="currentColor" class="text-yellow-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg width="14" height="14" fill="currentColor" class="text-yellow-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg width="14" height="14" fill="currentColor" class="text-yellow-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span class="ml-1">驗證階段 MVP</span>
+      </div>
+      <span>•</span>
+      <span>顧問報告 $5,000 vs 我們 $29</span>
+      <span>•</span>
+      <span>3 週 vs 10 分鐘</span>
+    </div>
+  </div>
+
+  <!-- Comparison cards -->
+  <div class="relative z-10 mt-16 max-w-3xl mx-auto w-full px-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="bg-red-950/40 border border-red-900/30 rounded-xl p-4 text-center">
+      <div class="text-red-400 font-bold text-lg mb-1">顧問公司</div>
+      <div class="text-3xl font-black text-red-300 mb-1">$5,000+</div>
+      <div class="text-red-400/70 text-sm">等 2～4 週</div>
+    </div>
+    <div class="bg-yellow-950/40 border border-yellow-900/30 rounded-xl p-4 text-center">
+      <div class="text-yellow-400 font-bold text-lg mb-1">自己 Google</div>
+      <div class="text-3xl font-black text-yellow-300 mb-1">$0</div>
+      <div class="text-yellow-400/70 text-sm">耗時 10～40 小時</div>
+    </div>
+    <div class="bg-brand-950/60 border border-brand-500/30 rounded-xl p-4 text-center glow">
+      <div class="text-brand-400 font-bold text-lg mb-1">MarketPulse AI</div>
+      <div class="text-3xl font-black text-white mb-1">$29</div>
+      <div class="text-brand-300/70 text-sm">10 分鐘完成</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how-it-works" class="py-24 px-4 bg-slate-950">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <div class="tag bg-brand-500/10 text-brand-400 mb-3">如何運作</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">3 個步驟，10 分鐘出報告</h2>
+      <p class="text-slate-400 max-w-xl mx-auto">完全自動化流程，從輸入關鍵字到收到 PDF 報告，全程無需人工介入。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+      <!-- Step 1 -->
+      <div class="gradient-card border border-slate-800 rounded-2xl p-6 relative">
+        <div class="w-12 h-12 rounded-xl bg-brand-500/20 border border-brand-500/30 flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#6382ff" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </div>
+        <div class="text-xs font-semibold text-brand-400 mb-2">STEP 01</div>
+        <h3 class="text-lg font-semibold text-white mb-2">輸入關鍵字</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">輸入您的產品方向、市場領域或競品名稱，選擇報告類型與深度。</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="tag bg-slate-800 text-slate-400">健身 App</span>
+          <span class="tag bg-slate-800 text-slate-400">SaaS 工具</span>
+          <span class="tag bg-slate-800 text-slate-400">電商平台</span>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="gradient-card border border-slate-800 rounded-2xl p-6 relative">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#a855f7" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div class="text-xs font-semibold text-purple-400 mb-2">STEP 02</div>
+        <h3 class="text-lg font-semibold text-white mb-2">AI 自動分析</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">系統爬取 Google、Reddit 等公開資料，Claude AI 進行深度分析整合。</p>
+        <div class="mt-4 space-y-1.5">
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-green-400"></div>SerpAPI 爬取搜尋結果
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-green-400"></div>Reddit 用戶痛點收集
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-400">
+            <div class="w-1.5 h-1.5 rounded-full bg-green-400"></div>Claude AI 深度分析
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="gradient-card border border-slate-800 rounded-2xl p-6 relative">
+        <div class="w-12 h-12 rounded-xl bg-green-500/20 border border-green-500/30 flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#22c55e" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="text-xs font-semibold text-green-400 mb-2">STEP 03</div>
+        <h3 class="text-lg font-semibold text-white mb-2">下載 PDF 報告</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">收到包含市場規模、競品分析、用戶痛點等完整內容的專業 PDF 報告。</p>
+        <div class="mt-4 flex items-center gap-2 text-sm text-green-400 font-medium">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          平均 8 分 32 秒完成
+        </div>
+      </div>
+    </div>
+
+    <!-- Report contents preview -->
+    <div class="mt-16 border border-slate-800 rounded-2xl overflow-hidden">
+      <div class="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <span class="font-semibold text-white">報告內容包含</span>
+        <span class="tag bg-green-500/10 text-green-400">標準版 15+ 頁</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-0">
+        <div class="p-5 border-b border-r border-slate-800">
+          <div class="text-brand-400 font-semibold text-sm mb-1">市場規模估算</div>
+          <div class="text-slate-400 text-xs">TAM / SAM / SOM 三層分析，附來源引用</div>
+        </div>
+        <div class="p-5 border-b border-r border-slate-800">
+          <div class="text-brand-400 font-semibold text-sm mb-1">競品深度分析</div>
+          <div class="text-slate-400 text-xs">功能比較表、定價策略、優劣勢</div>
+        </div>
+        <div class="p-5 border-b border-slate-800">
+          <div class="text-brand-400 font-semibold text-sm mb-1">用戶痛點歸納</div>
+          <div class="text-slate-400 text-xs">來自真實用戶討論的核心需求整理</div>
+        </div>
+        <div class="p-5 border-r border-slate-800">
+          <div class="text-brand-400 font-semibold text-sm mb-1">市場趨勢評估</div>
+          <div class="text-slate-400 text-xs">進入時機、成長趨勢、風險評估</div>
+        </div>
+        <div class="p-5 border-r border-slate-800">
+          <div class="text-brand-400 font-semibold text-sm mb-1">差異化建議</div>
+          <div class="text-slate-400 text-xs">定位策略、初步定價、進入策略</div>
+        </div>
+        <div class="p-5">
+          <div class="text-brand-400 font-semibold text-sm mb-1">Executive Summary</div>
+          <div class="text-slate-400 text-xs">可直接複製的投資人簡報摘要</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="py-24 px-4 bg-gradient-to-b from-slate-950 to-slate-900">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <div class="tag bg-green-500/10 text-green-400 mb-3">定價</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">透明定價，無隱藏費用</h2>
+      <p class="text-slate-400">按份付費，或訂閱節省更多。前 20 名用戶享 Early Bird 優惠。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Basic -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col">
+        <div class="tag bg-slate-800 text-slate-400 w-fit mb-4">基礎報告</div>
+        <div class="flex items-end gap-1 mb-1">
+          <span class="text-4xl font-black text-white">$19</span>
+          <span class="text-slate-400 text-sm mb-1.5">/ 份</span>
+        </div>
+        <div class="text-slate-500 text-xs mb-6 line-through">原價 $29</div>
+        <ul class="space-y-3 text-sm text-slate-400 mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>標準 15 頁報告</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>3 個競品分析</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>TAM/SAM/SOM 估算</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>PDF 下載（24 小時）</li>
+          <li class="flex items-start gap-2 opacity-40"><svg class="w-4 h-4 text-slate-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>定價策略建議</li>
+          <li class="flex items-start gap-2 opacity-40"><svg class="w-4 h-4 text-slate-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>電話諮詢</li>
+        </ul>
+        <button onclick="scrollToDemo('basic')" class="w-full border border-slate-700 hover:border-brand-500 text-slate-300 hover:text-brand-400 font-medium py-2.5 rounded-xl transition-all text-sm">
+          選擇基礎方案
+        </button>
+      </div>
+
+      <!-- Pro (Popular) -->
+      <div class="bg-slate-900 border border-brand-500/40 rounded-2xl p-6 flex flex-col relative price-popular">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span class="tag bg-brand-500 text-white px-4 py-1 text-xs font-bold">最多人選擇</span>
+        </div>
+        <div class="tag bg-brand-500/10 text-brand-400 w-fit mb-4">專業報告</div>
+        <div class="flex items-end gap-1 mb-1">
+          <span class="text-4xl font-black text-white">$49</span>
+          <span class="text-slate-400 text-sm mb-1.5">/ 份</span>
+        </div>
+        <div class="text-slate-500 text-xs mb-6 line-through">原價 $79</div>
+        <ul class="space-y-3 text-sm text-slate-300 mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>深度 30 頁報告</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>10 個競品分析</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>TAM/SAM/SOM + 趨勢圖表</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>定價策略建議</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>PDF 永久保存</li>
+          <li class="flex items-start gap-2 opacity-40"><svg class="w-4 h-4 text-slate-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>電話諮詢</li>
+        </ul>
+        <button onclick="scrollToDemo('pro')" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold py-2.5 rounded-xl transition-all text-sm">
+          選擇專業方案
+        </button>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col">
+        <div class="tag bg-purple-500/10 text-purple-400 w-fit mb-4">企業報告</div>
+        <div class="flex items-end gap-1 mb-1">
+          <span class="text-4xl font-black text-white">$149</span>
+          <span class="text-slate-400 text-sm mb-1.5">/ 份</span>
+        </div>
+        <div class="text-slate-500 text-xs mb-6">&nbsp;</div>
+        <ul class="space-y-3 text-sm text-slate-400 mb-8 flex-1">
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>客製化 50+ 頁報告</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>無限競品數量</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>所有專業方案內容</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>電話諮詢 30 分鐘</li>
+          <li class="flex items-start gap-2"><svg class="w-4 h-4 text-green-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>優先處理隊列</li>
+        </ul>
+        <button onclick="scrollToDemo('enterprise')" class="w-full border border-slate-700 hover:border-purple-500 text-slate-300 hover:text-purple-400 font-medium py-2.5 rounded-xl transition-all text-sm">
+          選擇企業方案
+        </button>
+      </div>
+    </div>
+
+    <!-- Unit economics callout -->
+    <div class="mt-10 bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div>
+          <div class="text-2xl font-black text-white mb-1">94.6%</div>
+          <div class="text-slate-400 text-sm">專業報告毛利率</div>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-white mb-1">$46.38</div>
+          <div class="text-slate-400 text-sm">每份專業報告淨利</div>
+        </div>
+        <div>
+          <div class="text-2xl font-black text-white mb-1">1 份</div>
+          <div class="text-slate-400 text-sm">每月損益平衡點</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEMO / FORM ===== -->
+<section id="demo" class="py-24 px-4 bg-slate-950">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <div class="tag bg-brand-500/10 text-brand-400 mb-3">立即試用</div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">生成你的市場報告</h2>
+      <p class="text-slate-400">免費體驗 Demo 報告，感受 AI 分析能力（Day 1 驗證版）</p>
+    </div>
+
+    <!-- Form card -->
+    <div id="form-card" class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <!-- Plan selector -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-slate-300 mb-3">選擇報告方案</label>
+          <div class="grid grid-cols-3 gap-3" id="plan-selector">
+            <button onclick="selectPlan('basic')" id="plan-basic" class="plan-btn border border-slate-700 rounded-xl p-3 text-center transition-all hover:border-brand-500/50 active">
+              <div class="text-xs text-slate-400 mb-1">基礎</div>
+              <div class="font-bold text-white">$19</div>
+            </button>
+            <button onclick="selectPlan('pro')" id="plan-pro" class="plan-btn border-2 border-brand-500 bg-brand-500/10 rounded-xl p-3 text-center transition-all">
+              <div class="text-xs text-brand-400 mb-1">專業 ★</div>
+              <div class="font-bold text-white">$49</div>
+            </button>
+            <button onclick="selectPlan('enterprise')" id="plan-enterprise" class="plan-btn border border-slate-700 rounded-xl p-3 text-center transition-all hover:border-brand-500/50">
+              <div class="text-xs text-slate-400 mb-1">企業</div>
+              <div class="font-bold text-white">$149</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Keyword input -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-slate-300 mb-2">
+            產品方向 / 市場關鍵字
+            <span class="text-slate-500 font-normal ml-2 text-xs">輸入你想分析的市場</span>
+          </label>
+          <input
+            id="keyword-input"
+            type="text"
+            placeholder="例如：健身 App 市場、線上教育平台、寵物用品電商..."
+            class="w-full bg-slate-800 border border-slate-700 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm transition-all"
+          />
+          <!-- Quick picks -->
+          <div class="mt-2 flex flex-wrap gap-2">
+            <span class="text-xs text-slate-500">快速選擇：</span>
+            <button onclick="setKeyword('健身 App 市場')" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">健身 App</button>
+            <button onclick="setKeyword('線上教育平台')" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">線上教育</button>
+            <button onclick="setKeyword('寵物用品電商')" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">寵物電商</button>
+            <button onclick="setKeyword('AI 寫作工具')" class="text-xs text-brand-400 hover:text-brand-300 transition-colors">AI 寫作工具</button>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-300 mb-2">目標市場</label>
+            <select id="market-select" class="w-full bg-slate-800 border border-slate-700 focus:border-brand-500 focus:outline-none rounded-xl px-4 py-2.5 text-white text-sm">
+              <option value="tw">台灣市場</option>
+              <option value="sea">東南亞華語市場</option>
+              <option value="global">全球市場</option>
+              <option value="us">北美市場</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-300 mb-2">分析語言</label>
+            <select id="lang-select" class="w-full bg-slate-800 border border-slate-700 focus:border-brand-500 focus:outline-none rounded-xl px-4 py-2.5 text-white text-sm">
+              <option value="zh">繁體中文</option>
+              <option value="en">English</option>
+              <option value="both">雙語版</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-8">
+          <label class="block text-sm font-medium text-slate-300 mb-2">Email <span class="text-slate-500 font-normal text-xs">（報告完成後寄送下載連結）</span></label>
+          <input
+            id="email-input"
+            type="email"
+            placeholder="your@email.com"
+            class="w-full bg-slate-800 border border-slate-700 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500/30 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm transition-all"
+          />
+        </div>
+
+        <button id="generate-btn" onclick="startGeneration()" class="w-full bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white font-semibold py-3.5 rounded-xl transition-all text-base flex items-center justify-center gap-2">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          立即生成市場報告（免費 Demo）
+        </button>
+
+        <p class="text-center text-xs text-slate-500 mt-3">Day 1 驗證版 — 免費體驗，無需信用卡</p>
+      </div>
+    </div>
+
+    <!-- Progress card (hidden initially) -->
+    <div id="progress-card" class="hidden bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-500/10 border border-brand-500/20 mb-4">
+            <svg id="progress-icon" width="32" height="32" fill="none" stroke="#6382ff" stroke-width="2" viewBox="0 0 24 24" class="animate-spin"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3 id="progress-title" class="text-xl font-bold text-white mb-2">正在分析市場...</h3>
+          <p id="progress-subtitle" class="text-slate-400 text-sm">AI 正在爬取資料並分析，請稍候</p>
+        </div>
+
+        <!-- Progress steps -->
+        <div class="space-y-4 mb-8">
+          <div class="progress-step" id="step-crawl">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2">
+                <div class="step-status-icon w-5 h-5 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center">
+                  <div class="w-2 h-2 rounded-full bg-brand-400 pulse-dot"></div>
+                </div>
+                <span class="text-sm text-slate-300 step-label">資料爬取中（Google + Reddit）</span>
+              </div>
+              <span class="step-pct text-xs text-slate-500">0%</span>
+            </div>
+            <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="step-bar h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <div class="progress-step opacity-40" id="step-analyze">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2">
+                <div class="step-status-icon w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                  <div class="w-2 h-2 rounded-full bg-slate-500"></div>
+                </div>
+                <span class="text-sm text-slate-400 step-label">Claude AI 深度分析</span>
+              </div>
+              <span class="step-pct text-xs text-slate-500">0%</span>
+            </div>
+            <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="step-bar h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <div class="progress-step opacity-40" id="step-pdf">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center gap-2">
+                <div class="step-status-icon w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                  <div class="w-2 h-2 rounded-full bg-slate-500"></div>
+                </div>
+                <span class="text-sm text-slate-400 step-label">PDF 報告生成</span>
+              </div>
+              <span class="step-pct text-xs text-slate-500">0%</span>
+            </div>
+            <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="step-bar h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="progress-facts" class="text-center text-xs text-slate-500 italic">
+          正在蒐集最新市場資料...
+        </div>
+      </div>
+    </div>
+
+    <!-- Report card (hidden initially) -->
+    <div id="report-card" class="hidden">
+      <!-- Report header -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden mb-4">
+        <div class="bg-gradient-to-r from-brand-900/60 to-purple-900/30 px-6 py-5 border-b border-slate-800">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <span id="report-badge" class="tag bg-green-500/20 text-green-400">報告完成</span>
+                <span id="report-type-badge" class="tag bg-brand-500/20 text-brand-400">專業版</span>
+              </div>
+              <h3 id="report-title" class="text-xl font-bold text-white mb-1">健身 App 市場分析報告</h3>
+              <p class="text-slate-400 text-sm">生成時間：<span id="report-time"></span> | 台灣市場 | 繁體中文</p>
+            </div>
+            <button onclick="downloadReport()" class="flex items-center gap-1.5 bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              下載 PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Report tabs -->
+        <div class="flex border-b border-slate-800 overflow-x-auto">
+          <button onclick="showReportTab('summary')" id="tab-summary" class="tab-btn tab-active px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors flex-shrink-0">摘要</button>
+          <button onclick="showReportTab('market')" id="tab-market" class="tab-btn px-4 py-3 text-sm font-medium text-slate-400 whitespace-nowrap transition-colors flex-shrink-0 hover:text-white">市場規模</button>
+          <button onclick="showReportTab('competitors')" id="tab-competitors" class="tab-btn px-4 py-3 text-sm font-medium text-slate-400 whitespace-nowrap transition-colors flex-shrink-0 hover:text-white">競品分析</button>
+          <button onclick="showReportTab('users')" id="tab-users" class="tab-btn px-4 py-3 text-sm font-medium text-slate-400 whitespace-nowrap transition-colors flex-shrink-0 hover:text-white">用戶痛點</button>
+          <button onclick="showReportTab('strategy')" id="tab-strategy" class="tab-btn px-4 py-3 text-sm font-medium text-slate-400 whitespace-nowrap transition-colors flex-shrink-0 hover:text-white">進入策略</button>
+        </div>
+
+        <!-- Report content area -->
+        <div id="report-content" class="p-6 sm:p-8">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Generate another / CTA -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
+        <p class="text-slate-300 font-medium mb-4">這份 Demo 報告有幫助嗎？</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button onclick="resetDemo()" class="border border-slate-700 hover:border-brand-500 text-slate-300 hover:text-brand-400 font-medium px-6 py-2.5 rounded-xl transition-all text-sm">
+            再分析一個市場
+          </button>
+          <button onclick="openSurvey()" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all text-sm">
+            我要付費購買完整版 →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALIDATION SURVEY MODAL ===== -->
+<div id="survey-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4" style="background:rgba(0,0,0,0.7);backdrop-filter:blur(4px)">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full fade-in-up relative">
+    <button onclick="closeSurvey()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-300 transition-colors">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="survey-step-1">
+      <div class="text-center mb-6">
+        <div class="text-3xl mb-3">🎯</div>
+        <h3 class="text-xl font-bold text-white mb-2">Day 1 用戶驗證</h3>
+        <p class="text-slate-400 text-sm">你認為這份 AI 市場報告值多少錢？</p>
+      </div>
+      <div class="space-y-3 mb-6">
+        <button onclick="surveyAnswer('under10')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          少於 $10 — 感覺沒那麼有價值
+        </button>
+        <button onclick="surveyAnswer('10to29')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          $10～$29 — 可以接受，基本夠用
+        </button>
+        <button onclick="surveyAnswer('29to49')" class="w-full border border-slate-700 hover:border-brand-500 bg-brand-500/5 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          $29～$49 — 合理，我會考慮買
+          <span class="tag bg-brand-500/20 text-brand-400 ml-2">目前定價</span>
+        </button>
+        <button onclick="surveyAnswer('over49')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          超過 $49 — 這個很值，甚至便宜了
+        </button>
+      </div>
+    </div>
+
+    <div id="survey-step-2" class="hidden">
+      <div class="text-center mb-6">
+        <div class="text-3xl mb-3">💬</div>
+        <h3 class="text-xl font-bold text-white mb-2">你最可能在什麼情況下使用？</h3>
+      </div>
+      <div class="space-y-3 mb-6">
+        <button onclick="surveyAnswer2('startup')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          早期創業者，需要向投資人證明市場
+        </button>
+        <button onclick="surveyAnswer2('business')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          中小企業主，評估新產品線可行性
+        </button>
+        <button onclick="surveyAnswer2('pm')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          企業 PM / 行銷，準備提案背景資料
+        </button>
+        <button onclick="surveyAnswer2('student')" class="w-full border border-slate-700 hover:border-brand-500 text-left px-4 py-3 rounded-xl text-sm text-slate-300 hover:text-white transition-all">
+          學生 / 自由顧問，商業計畫或報告
+        </button>
+      </div>
+    </div>
+
+    <div id="survey-step-3" class="hidden">
+      <div class="text-center mb-6">
+        <div class="text-4xl mb-3">🙏</div>
+        <h3 class="text-xl font-bold text-white mb-2">謝謝你的回饋！</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          你的意見對我們非常重要。正式上線時，我們會優先通知你並提供 <strong class="text-brand-400">Early Bird 50% 折扣</strong>。
+        </p>
+      </div>
+      <div class="mb-4">
+        <input id="notify-email" type="email" placeholder="留下 Email 接收上線通知" class="w-full bg-slate-800 border border-slate-700 focus:border-brand-500 focus:outline-none rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm mb-3" />
+        <button onclick="submitNotify()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 rounded-xl transition-all text-sm">
+          我要搶先體驗
+        </button>
+      </div>
+      <p class="text-center text-xs text-slate-500">不會發垃圾郵件，只通知上線資訊</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ARCHITECTURE (DAY 1 TECH REVIEW) ===== -->
+<section id="architecture" class="py-24 px-4 bg-slate-900">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <div class="tag bg-slate-700 text-slate-300 mb-3">技術架構</div>
+      <h2 class="text-3xl font-bold text-white mb-4">7 天上線技術路線圖</h2>
+      <p class="text-slate-400 max-w-xl mx-auto">Day 1 確認技術架構，所有模組透過 Claude Code 一人完成</p>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 mb-10 font-mono text-sm overflow-x-auto">
+      <div class="min-w-max space-y-2 text-slate-400">
+        <div class="text-slate-300">用戶輸入關鍵字</div>
+        <div class="pl-4 text-slate-600">↓</div>
+        <div class="pl-4"><span class="text-brand-400">[前端]</span> Next.js 表單介面（靜態部署 / Vercel）</div>
+        <div class="pl-8 text-slate-600">↓</div>
+        <div class="pl-8"><span class="text-purple-400">[後端]</span> Python FastAPI（Railway $5/月）</div>
+        <div class="pl-12 text-slate-600">↓</div>
+        <div class="pl-12 flex gap-6">
+          <div>
+            <div class="text-slate-300">┌─────────────────┐</div>
+            <div class="text-slate-300">│ 資料蒐集層       │</div>
+            <div>│ <span class="text-green-400">SerpAPI</span>         │ ← Google 搜尋</div>
+            <div>│ <span class="text-orange-400">Reddit API</span>      │ ← 用戶痛點</div>
+            <div>│ <span class="text-blue-400">Crunchbase API</span>  │ ← 競品融資</div>
+            <div class="text-slate-300">└─────────────────┘</div>
+          </div>
+        </div>
+        <div class="pl-12 text-slate-600">↓</div>
+        <div class="pl-12"><span class="text-brand-400">[分析層]</span> Claude API <span class="text-slate-500">(claude-opus-4)</span></div>
+        <div class="pl-16 text-slate-600">↓</div>
+        <div class="pl-16"><span class="text-green-400">[輸出層]</span> PDF 生成 (WeasyPrint) + Email (Resend)</div>
+        <div class="pl-20 text-slate-600">↓</div>
+        <div class="pl-20 text-slate-300">用戶下載 / Email 接收</div>
+      </div>
+    </div>
+
+    <!-- 7 day timeline -->
+    <div class="space-y-3">
+      <h3 class="text-lg font-semibold text-white mb-4">7 天上線進度</h3>
+      <div id="timeline" class="space-y-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-slate-950 border-t border-slate-800 py-12 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 12 L5 7 L8 9 L11 4 L14 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="4" r="1.5" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="font-bold text-white text-sm">MarketPulse AI</div>
+          <div class="text-slate-500 text-xs">10 分鐘專業市場調查報告</div>
+        </div>
+      </div>
+      <div class="text-center">
+        <div class="text-slate-400 text-sm mb-1">Day 1 MVP — 2026-05-02</div>
+        <div class="text-slate-600 text-xs">驗證標準：5 人中至少 3 人說「值 $20 以上我會買」</div>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-slate-400">
+        <a href="#how-it-works" class="hover:text-white transition-colors">如何運作</a>
+        <a href="#pricing" class="hover:text-white transition-colors">定價</a>
+        <button onclick="openSurvey()" class="hover:text-white transition-colors">反饋調查</button>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 mt-8 pt-6 text-center text-xs text-slate-600">
+      © 2026 MarketPulse AI. 以 Claude Code 一人開發。毛利率 94.6%，損益平衡 1 份 / 月。
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== STATE =====
+let selectedPlan = 'pro';
+let generatedKeyword = '';
+
+// ===== REPORT DATA =====
+const REPORT_DATA = {
+  '健身 App 市場': {
+    title: '健身 App 市場分析報告',
+    tam: '$96.7B',
+    sam: '$8.2B',
+    som: '$120M',
+    growth: '14.3%',
+    competitors: [
+      { name: 'Nike Training Club', mau: '3,000萬', price: '免費/Premium $14.99', strength: '品牌力強、訓練計畫完整', weakness: '社群功能弱', rating: 4.2 },
+      { name: 'MyFitnessPal', mau: '2億', price: '免費/$19.99/月', strength: '飲食紀錄最完整', weakness: 'UI 老舊、廣告過多', rating: 4.0 },
+      { name: 'Peloton App', mau: '300萬', price: '$12.99/月', strength: '直播課程體驗佳', weakness: '需綁定硬體設備', rating: 4.3 },
+      { name: 'Fitbod', mau: '100萬', price: '$79.99/年', strength: 'AI 訓練個人化', weakness: '無飲食追蹤', rating: 4.5 },
+      { name: '台灣本土健身 App', mau: '5萬', price: '免費', strength: '中文介面友善', weakness: '功能陽春、更新慢', rating: 3.2 },
+    ],
+    pains: [
+      { rank: 1, pain: '訓練計畫不夠個人化', freq: '高', source: 'Reddit r/fitness' },
+      { rank: 2, pain: '無法追蹤進步與成效', freq: '高', source: 'App Store 評論' },
+      { rank: 3, pain: '課程語言全是英文', freq: '中', source: 'PTT 健身版' },
+      { rank: 4, pain: '訂閱費用太貴', freq: '中', source: 'Dcard' },
+      { rank: 5, pain: '社群功能不活躍', freq: '低', source: 'Reddit r/taiwan' },
+    ],
+    trends: ['穿戴式裝置整合需求增加 68%', '居家健身後疫情持續成長', 'AI 個人教練功能成為差異化關鍵', '台灣健身人口年增 12%，健身房密度全球前五'],
+    recommendation: '建議切入「台灣本地化 AI 健身教練」定位，主打中文化訓練計畫與在地健身文化（搏擊技擊、墊上動作）。定價建議 NT$199/月，低於國際競品但高於免費 App，配合 7 天免費試用。',
+    opportunity: '市場空缺在「中文語境 × AI 個人化 × 社群打卡」三者結合。現有競品沒有一個同時做好這三點。',
+  },
+  '線上教育平台': {
+    title: '線上教育平台市場分析報告',
+    tam: '$350B',
+    sam: '$25B',
+    som: '$80M',
+    growth: '19.8%',
+    competitors: [
+      { name: 'Coursera', mau: '1億', price: '免費/認證 $49+', strength: '大學合作、認證公信力', weakness: '課程互動性差', rating: 4.1 },
+      { name: 'Udemy', mau: '5,700萬', price: '$9.99～$199.99/課', strength: '課程多樣化', weakness: '品質參差不齊', rating: 4.2 },
+      { name: 'Hahow', mau: '60萬', price: '$500～$3,000/課', strength: '台灣本地化', weakness: '技術課程不足', rating: 4.3 },
+      { name: 'DaVinci 達文西', mau: '10萬', price: '$1,500/課', strength: '設計類課程優質', weakness: '品類太窄', rating: 4.0 },
+    ],
+    pains: [
+      { rank: 1, pain: '學完沒有完課動力', freq: '高', source: 'Reddit r/learnprogramming' },
+      { rank: 2, pain: '課程與實際工作脫節', freq: '高', source: 'PTT Soft_Job' },
+      { rank: 3, pain: '找不到合適的中文技術課', freq: '中', source: 'Dcard' },
+      { rank: 4, pain: '無法與同學互動討論', freq: '中', source: 'App Store' },
+    ],
+    trends: ['AI 輔助學習工具需求爆炸性成長', '短影音學習格式興起', '企業教育培訓採購增加', 'Micro-credential 趨勢'],
+    recommendation: '建議鎖定「職場技能升級」的 25-40 歲上班族，提供 2-4 週的短期實戰課程，配合 AI 作業批改。定價 NT$2,999/課，月訂閱 NT$699。',
+    opportunity: '台灣市場缺少「AI 技能 × 中文 × 實戰專案」三合一的優質課程。',
+  },
+  '寵物用品電商': {
+    title: '寵物用品電商市場分析報告',
+    tam: '$246B',
+    sam: '$12B',
+    som: '$45M',
+    growth: '9.4%',
+    competitors: [
+      { name: 'Chewy (美)', mau: '2,000萬', price: '一般電商定價', strength: '選品最齊全、訂閱制', weakness: '不支援台灣', rating: 4.6 },
+      { name: 'PChome 寵物', mau: '30萬', price: '一般定價', strength: '快速到貨', weakness: '選品少、無品牌感', rating: 3.5 },
+      { name: '毛起來', mau: '8萬', price: '中高端定價', strength: '台灣本地品牌', weakness: 'SKU 有限', rating: 4.1 },
+    ],
+    pains: [
+      { rank: 1, pain: '貓狗食品成分難辨識', freq: '高', source: 'PTT 貓板' },
+      { rank: 2, pain: '寵物用品選太多不知如何選', freq: '高', source: 'Dcard 寵物' },
+      { rank: 3, pain: '訂閱制不夠彈性', freq: '中', source: 'Reddit r/dogs' },
+    ],
+    trends: ['台灣養寵人口突破 280 萬，年增 8%', '貓咪用品成長優於狗用品', '天然有機食品需求激增', '寵物保險滲透率上升'],
+    recommendation: '建議主打「成分透明 × 訂閱制 × 營養師推薦」定位，初期聚焦貓糧訂閱市場，月訂閱 NT$799 起。',
+    opportunity: '消費者對寵物食品成分越來越重視，市場缺少「可信任的成分透明平台」。',
+  },
+  'AI 寫作工具': {
+    title: 'AI 寫作工具市場分析報告',
+    tam: '$4.8B',
+    sam: '$380M',
+    som: '$12M',
+    growth: '26.3%',
+    competitors: [
+      { name: 'Jasper AI', mau: '100萬', price: '$49/月起', strength: '行銷文案最強', weakness: '中文支援差', rating: 4.0 },
+      { name: 'Copy.ai', mau: '80萬', price: '免費/$49/月', strength: '模板豐富', weakness: '輸出品質不穩定', rating: 3.8 },
+      { name: 'Notion AI', mau: '1,000萬', price: '$10/月附加', strength: '整合工作流程', weakness: 'AI 功能較基礎', rating: 4.2 },
+      { name: '秘塔 AI（中文）', mau: '20萬', price: '免費/訂閱制', strength: '中文品質佳', weakness: '台灣知名度低', rating: 4.1 },
+    ],
+    pains: [
+      { rank: 1, pain: '英文工具無法生成好的繁體中文', freq: '高', source: 'PTT' },
+      { rank: 2, pain: '輸出內容太制式缺乏個人風格', freq: '高', source: 'Dcard' },
+      { rank: 3, pain: '訂閱費用高但用量有限', freq: '中', source: 'Reddit' },
+    ],
+    trends: ['ChatGPT 帶動 AI 寫作意識普及', '繁體中文 AI 工具需求大於供給', '企業採購 AI 寫作工具預算增加', 'SEO 內容需求持續成長'],
+    recommendation: '建議針對「繁體中文 × 品牌語調一致性 × 在地 SEO 優化」定位，主攻台灣中小企業內容行銷需求，月費 NT$699。',
+    opportunity: '現有英文工具的中文化不夠深入，而中文工具缺乏台灣用語和在地 SEO 知識。',
+  },
+};
+
+const DEFAULT_REPORT = REPORT_DATA['健身 App 市場'];
+
+// ===== TIMELINE DATA =====
+const TIMELINE = [
+  { day: 'Day 1', date: '5/2', title: '驗證與架構', status: 'today', tasks: ['手動生成樣本報告', '發給 5 位朋友驗證', '確認技術架構', '搭建 FastAPI 骨架'] },
+  { day: 'Day 2', date: '5/3', title: '核心引擎開發', status: 'upcoming', tasks: ['完成資料爬取模組', '完成 AI 分析 Prompt', '建立報告 Markdown 模板'] },
+  { day: 'Day 3', date: '5/4', title: 'PDF + 前端', status: 'upcoming', tasks: ['PDF 生成器', 'Next.js Landing Page', '部署到 Vercel'] },
+  { day: 'Day 4', date: '5/5', title: '支付整合', status: 'upcoming', tasks: ['Stripe Checkout', 'Webhook 觸發', 'Email 寄送 (Resend)'] },
+  { day: 'Day 5', date: '5/6', title: '優化測試', status: 'upcoming', tasks: ['錯誤處理', 'Prompt 優化（10 案例）', 'Sentry 監控'] },
+  { day: 'Day 6', date: '5/7', title: '軟上線', status: 'upcoming', tasks: ['10 位真實用戶試用', '快速修正問題', 'Google Analytics'] },
+  { day: 'Day 7', date: '5/8', title: '正式上線', status: 'upcoming', tasks: ['切換正式 Stripe', 'LinkedIn / 社群發文', '冷啟動 3 社群'] },
+];
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  renderTimeline();
+  document.getElementById('report-time').textContent = new Date().toLocaleString('zh-TW');
+});
+
+function renderTimeline() {
+  const container = document.getElementById('timeline');
+  TIMELINE.forEach(item => {
+    const isToday = item.status === 'today';
+    const el = document.createElement('div');
+    el.className = `border rounded-xl p-4 transition-all ${isToday ? 'border-brand-500/40 bg-brand-500/5' : 'border-slate-800 bg-slate-950/50'}`;
+    el.innerHTML = `
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-3">
+          <span class="tag ${isToday ? 'bg-brand-500 text-white' : 'bg-slate-800 text-slate-400'}">${item.day}</span>
+          <span class="text-xs text-slate-500">${item.date}</span>
+          <span class="${isToday ? 'text-white font-semibold' : 'text-slate-300'} text-sm">${item.title}</span>
+        </div>
+        ${isToday ? '<span class="tag bg-green-500/20 text-green-400">進行中</span>' : ''}
+      </div>
+      <div class="flex flex-wrap gap-x-4 gap-y-1">
+        ${item.tasks.map(t => `<span class="text-xs text-slate-500 flex items-center gap-1"><span class="${isToday ? 'text-brand-400' : 'text-slate-600'}">·</span>${t}</span>`).join('')}
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+// ===== INTERACTIONS =====
+function scrollToDemo(plan) {
+  if (plan) selectPlan(plan);
+  document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectPlan(plan) {
+  selectedPlan = plan;
+  ['basic','pro','enterprise'].forEach(p => {
+    const btn = document.getElementById(`plan-${p}`);
+    if (p === plan) {
+      btn.className = 'plan-btn border-2 border-brand-500 bg-brand-500/10 rounded-xl p-3 text-center transition-all';
+      btn.querySelector('.text-xs').className = `text-xs text-brand-400 mb-1`;
+    } else {
+      btn.className = 'plan-btn border border-slate-700 rounded-xl p-3 text-center transition-all hover:border-brand-500/50';
+      btn.querySelector('.text-xs').className = 'text-xs text-slate-400 mb-1';
+    }
+  });
+}
+
+function setKeyword(kw) {
+  document.getElementById('keyword-input').value = kw;
+  document.getElementById('keyword-input').focus();
+}
+
+// ===== GENERATION FLOW =====
+const PROGRESS_FACTS = [
+  '正在分析 Google 前 20 筆搜尋結果...',
+  '正在爬取 Reddit 相關討論串...',
+  '識別競品名稱與官方網站...',
+  'Claude AI 正在分析市場規模...',
+  '計算 TAM / SAM / SOM...',
+  '歸納用戶痛點與需求...',
+  '比較競品功能與定價...',
+  '撰寫差異化建議...',
+  '生成 Executive Summary...',
+  '排版 PDF 報告中...',
+];
+
+function startGeneration() {
+  const keyword = document.getElementById('keyword-input').value.trim() || '健身 App 市場';
+  generatedKeyword = keyword;
+
+  document.getElementById('form-card').classList.add('hidden');
+  document.getElementById('progress-card').classList.remove('hidden');
+  document.getElementById('progress-card').classList.add('fade-in-up');
+
+  simulateProgress(keyword);
+}
+
+function simulateProgress(keyword) {
+  const steps = [
+    { id: 'step-crawl', label: '資料爬取完成', color: 'from-brand-500 to-brand-400', duration: 2200 },
+    { id: 'step-analyze', label: 'AI 分析完成', color: 'from-purple-500 to-purple-400', duration: 3500 },
+    { id: 'step-pdf', label: 'PDF 生成完成', color: 'from-green-500 to-green-400', duration: 1800 },
+  ];
+
+  let factIdx = 0;
+  const factInterval = setInterval(() => {
+    document.getElementById('progress-facts').textContent = PROGRESS_FACTS[factIdx % PROGRESS_FACTS.length];
+    factIdx++;
+  }, 800);
+
+  let stepIdx = 0;
+
+  function runStep() {
+    if (stepIdx >= steps.length) {
+      clearInterval(factInterval);
+      showReport(keyword);
+      return;
+    }
+    const step = steps[stepIdx];
+    const el = document.getElementById(step.id);
+    el.classList.remove('opacity-40');
+    // Activate icon
+    const icon = el.querySelector('.step-status-icon');
+    icon.className = 'step-status-icon w-5 h-5 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center';
+    icon.innerHTML = '<div class="w-2 h-2 rounded-full bg-brand-400 pulse-dot"></div>';
+
+    const bar = el.querySelector('.step-bar');
+    bar.className = `step-bar h-full bg-gradient-to-r ${step.color} rounded-full progress-bar`;
+    const pct = el.querySelector('.step-pct');
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress = Math.min(100, progress + Math.random() * 8 + 3);
+      bar.style.width = `${progress}%`;
+      pct.textContent = `${Math.round(progress)}%`;
+      if (progress >= 100) {
+        clearInterval(interval);
+        // Mark done
+        icon.className = 'step-status-icon w-5 h-5 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center';
+        icon.innerHTML = '<svg width="10" height="10" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+        stepIdx++;
+        setTimeout(runStep, 300);
+      }
+    }, step.duration / 20);
+  }
+
+  runStep();
+}
+
+function showReport(keyword) {
+  document.getElementById('progress-card').classList.add('hidden');
+  document.getElementById('report-card').classList.remove('hidden');
+  document.getElementById('report-card').classList.add('fade-in-up');
+
+  const data = REPORT_DATA[keyword] || DEFAULT_REPORT;
+  document.getElementById('report-title').textContent = data.title;
+  document.getElementById('report-time').textContent = new Date().toLocaleString('zh-TW');
+  showReportTab('summary');
+}
+
+// ===== REPORT TABS =====
+function showReportTab(tab) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('tab-active');
+    btn.classList.add('text-slate-400');
+    btn.classList.remove('text-white');
+  });
+  const activeBtn = document.getElementById(`tab-${tab}`);
+  activeBtn.classList.add('tab-active');
+  activeBtn.classList.remove('text-slate-400');
+
+  const data = REPORT_DATA[generatedKeyword] || DEFAULT_REPORT;
+  const content = document.getElementById('report-content');
+
+  if (tab === 'summary') {
+    content.innerHTML = renderSummary(data);
+  } else if (tab === 'market') {
+    content.innerHTML = renderMarket(data);
+  } else if (tab === 'competitors') {
+    content.innerHTML = renderCompetitors(data);
+  } else if (tab === 'users') {
+    content.innerHTML = renderUsers(data);
+  } else if (tab === 'strategy') {
+    content.innerHTML = renderStrategy(data);
+  }
+}
+
+function renderSummary(data) {
+  return `
+    <div class="report-section space-y-6">
+      <div class="bg-brand-500/5 border border-brand-500/20 rounded-xl p-5">
+        <h4 class="text-brand-400 font-semibold text-sm mb-3">Executive Summary</h4>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          ${data.title.replace('市場分析報告','')}是一個年複合成長率 <strong class="text-white">${data.growth}</strong> 的高速成長市場，
+          全球 TAM 達 <strong class="text-white">${data.tam}</strong>，台灣可服務市場（SAM）約 <strong class="text-white">${data.sam}</strong>。
+          市場目前存在明顯的空缺：${data.opportunity}
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-slate-800 rounded-xl p-4 text-center">
+          <div class="text-xs text-slate-400 mb-1">TAM 全球市場</div>
+          <div class="text-xl font-black text-white">${data.tam}</div>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-4 text-center">
+          <div class="text-xs text-slate-400 mb-1">SAM 可服務市場</div>
+          <div class="text-xl font-black text-brand-400">${data.sam}</div>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-4 text-center">
+          <div class="text-xs text-slate-400 mb-1">SOM 可獲取市場</div>
+          <div class="text-xl font-black text-green-400">${data.som}</div>
+        </div>
+        <div class="bg-slate-800 rounded-xl p-4 text-center">
+          <div class="text-xs text-slate-400 mb-1">年成長率 CAGR</div>
+          <div class="text-xl font-black text-purple-400">${data.growth}</div>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3 text-sm">市場趨勢（來自 Google Trends + Reddit 分析）</h4>
+        <ul class="space-y-2">
+          ${data.trends.map(t => `
+            <li class="flex items-start gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-brand-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              ${t}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+function renderMarket(data) {
+  return `
+    <div class="report-section space-y-6">
+      <h4 class="font-semibold text-white text-sm">市場規模三層分析</h4>
+      <div class="space-y-4">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="font-semibold text-white">TAM</span>
+              <span class="text-slate-400 text-sm ml-2">Total Addressable Market（全球總市場）</span>
+            </div>
+            <span class="text-xl font-bold text-white">${data.tam}</span>
+          </div>
+          <div class="h-3 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-brand-600 to-brand-400 rounded-full" style="width:100%"></div>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">包含全球所有潛在用戶市場規模估算</p>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="font-semibold text-white">SAM</span>
+              <span class="text-slate-400 text-sm ml-2">Serviceable Addressable Market（可服務市場）</span>
+            </div>
+            <span class="text-xl font-bold text-brand-400">${data.sam}</span>
+          </div>
+          <div class="h-3 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-brand-500 to-purple-400 rounded-full" style="width:65%"></div>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">台灣 + 東南亞華語市場，符合產品語言與文化的潛在用戶</p>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <span class="font-semibold text-white">SOM</span>
+              <span class="text-slate-400 text-sm ml-2">Serviceable Obtainable Market（可獲取市場）</span>
+            </div>
+            <span class="text-xl font-bold text-green-400">${data.som}</span>
+          </div>
+          <div class="h-3 bg-slate-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full" style="width:30%"></div>
+          </div>
+          <p class="text-xs text-slate-500 mt-1">未來 3 年可實際爭取的市佔目標（1～3% of SAM）</p>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 rounded-xl p-4 text-sm text-slate-400 leading-relaxed">
+        <strong class="text-slate-300">資料來源：</strong>Statista、Grand View Research、台灣數位內容產業協會、Google Trends 關鍵字量分析（月均搜尋量 × 轉換率估算）
+      </div>
+    </div>
+  `;
+}
+
+function renderCompetitors(data) {
+  return `
+    <div class="report-section space-y-4">
+      <h4 class="font-semibold text-white text-sm">競品比較分析（${data.competitors.length} 個主要競品）</h4>
+      <div class="overflow-x-auto -mx-2">
+        <table class="w-full text-sm min-w-max">
+          <thead>
+            <tr class="border-b border-slate-700">
+              <th class="text-left px-3 py-2 text-slate-400 font-medium">競品名稱</th>
+              <th class="text-left px-3 py-2 text-slate-400 font-medium">月活用戶</th>
+              <th class="text-left px-3 py-2 text-slate-400 font-medium">定價</th>
+              <th class="text-left px-3 py-2 text-slate-400 font-medium hidden sm:table-cell">優勢</th>
+              <th class="text-left px-3 py-2 text-slate-400 font-medium hidden sm:table-cell">弱點</th>
+              <th class="text-right px-3 py-2 text-slate-400 font-medium">評分</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.competitors.map((c, i) => `
+              <tr class="border-b border-slate-800 hover:bg-slate-800/30 transition-colors">
+                <td class="px-3 py-3 text-white font-medium">${c.name}</td>
+                <td class="px-3 py-3 text-slate-300">${c.mau}</td>
+                <td class="px-3 py-3 text-slate-300 text-xs">${c.price}</td>
+                <td class="px-3 py-3 text-green-400 text-xs hidden sm:table-cell">${c.strength}</td>
+                <td class="px-3 py-3 text-red-400 text-xs hidden sm:table-cell">${c.weakness}</td>
+                <td class="px-3 py-3 text-right">
+                  <span class="tag ${c.rating >= 4.3 ? 'bg-green-500/20 text-green-400' : c.rating >= 4.0 ? 'bg-brand-500/20 text-brand-400' : 'bg-slate-700 text-slate-400'}">${c.rating}</span>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-4 text-sm text-yellow-300">
+        <strong>競品空缺洞察：</strong>${data.opportunity}
+      </div>
+    </div>
+  `;
+}
+
+function renderUsers(data) {
+  return `
+    <div class="report-section space-y-4">
+      <h4 class="font-semibold text-white text-sm">用戶核心痛點（來自 Reddit / PTT / Dcard 真實討論）</h4>
+      <div class="space-y-3">
+        ${data.pains.map(p => `
+          <div class="flex items-start gap-3 bg-slate-800/50 rounded-xl p-4">
+            <div class="w-6 h-6 rounded-full ${p.rank <= 2 ? 'bg-red-500/20 border border-red-500/30' : p.rank === 3 ? 'bg-orange-500/20 border border-orange-500/30' : 'bg-slate-700 border border-slate-600'} flex items-center justify-center text-xs font-bold ${p.rank <= 2 ? 'text-red-400' : p.rank === 3 ? 'text-orange-400' : 'text-slate-400'} shrink-0 mt-0.5">
+              ${p.rank}
+            </div>
+            <div class="flex-1">
+              <div class="text-white text-sm font-medium mb-1">${p.pain}</div>
+              <div class="flex items-center gap-3">
+                <span class="tag ${p.freq === '高' ? 'bg-red-500/10 text-red-400' : p.freq === '中' ? 'bg-orange-500/10 text-orange-400' : 'bg-slate-700 text-slate-400'}">提及頻率 ${p.freq}</span>
+                <span class="text-xs text-slate-500">來源：${p.source}</span>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="text-xs text-slate-500 text-right mt-2">資料蒐集時間：${new Date().toLocaleDateString('zh-TW')} | 樣本數：100+ 則討論</div>
+    </div>
+  `;
+}
+
+function renderStrategy(data) {
+  return `
+    <div class="report-section space-y-6">
+      <div class="bg-green-500/5 border border-green-500/20 rounded-xl p-5">
+        <h4 class="text-green-400 font-semibold text-sm mb-3">進入策略建議</h4>
+        <p class="text-slate-300 text-sm leading-relaxed">${data.recommendation}</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white text-sm mb-4">定價策略框架</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bg-slate-800 rounded-xl p-4 text-center">
+            <div class="text-slate-400 text-xs mb-2">免費方案（獲客）</div>
+            <div class="text-2xl font-black text-white mb-1">$0</div>
+            <div class="text-xs text-slate-500">7 天試用 / 基礎功能</div>
+          </div>
+          <div class="bg-brand-500/10 border border-brand-500/30 rounded-xl p-4 text-center">
+            <div class="text-brand-400 text-xs mb-2">主力方案（轉換）</div>
+            <div class="text-2xl font-black text-white mb-1">$29/月</div>
+            <div class="text-xs text-brand-300">完整功能 + 優先支援</div>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-4 text-center">
+            <div class="text-slate-400 text-xs mb-2">企業方案（擴張）</div>
+            <div class="text-2xl font-black text-white mb-1">$149+</div>
+            <div class="text-xs text-slate-500">客製化 + 電話諮詢</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white text-sm mb-3">冷啟動行動清單（前 30 天）</h4>
+        <div class="space-y-2">
+          ${[
+            '在 LinkedIn 發布「我做了一份 XX 市場報告，你覺得這份值多少錢？」（配報告截圖）',
+            '加入 3 個相關 Facebook 社團，免費提供 3 份報告換取回饋',
+            '在 PTT / Dcard 發文分享市場洞察（非廣告，而是有價值的內容）',
+            '找 10 位潛在用戶一對一訪談，每次 20 分鐘',
+            '設定 Early Bird 優惠（前 20 名 50% 折扣），創造緊迫感',
+          ].map(item => `
+            <div class="flex items-start gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-brand-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              ${item}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function downloadReport() {
+  const data = REPORT_DATA[generatedKeyword] || DEFAULT_REPORT;
+  alert(`PDF 報告「${data.title}」下載中...\n\n（Day 1 Demo 版 — 正式版將在 Day 3 完成 PDF 生成器後提供真實下載）`);
+}
+
+function resetDemo() {
+  document.getElementById('report-card').classList.add('hidden');
+  document.getElementById('progress-card').classList.add('hidden');
+  document.getElementById('form-card').classList.remove('hidden');
+  document.getElementById('form-card').classList.add('fade-in-up');
+  document.getElementById('keyword-input').value = '';
+  generatedKeyword = '';
+}
+
+// ===== SURVEY =====
+function openSurvey() {
+  document.getElementById('survey-modal').classList.remove('hidden');
+  document.getElementById('survey-step-1').classList.remove('hidden');
+  document.getElementById('survey-step-2').classList.add('hidden');
+  document.getElementById('survey-step-3').classList.add('hidden');
+}
+
+function closeSurvey() {
+  document.getElementById('survey-modal').classList.add('hidden');
+}
+
+function surveyAnswer(val) {
+  document.getElementById('survey-step-1').classList.add('hidden');
+  document.getElementById('survey-step-2').classList.remove('hidden');
+  console.log('Survey answer 1:', val);
+}
+
+function surveyAnswer2(val) {
+  document.getElementById('survey-step-2').classList.add('hidden');
+  document.getElementById('survey-step-3').classList.remove('hidden');
+  console.log('Survey answer 2:', val);
+}
+
+function submitNotify() {
+  const email = document.getElementById('notify-email').value.trim();
+  if (!email) {
+    document.getElementById('notify-email').focus();
+    return;
+  }
+  console.log('Notify email:', email);
+  closeSurvey();
+  // Show success toast
+  showToast('已登記！正式上線時將優先通知您並提供 50% 折扣 🎉');
+}
+
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-500 text-white text-sm font-medium px-5 py-3 rounded-xl shadow-lg z-50 fade-in-up';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+// Close modal on backdrop click
+document.getElementById('survey-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeSurvey();
+});
+</script>
+</body>
+</html>
