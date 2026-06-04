@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-01T09:28:48.890612+00:00",
+  "generated_at": "2026-06-04T13:08:35.063498+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 41,
+    "total_reports": 44,
     "unique_products": 27,
     "categories": {
       "內容創作": 6,
@@ -213,6 +213,33 @@
       "stopped": false
     },
     {
+      "id": "mailforge",
+      "name": "MailForge",
+      "tagline": "30 秒生成讓人真的想回覆的個人化冷郵件",
+      "category": "行銷與成長",
+      "model_type": "冷郵件個人化生成器",
+      "tier": "Enterprise",
+      "price": 9800,
+      "price_display": "NT$9,800",
+      "iterations": 2,
+      "source_dates": [
+        "2026-05-29",
+        "2026-06-03"
+      ],
+      "source_file": "results/2026-06-03/MailForge-2026-06-03.md",
+      "completeness": 6,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
+      ],
+      "preview_md": "### 核心問題\n業務開發者、freelancer、SaaS 創辦人每天發送大量冷郵件，但**回覆率普遍低於 3%**。根本原因不是郵件寫不好，而是**千篇一律、看起來像模板**。個人化是關鍵，但手動研究每個收件人要花 15–30 分鐘。\n\n### 解決方案\n輸入收件人的 **LinkedIn URL 或公司網址**，MailForge 自動：\n1. 抓取公開資料（職位、近期動態、公司描述）\n2. 分析對方可能的痛點與關注點\n3. 生成 3 個版本的個人化冷郵件（開門見山型 / 共鳴型 / 好奇心型）\n4. 附上主旨行 A/B 測試建議\n\n### 獨特價值主張（UVP）\n> **「不是 AI 寫郵件，是 AI 研究對方然後讓你的郵件像人寫的。」**\n\n### 差異化定位\n\n| 競品 | 弱點 | MailForge 優勢 |\n|------|------|----------------|\n| Lemlist | 貴、複雜、序列導向 | 聚焦單封個人化、極簡操作 |\n| Apollo.io | 功能過載，個人化弱 | 深度個人化是核心 |\n| ChatGPT 直接用 | 需要自己研究資料再貼入 | 自動抓取，零準備 |\n| Lavender | 只優化，不生成 | 從零到完整郵件 |\n\n---",
+      "stopped": false
+    },
+    {
       "id": "marketpulse",
       "name": "MarketPulse AI",
       "tagline": "讓任何人都能在 10 分鐘內拿到專業級市場調查報告",
@@ -351,31 +378,6 @@
       "stopped": false
     },
     {
-      "id": "mailforge",
-      "name": "MailForge Pro",
-      "tagline": "30 秒生成讓人忍不住回覆的個人化冷郵件",
-      "category": "行銷與成長",
-      "model_type": "冷郵件個人化生成器",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 1,
-      "source_dates": [
-        "2026-05-29"
-      ],
-      "source_file": "results/2026-05-29/MailForge-Pro-2026-05-29.md",
-      "completeness": 5,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式"
-      ],
-      "preview_md": "### 解決什麼痛點？\n\n銷售人員、顧問、自由工作者每天面對同一個問題：**冷郵件回覆率低於 2%**。根本原因不是產品不好，而是郵件太像模板、太像群發、收件人一眼就看穿。\n\n真正有效的冷郵件需要：\n- 研究對方的 LinkedIn / 公司網站 / 最新動態\n- 找到「共鳴點」切入\n- 用對方語氣寫作\n\n這個過程每封信要花 **15–30 分鐘**。大多數人放棄個人化，回到群發模板，然後抱怨效果差。\n\n### 產品做什麼？\n\n用戶只需輸入：\n1. **目標對象網址**（LinkedIn / 公司官網 / 個人網站）\n2. **自己是誰 + 想達成什麼目標**（一段話）\n\n系統自動：\n- 爬取並解析目標資訊\n- 萃取 3–5 個「個人化切入點」\n- 生成 3 個風格不同的冷郵件草稿（直接型 / 好奇型 / 故事型）\n- 提供主旨行 A/B 測試建議\n\n**核心價值主張：把 20 分鐘的研究 + 撰寫壓縮到 30 秒，回覆率從 2% 提升到 8–15%。**\n\n### 差異化定位\n\n| 競品 | 問題 |\n|------|------|\n| Instantly / Apollo 模板功能 | 只做變數替換，不做真正個人化 |\n| ChatGPT 手動操作 | 需要自己研究、自己貼資料、沒有流程化 |\n| Lavender / Smartlead | 功能複雜、月費高、針對大團隊 |\n\n**MailForge Pro 的定位：給一人公司、獨立顧問、自由工作者的輕量個人化引擎。簡單、快、便宜。**\n\n---",
-      "stopped": false
-    },
-    {
       "id": "mailsniper",
       "name": "MailSniper Pro",
       "tagline": "30 秒生成讓人忍不住回覆的個人化冷郵件",
@@ -508,18 +510,20 @@
     {
       "id": "debugmate",
       "name": "DebugMate",
-      "tagline": "讓 AI 幫你在 30 秒內找到 Bug 根因",
+      "tagline": "讓 AI 幫你在 30 秒內定位 Bug 根因",
       "category": "開發者工具",
       "model_type": "開發者 Debug 助理 SaaS",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 4,
       "source_dates": [
         "2026-05-08",
-        "2026-05-16"
+        "2026-05-16",
+        "2026-06-02",
+        "2026-06-04"
       ],
-      "source_file": "results/2026-05-16/DebugMate-2026-05-16.md",
+      "source_file": "results/2026-06-04/DebugMate-2026-06-04.md",
       "completeness": 5,
       "includes": [
         "產品核心與價值主張",
@@ -528,7 +532,7 @@
         "7 天上線時程",
         "變現方式"
       ],
-      "preview_md": "### 核心問題\n開發者平均花費 **25%～50% 的工作時間在 Debug**。傳統流程是：看錯誤訊息 → Google → Stack Overflow → 試錯 → 重複。這個循環耗時、耗神、且高度重複。\n\n### 產品定位\n**DebugMate** 是一個貼在開發者工作流程旁的 AI Debug 副駕駛：\n- 貼上錯誤訊息 + 相關程式碼 → 立即獲得**根因分析 + 修復方案 + 防範建議**\n- 不是 ChatGPT 的替代品，而是**專為 Debug 場景優化**的垂直工具\n\n### 差異化價值主張\n\n| 面向 | 一般 LLM（ChatGPT/Claude） | DebugMate |\n|------|--------------------------|-----------|\n| 使用情境 | 通用對話 | 專為 Debug 設計的 UI/UX |\n| 輸出格式 | 自由文字 | 結構化：根因 / 修復 / 預防 |\n| 上下文記憶 | 每次從零開始 | 保存 Debug 歷史與專案脈絡 |\n| 學習價值 | 低 | 每次 Debug 都能學到東西 |\n| 團隊協作 | 無 | 可分享 Debug 案例（後期功能） |\n\n### 一句話電梯簡報\n> *「把你的錯誤訊息丟進來，30 秒後你知道哪裡壞了、為什麼壞了、怎麼修。」*\n\n---",
+      "preview_md": "### 核心痛點\n開發者平均花費 **工作時間的 35-50%** 在 Debug 上。遇到陌生錯誤時，典型流程是：\n1. 複製 Error message → Google 搜尋\n2. 翻 Stack Overflow → 試了幾個答案都不對\n3. 去問 ChatGPT → 得到通用答案，貼上 context 又太麻煩\n4. 重複以上循環，平均耗費 **45 分鐘**\n\n### 產品定義\n**DebugMate** 是一個專為開發者設計的 Debug 助理 SaaS，使用者只需：\n\n```\n貼上 Error Log + 相關程式碼片段\n→ 系統自動分析根本原因 + 提供可執行的修復方案\n→ 附上最相關的 Stack Overflow / GitHub Issue 佐證\n```\n\n### 差異化價值主張（vs. 直接用 ChatGPT）\n\n| 功能 | ChatGPT | DebugMate |\n|------|---------|-----------|\n| 分析模式 | 通用對話 | 專為 Debug 結構化輸出 |\n| 回應格式 | 自由文字 | 根因 / 影響範圍 / 修復步驟 / 預防建議 |\n| 歷史記錄 | 無（免費版） | 永久保存，可搜尋 |\n| 團隊分享 | 無 | 一鍵生成 Debug Report 連結 |\n| 語言偵測 | 手動說明 | 自動識別 15+ 語言/框架 |\n\n### 一句話電梯簡報\n> \"DebugMate is Grammarly for debugging — paste your error, get the fix.\"\n\n---",
       "stopped": false
     },
     {
