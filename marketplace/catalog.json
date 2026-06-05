@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-05T00:10:24.685480+00:00",
+  "generated_at": "2026-06-05T23:02:38.667615+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 45,
+    "total_reports": 46,
     "unique_products": 28,
     "categories": {
       "內容創作": 6,
@@ -53,28 +53,28 @@
     {
       "id": "notionforge",
       "name": "NotionForge",
-      "tagline": "用一句話，生成你的 Notion 工作系統",
+      "tagline": "用一句話描述需求，30秒生成完整 Notion 工作系統",
       "category": "內容創作",
       "model_type": "Notion 智能模板生成器",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-04-26",
-        "2026-05-09"
+        "2026-05-09",
+        "2026-06-06"
       ],
-      "source_file": "results/2026-05-09/NotionForge-2026-05-09.md",
-      "completeness": 6,
+      "source_file": "results/2026-06-06/NotionForge-2026-06-06.md",
+      "completeness": 5,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）"
+        "變現方式"
       ],
-      "preview_md": "### 🎯 核心問題\n90% 的 Notion 新用戶面臨同一個困境：**空白頁恐懼症**。他們知道 Notion 很強大，但不知道從哪裡開始搭建，花幾小時設計的系統用兩天就放棄了。\n\n### 💡 解決方案\n用戶只需輸入一段自然語言描述，例如：\n\n> *「我是自由接案設計師，需要管理客戶、追蹤專案進度、記錄收支」*\n\nNotionForge 在 30 秒內生成一套**完整可用的 Notion 模板**，包含：\n- 資料庫結構（含所有欄位與關聯）\n- 頁面佈局與視圖設定\n- 自動化規則建議\n- 使用說明書\n\n### 🏆 核心差異化\n\n| 競品 | 痛點 | NotionForge 優勢 |\n|------|------|-----------------|\n| Notion 官方模板庫 | 固定模板，無法個人化 | 依需求即時生成 |\n| Reddit/社群分享模板 | 需要大量手動調整 | 開箱即用 |\n| 請人代建工作區 | 貴、慢、溝通成本高 | $0 成本、30 秒完成 |\n\n### 價值主張一句話\n> **「把你腦中模糊的工作流程，變成可以馬上使用的 Notion 系統」**\n\n---",
+      "preview_md": "### 🎯 核心問題\n\nNotion 功能強大，但大多數人**卡在「空白頁」**——他們知道自己需要一個「個人 OKR 追蹤系統」或「SaaS 客戶管理 CRM」，卻不知道怎麼從零開始搭建，花費數小時反覆試錯，最終放棄。\n\n### 💡 解決方案\n\n用戶輸入一段自然語言描述（例如：「我是自由接案者，需要追蹤客戶、報價、收款進度」），NotionForge 自動生成：\n\n- ✅ 一份**可直接匯入 Notion 的完整模板**（含 Database、View、Property、Relation）\n- ✅ **使用說明文件**（解釋每個欄位的用途與填寫方式）\n- ✅ **客製化建議**（根據用戶描述推薦最適合的 Notion 功能組合）\n\n### 🏆 價值主張一句話\n\n> **「描述你的工作流程，我幫你搭好整個 Notion 系統。」**\n\n### 差異化定位\n\n| 競品 | 問題 | NotionForge 的優勢 |\n|------|------|-------------------|\n| Notion 官方模板庫 | 靜態模板，無法客製化 | 根據描述動態生成 |\n| Reddit/YouTube 教學 | 需要幾小時自學 | 30 秒直接輸出 |\n| Notion AI | 只能在頁面內輔助，無法生成完整系統架構 | 生成完整多 Database 架構 |\n| 人工顧問 | 一次收費 $200–$500 | 月費 $9 解決 |\n\n---",
       "stopped": false
     },
     {
