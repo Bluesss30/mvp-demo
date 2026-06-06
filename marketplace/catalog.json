@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-05T23:02:38.667615+00:00",
+  "generated_at": "2026-06-06T23:02:34.603758+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 46,
+    "total_reports": 47,
     "unique_products": 28,
     "categories": {
       "內容創作": 6,
@@ -188,28 +188,27 @@
     {
       "id": "letter",
       "name": "LetterOS",
-      "tagline": "讓每一位創作者都能擁有自己的訂閱帝國",
+      "tagline": "讓每個人都能經營屬於自己的知識訂閱王國",
       "category": "行銷與成長",
       "model_type": "個人品牌訂閱電子報平台",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 1,
+      "iterations": 2,
       "source_dates": [
-        "2026-05-15"
+        "2026-05-15",
+        "2026-06-07"
       ],
-      "source_file": "results/2026-05-15/LetterOS-2026-05-15.md",
-      "completeness": 7,
+      "source_file": "results/2026-06-07/LetterOS-2026-06-07.md",
+      "completeness": 5,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "變現方式"
       ],
-      "preview_md": "### 🎯 核心定位\n\n**LetterOS** 是一個專為華語內容創作者設計的個人品牌電子報平台，讓創作者在 10 分鐘內建立自己的訂閱頁面，並透過付費訂閱直接向讀者收款——不依賴演算法，不被平台綁架。\n\n### 💡 核心價值主張\n\n| 痛點（現況） | LetterOS 解法 |\n|---|---|\n| Substack 介面全英文，對華語創作者不友善 | 全繁體中文介面 + 台灣／香港支付整合 |\n| Medium 流量靠平台分配，創作者沒有讀者資料 | 訂閱者名單 100% 歸創作者所有 |\n| 自架系統需要工程師，成本高 | 5 步驟建立，無需技術背景 |\n| 多平台分散（IG、Threads、YouTube）難以變現 | 一個連結整合所有內容 + 付費牆 |\n\n### 🔑 一句話電梯簡報\n\n> *「你專心寫作，LetterOS 負責收錢。」*\n\n---",
+      "preview_md": "### 問題定義\n\n目前市面上的電子報工具（Substack、ConvertKit、Mailchimp）存在以下痛點：\n\n| 痛點 | 具體表現 |\n|------|----------|\n| 品牌自主性低 | 讀者看到的是 Substack 品牌，不是創作者品牌 |\n| 抽成比例高 | Substack 付費訂閱抽 10%，長期侵蝕收入 |\n| 數據不透明 | 讀者行為數據被平台掌握，創作者看不到完整資料 |\n| 功能綁架 | 要用進階功能就得升級付費方案，門檻高 |\n\n### 核心價值主張\n\n> **「你的讀者、你的品牌、你的數據——LetterOS 是你自己的電子報作業系統」**\n\nLetterOS 提供創作者一個**可完全客製化品牌**的電子報發送系統，創作者用自己的網域、自己的視覺風格，直接與讀者建立關係，平台只收固定月費，不碰訂閱分潤。\n\n### 差異化定位\n\n```\n競爭矩陣\n\n高品牌自主性\n        │\n        │   ● LetterOS（目標位置）\n        │\n        │              ● Ghost\n        │\n────────┼────────────────────────  高易用性\n        │\n● 自架  │      ● Substack\n系統    │\n        │         ● Mailchimp\n        │\n低品牌自主性\n```\n\n---",
       "stopped": false
     },
     {
