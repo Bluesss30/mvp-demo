@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-09T23:02:44.929214+00:00",
+  "generated_at": "2026-06-10T23:02:47.559715+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 50,
-    "unique_products": 31,
+    "total_reports": 51,
+    "unique_products": 32,
     "categories": {
       "內容創作": 6,
       "行銷與成長": 9,
@@ -11,7 +11,7 @@
       "開發者工具": 2,
       "商務與法務": 4,
       "職涯與生產力": 4,
-      "其他": 3
+      "其他": 4
     }
   },
   "categories": [
@@ -848,6 +848,31 @@
         "冷啟動策略（第一批用戶從哪來）"
       ],
       "preview_md": "### 🎯 解決什麼問題？\n\n播客創作者錄完一集 60 分鐘的節目，還需要額外花 3–5 小時手動剪輯成：\n- YouTube Shorts（9:16，60秒以內）\n- Instagram Reels（附字幕、封面）\n- TikTok（帶 Hook 開場）\n- LinkedIn 片段（商業語氣摘要）\n- Twitter/X 精華文字摘要\n\n**這個流程又累又重複，但每個平台規格不同、受眾語氣不同，很難直接外包。**\n\n### 💡 產品核心功能（MVP）\n\n| 功能 | 說明 |\n|------|------|\n| 音訊/影片上傳 | 支援 MP3、MP4、YouTube 連結 |\n| AI 自動轉錄 | 使用 Whisper API 生成逐字稿 |\n| 精華片段偵測 | Claude 分析找出「最值得剪輯」的 3–5 個片段 |\n| 多平台文案生成 | 自動產出各平台對應的標題、說明文字、hashtag |\n| 字幕檔輸出 | 生成 SRT 字幕檔，可直接匯入剪輯軟體 |\n\n### 🏆 核心價值主張\n\n> **「上傳一集播客，10 分鐘內拿到 5 個平台的剪輯素材包」**\n\n從 5 小時手工作業 → 10 分鐘 AI 輔助，**創作者只需做最後 10% 的人工確認**。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "recover",
+      "name": "RecoverAI",
+      "tagline": "讓每一筆失敗的付款，都自動找回來",
+      "category": "其他",
+      "model_type": "訂閱付款失敗自動追回（Dunning）AI SaaS",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-11"
+      ],
+      "source_file": "results/2026-06-11/RecoverAI-2026-06-11.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 🎯 解決什麼問題？\n\nSaaS 公司平均有 **9–15% 的月收入** 因付款失敗而流失（非自願性流失 / Involuntary Churn）。信用卡過期、額度不足、銀行風控攔截——這些本可挽回的收入，因為缺乏自動化追回機制而白白消失。\n\n傳統 Dunning 工具（如 Churn Buster、Gravy）是**固定模板 + 固定時序**的規則引擎，缺乏個性化。RecoverAI 的差異在於用 AI 做三件事：\n\n| 傳統 Dunning | RecoverAI |\n|---|---|\n| 固定郵件模板 | AI 根據用戶付款歷史、訂閱金額、失敗原因動態生成信件 |\n| 固定重試時間 | AI 預測最佳重試時間視窗 |\n| 無法解釋失敗原因 | AI 分類失敗原因並給出對應行動建議 |\n\n### 💡 核心價值主張（一句話）\n\n> **幫助 SaaS 創辦人在不增加人力的前提下，自動追回 60–80% 的付款失敗收入。**\n\n### 🔧 MVP 功能範圍（嚴格控制在 7 天內）\n\n```\n✅ 納入 MVP\n- Stripe Webhook 接收付款失敗事件\n- AI 生成個性化追款郵件（Claude API）\n- 自動排程重試邏輯（3次，間隔智慧計算）\n- 郵件發送（Resend API）\n- 簡單 Dashboard：顯示失敗金額、追回金額、追回率\n- 客戶自助設定頁（連接自己的 Stripe 帳號）\n\n❌ 不在 MVP\n- 多支付閘道（PayPal、Paddle）\n- SMS 追款\n- A/B 測試\n- 白標服務\n```\n\n---",
       "stopped": false
     }
   ]
