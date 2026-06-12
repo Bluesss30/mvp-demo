@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-11T23:02:53.422844+00:00",
+  "generated_at": "2026-06-12T23:02:51.404854+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 52,
-    "unique_products": 31,
+    "total_reports": 53,
+    "unique_products": 33,
     "categories": {
       "內容創作": 6,
       "行銷與成長": 9,
       "客服與電商": 3,
-      "開發者工具": 2,
+      "開發者工具": 4,
       "商務與法務": 4,
       "職涯與生產力": 4,
       "其他": 3
@@ -431,34 +431,6 @@
       "stopped": false
     },
     {
-      "id": "replymate",
-      "name": "ReplyMate",
-      "tagline": "讓每間小店都有 24 小時不下班的客服員",
-      "category": "客服與電商",
-      "model_type": "自動化客服機器人",
-      "tier": "Enterprise",
-      "price": 9800,
-      "price_display": "NT$9,800",
-      "iterations": 2,
-      "source_dates": [
-        "2026-05-06",
-        "2026-06-12"
-      ],
-      "source_file": "results/2026-06-12/ReplyMate-2026-06-12.md",
-      "completeness": 7,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
-      ],
-      "preview_md": "### 核心問題\n\n台灣與東南亞有數十萬間中小型電商、手作店、餐廳，每天重複回答相同問題：\n\n> 「什麼時候到貨？」「可以退換嗎？」「有沒有現貨？」\n\n老闆一個人顧店、顧出貨、顧 IG，**根本沒有時間即時回覆**，但回覆慢就直接流失訂單。\n\n---\n\n### 解決方案\n\n**ReplyMate** 是一個「貼上去就能用」的自動客服機器人：\n\n- 店家只需填寫一份 **FAQ 表單**（5 分鐘內完成）\n- 系統自動生成一個 **LINE / Facebook Messenger / Instagram DM** 客服機器人\n- 機器人用店家自己的語氣回答問題，答不出來的才轉交真人\n\n---\n\n### 價值主張一句話\n\n> **「你去睡覺，ReplyMate 幫你顧客人。」**\n\n---\n\n### 差異化定位\n\n| 對比項目 | 傳統客服系統（Zendesk 等） | ReplyMate |\n|---|---|---|\n| 設定時間 | 數天～數週 | **5 分鐘** |\n| 價格 | $50–$300 美金/月 | **$9 美金/月起** |\n| 目標用戶 | 中大型企業 | **一人小店** |\n| 技術門檻 | 需要 IT 人員 | **0 技術門檻** |\n| 語言支援 | 英文為主 | **繁體中文優先** |\n\n---",
-      "stopped": false
-    },
-    {
       "id": "shopbot",
       "name": "ShopBot Pro",
       "tagline": "讓每家小電商都擁有 24 小時不眠的 AI 客服",
@@ -484,6 +456,31 @@
         "風險與應對"
       ],
       "preview_md": "台灣與東南亞的小型電商（月營業額 10 萬至 100 萬台幣）每天面對大量重複性客戶詢問——運送狀態、退換貨流程、庫存查詢、折扣碼問題——卻沒有預算聘請全職客服。ShopBot Pro 是一個可在 15 分鐘內接入 Shopify / 蝦皮 / 91APP 的 AI 客服插件，透過 Claude API 理解客戶意圖，自動回覆 80% 的常見問題，並在無法回答時優雅地轉接人工。現在值得做的原因：大型電商早已有 Zendesk AI；但針對月費 500 元以下、中文本地化、零技術門檻的小電商市場，目前仍是空白。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "replymate",
+      "name": "ReplyMate",
+      "tagline": "讓小型電商24小時都有專業客服回覆",
+      "category": "客服與電商",
+      "model_type": "自動化客服機器人",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-05-06"
+      ],
+      "source_file": "results/2026-05-06/ReplyMate-2026-05-06.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 產品是什麼\n\nReplyMate 是一個專為**台灣中小型電商、獨立賣家**設計的自動化客服機器人。賣家只需貼上自己的商品資訊與常見問題，系統就能自動回覆買家在 LINE、蝦皮、Facebook 私訊中的詢問。\n\n### 核心痛點\n\n| 痛點 | 現況數據（推估） |\n|------|----------------|\n| 小賣家平均每天花 2–3 小時手動回覆客服 | 時間成本極高 |\n| 超過 60% 的詢問都是重複問題 | 「有現貨嗎？」「什麼時候出貨？」 |\n| 晚上 10 點後沒人回覆，訂單直接流失 | 黃金購物時段無人值守 |\n| 請真人客服每月至少 $25,000 台幣 | 一人公司根本負擔不起 |\n\n### 價值主張（一句話）\n\n> **「每月 $990 台幣，讓你的店24小時都有人回覆，等於雇了一個永遠不睡覺的客服員工」**\n\n### 差異化優勢\n\n- **設定極簡**：不需要懂技術，貼上商品資訊即可用\n- **台灣在地化**：理解台灣買家口語、繁體中文語意\n- **聚焦電商場景**：不是萬用聊天機器人，專門解決「賣東西」的問題\n\n---",
       "stopped": false
     },
     {
@@ -564,6 +561,58 @@
         "變現方式"
       ],
       "preview_md": "### 核心定位\n**ReviewMate AI** 是一個針對獨立開發者、小型團隊、程式學習者的 AI 程式碼審查工具。使用者貼上程式碼，即可在 30 秒內獲得媲美資深工程師的審查報告。\n\n### 解決什麼痛點？\n\n| 痛點 | 現況 | ReviewMate 的解法 |\n|------|------|-------------------|\n| 獨立開發者沒有同伴審查 | 程式碼品質低、Bug 多 | AI 即時扮演 Code Reviewer |\n| 學習者不知道自己哪裡寫得不好 | 只能靠 Stack Overflow 猜 | 逐行解釋問題與改善建議 |\n| 小團隊 PR Review 耗時 | 資深工程師要花 1-2 小時 | 先過一遍 AI 關卡，節省 70% 時間 |\n| 現有工具（如 GitHub Copilot）偏重補全 | 缺乏完整審查視角 | 聚焦「審查」而非「補全」 |\n\n### 價值主張一句話\n> **「沒有 Tech Lead？ReviewMate 就是你的 24 小時資深工程師。」**\n\n### 產品輸出範例\n使用者輸入一段 Python 函數，ReviewMate 輸出：\n- 🔴 **嚴重問題**：SQL Injection 風險（附修正範例）\n- 🟡 **改善建議**：命名不清晰、缺少型別標注\n- 🟢 **優點肯定**：邏輯結構清晰\n- 📊 **程式碼品質分數**：72 / 100\n- 💡 **一句話總評**：「邏輯正確，但安全性需要補強」\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "codelens",
+      "name": "CodeLens AI",
+      "tagline": "一鍵揪出程式碼潛在問題，讓 PR Review 快 10 倍",
+      "category": "開發者工具",
+      "model_type": "程式碼審查 AI 工具",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-12"
+      ],
+      "source_file": "results/2026-06-12/CodeLens-AI-2026-06-12.md",
+      "completeness": 7,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）",
+        "風險與應對"
+      ],
+      "preview_md": "CodeLens AI 解決的核心問題是：工程師每天花大量時間做 Code Review，但品質參差不齊、遺漏細節、新手開發者更常讓 Bug 溜進主線。現有 Linter 只能抓語法錯誤，無法理解業務邏輯與架構問題。CodeLens AI 整合 Claude API，讓開發者貼上程式碼或連接 GitHub PR，幾秒鐘內收到結構化的審查報告——涵蓋安全漏洞、效能瓶頸、命名規範、可維護性建議——用 AI 補足人力 Review 的盲區，現在值得做是因為 Claude 3.x 的 Code 理解能力已達企業可用門檻，而市面上同類工具 SaaS 化不足。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "docforge",
+      "name": "DocForge",
+      "tagline": "把任何程式碼變成專業 API 文件，10 秒內完成",
+      "category": "開發者工具",
+      "model_type": "API 文件自動生成器",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-13"
+      ],
+      "source_file": "results/2026-06-13/DocForge-2026-06-13.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 🎯 核心問題\n\n每個開發者都知道「寫文件」是最痛苦的事。調查顯示：\n\n- 開發者平均花費 **20-30% 的工作時間**在撰寫與維護文件\n- 超過 **60% 的 API 文件**上線後 3 個月內就過時\n- 新人 onboarding 時，「看不懂文件」是頭號投訴來源\n\n### 💡 產品定位\n\n**DocForge** 是一個 Web 工具，開發者只需要：\n\n1. 貼上程式碼（或上傳檔案 / 填入 GitHub repo URL）\n2. 選擇輸出格式（OpenAPI 3.0、Markdown、Postman Collection）\n3. 點一下「生成」\n\n系統在 10 秒內輸出：\n- 結構化的 API 端點描述\n- 每個參數的型別、是否必填、範例值\n- Request / Response 範例（含錯誤碼說明）\n- 可直接複製到 Notion / Confluence 的 Markdown\n\n### 🏆 差異化定位\n\n| 競品 | 痛點 | DocForge 的解法 |\n|------|------|----------------|\n| Swagger / OpenAPI Editor | 要手動寫 YAML，學習曲線陡 | 全自動，貼程式碼就好 |\n| Postman | 要先建 collection，設定繁瑣 | 直接從程式碼逆向 |\n| ReadMe.io | 月費貴，功能過重 | 輕量 SaaS，pay-as-you-go |\n| GitHub Copilot 的 inline doc | 只做 comment，不做完整 API 文件 | 輸出可部署的完整文件 |\n\n**一句話價值主張：** *「你寫程式，我寫文件。」*\n\n---",
       "stopped": false
     },
     {
