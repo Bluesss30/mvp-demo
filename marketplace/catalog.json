@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-06-12T23:02:51.404854+00:00",
+  "generated_at": "2026-06-13T23:02:38.646259+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 53,
-    "unique_products": 33,
+    "total_reports": 54,
+    "unique_products": 34,
     "categories": {
       "內容創作": 6,
-      "行銷與成長": 9,
+      "行銷與成長": 10,
       "客服與電商": 3,
-      "開發者工具": 4,
+      "開發者工具": 3,
       "商務與法務": 4,
       "職涯與生產力": 4,
-      "其他": 3
+      "其他": 4
     }
   },
   "categories": [
@@ -405,6 +405,33 @@
       "stopped": false
     },
     {
+      "id": "newsforge",
+      "name": "NewsForge",
+      "tagline": "一人打造的 AI 個人品牌電子報引擎",
+      "category": "行銷與成長",
+      "model_type": "個人品牌訂閱電子報平台",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-13"
+      ],
+      "source_file": "results/2026-06-13/NewsForge-2026-06-13.md",
+      "completeness": 7,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）",
+        "風險與應對"
+      ],
+      "preview_md": "許多知識工作者、顧問、自由創作者都深知「電子報是最高 ROI 的個人品牌渠道」，但每週要從零產出一封高品質電子報，光是選題、研究、排版、寄送就耗掉 4–6 小時。NewsForge 解決的就是這個「有想法、沒時間輸出」的核心痛點：使用者輸入 3–5 個主題關鍵字或貼上草稿筆記，AI 自動生成符合個人語氣風格的電子報初稿，並直接整合訂閱管理與發送功能。現在值得做，是因為 2026 年個人品牌訂閱生態爆發（Substack、Beehiiv 用戶數突破 5000 萬），但這些平台的 AI 功能極其陽春，寫作體驗還停留在純文字編輯器，留下了巨大的工具空缺。\n\n---",
+      "stopped": false
+    },
+    {
       "id": "postpilot",
       "name": "PostPilot AI",
       "tagline": "讓一個人管 10 個社群帳號的 AI 排程助理",
@@ -588,31 +615,6 @@
         "風險與應對"
       ],
       "preview_md": "CodeLens AI 解決的核心問題是：工程師每天花大量時間做 Code Review，但品質參差不齊、遺漏細節、新手開發者更常讓 Bug 溜進主線。現有 Linter 只能抓語法錯誤，無法理解業務邏輯與架構問題。CodeLens AI 整合 Claude API，讓開發者貼上程式碼或連接 GitHub PR，幾秒鐘內收到結構化的審查報告——涵蓋安全漏洞、效能瓶頸、命名規範、可維護性建議——用 AI 補足人力 Review 的盲區，現在值得做是因為 Claude 3.x 的 Code 理解能力已達企業可用門檻，而市面上同類工具 SaaS 化不足。\n\n---",
-      "stopped": false
-    },
-    {
-      "id": "docforge",
-      "name": "DocForge",
-      "tagline": "把任何程式碼變成專業 API 文件，10 秒內完成",
-      "category": "開發者工具",
-      "model_type": "API 文件自動生成器",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 1,
-      "source_dates": [
-        "2026-06-13"
-      ],
-      "source_file": "results/2026-06-13/DocForge-2026-06-13.md",
-      "completeness": 5,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式"
-      ],
-      "preview_md": "### 🎯 核心問題\n\n每個開發者都知道「寫文件」是最痛苦的事。調查顯示：\n\n- 開發者平均花費 **20-30% 的工作時間**在撰寫與維護文件\n- 超過 **60% 的 API 文件**上線後 3 個月內就過時\n- 新人 onboarding 時，「看不懂文件」是頭號投訴來源\n\n### 💡 產品定位\n\n**DocForge** 是一個 Web 工具，開發者只需要：\n\n1. 貼上程式碼（或上傳檔案 / 填入 GitHub repo URL）\n2. 選擇輸出格式（OpenAPI 3.0、Markdown、Postman Collection）\n3. 點一下「生成」\n\n系統在 10 秒內輸出：\n- 結構化的 API 端點描述\n- 每個參數的型別、是否必填、範例值\n- Request / Response 範例（含錯誤碼說明）\n- 可直接複製到 Notion / Confluence 的 Markdown\n\n### 🏆 差異化定位\n\n| 競品 | 痛點 | DocForge 的解法 |\n|------|------|----------------|\n| Swagger / OpenAPI Editor | 要手動寫 YAML，學習曲線陡 | 全自動，貼程式碼就好 |\n| Postman | 要先建 collection，設定繁瑣 | 直接從程式碼逆向 |\n| ReadMe.io | 月費貴，功能過重 | 輕量 SaaS，pay-as-you-go |\n| GitHub Copilot 的 inline doc | 只做 comment，不做完整 API 文件 | 輸出可部署的完整文件 |\n\n**一句話價值主張：** *「你寫程式，我寫文件。」*\n\n---",
       "stopped": false
     },
     {
@@ -876,6 +878,32 @@
         "風險與應對"
       ],
       "preview_md": "### 核心概念\n用戶輸入一段文字描述（或貼上文章、會議紀錄、報告草稿），SlideForge AI 自動生成結構完整、視覺清晰的簡報，並可一鍵匯出。\n\n### 解決什麼問題？\n| 現有痛點 | SlideForge AI 的解法 |\n|---|---|\n| 做一份簡報需要 2–4 小時 | 30 秒內生成初稿 |\n| 不懂設計，版型難看 | 內建專業模板自動套用 |\n| Gamma/Beautiful.ai 月費太貴（$20–$40） | 免費起步，付費解鎖進階功能 |\n| 生成內容不符合中文語境 | 以繁體中文為第一語言設計 |\n\n### 一句話價值主張\n> **「你負責想法，我負責簡報。」**\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "fillpilot",
+      "name": "FillPilot",
+      "tagline": "讓業務員說一句話，CRM 自動填好",
+      "category": "其他",
+      "model_type": "垂直產業 CRM AI 自動填報工具",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-14"
+      ],
+      "source_file": "results/2026-06-14/FillPilot-2026-06-14.md",
+      "completeness": 6,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
+      ],
+      "preview_md": "### 🎯 解決什麼問題？\n\n業務員每天拜訪客戶後，需要手動將拜訪記錄、報價狀態、跟進事項逐一填入 CRM（Salesforce、HubSpot、104 CRM、自建系統等）。這件事：\n\n- 平均耗時 **15–30 分鐘/天**\n- 填寫率低、資料品質差\n- 業務員抗拒使用 CRM 的首要原因\n\n### ✅ 我們怎麼解決？\n\n> **用語音或文字描述拜訪情況 → AI 自動解析 → 一鍵寫入指定 CRM 欄位**\n\n業務員下車後對著手機說：\n*「剛跟王總監談完，他對方案 B 有興趣，預算大概 80 萬，下週四要再確認規格，記得帶報價單」*\n\nFillPilot 自動產生：\n\n| CRM 欄位 | 自動填入內容 |\n|---|---|\n| 聯絡人 | 王總監 |\n| 興趣方案 | 方案 B |\n| 預算 | NT$800,000 |\n| 下次跟進日期 | 2026-06-25（週四）|\n| 待辦事項 | 準備報價單 |\n| 拜訪摘要 | 自動生成完整記錄 |\n\n### 💎 核心價值主張\n\n**「CRM 填報時間從 20 分鐘縮短到 20 秒」**\n\n- 對業務員：省時、不痛苦\n- 對主管/老闆：CRM 資料終於完整、可追蹤\n- 對企業：不換 CRM，在現有系統上疊加 AI\n\n---",
       "stopped": false
     },
     {
