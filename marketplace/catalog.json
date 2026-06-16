@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-16T23:02:43.358094+00:00",
+  "generated_at": "2026-06-16T23:02:57.866561+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 57,
+    "total_reports": 56,
     "unique_products": 36,
     "categories": {
       "內容創作": 6,
@@ -109,28 +109,28 @@
     {
       "id": "scriptflow",
       "name": "ScriptFlow",
-      "tagline": "讓任何人都能在 10 分鐘內寫出高點閱 YouTube 腳本",
+      "tagline": "讓每個人都能在 10 分鐘內產出專業 YouTube 腳本",
       "category": "內容創作",
       "model_type": "YouTube 腳本生成工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 3,
+      "iterations": 2,
       "source_dates": [
         "2026-04-28",
-        "2026-05-19",
-        "2026-05-31"
+        "2026-05-19"
       ],
-      "source_file": "results/2026-05-31/ScriptFlow-2026-05-31.md",
-      "completeness": 5,
+      "source_file": "results/2026-05-19/ScriptFlow-2026-05-19.md",
+      "completeness": 6,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式"
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
       ],
-      "preview_md": "### 核心問題\n\nYouTube 創作者面臨的最大瓶頸不是拍攝，而是**寫腳本**。一支 10 分鐘的影片，平均需要 3–6 小時構思與撰寫。對於中小型創作者（訂閱數 1K–50K），這是最消耗時間、最容易放棄更新的環節。\n\n### 解決方案\n\nScriptFlow 是一個**高度結構化的 AI 腳本生成工具**，特別針對 YouTube 創作場景優化，而非通用 AI 寫作工具。\n\n| 功能 | 一般 ChatGPT/Claude | ScriptFlow |\n|---|---|---|\n| 輸出格式 | 散文 | 分段腳本（Hook / 正文 / CTA）|\n| YouTube SEO | ❌ | ✅ 內嵌標題建議、關鍵字密度 |\n| 風格記憶 | ❌ | ✅ 儲存創作者個人語氣 |\n| 時長控制 | 估算不準 | ✅ 精確到分鐘的字數對應 |\n| 操作門檻 | 需要提示詞技巧 | ✅ 填表即用 |\n\n### 價值主張一句話\n\n> **「輸入主題，10 分鐘拿到可以直接念的腳本。」**\n\n---",
+      "preview_md": "### 核心問題\nYouTube 創作者最大的痛點不是拍攝或剪輯，而是**「不知道怎麼開始寫腳本」**。一支 10 分鐘的影片，腳本往往要花 3–6 小時，且常常寫到一半就放棄。\n\n### 解決方案\nScriptFlow 是一個**專為 YouTube 設計的腳本生成工具**，用戶只需輸入：\n1. 影片主題（一句話）\n2. 目標觀眾是誰\n3. 影片長度（5 / 10 / 15 分鐘）\n\n系統自動產出包含以下結構的完整腳本：\n\n| 腳本結構 | 說明 |\n|---------|------|\n| 🎣 Hook（前 15 秒）| 抓住注意力的開場白 |\n| 📖 故事背景 | 建立脈絡與共鳴 |\n| 💡 主要內容（3–5 段）| 核心觀點，每段有小標題 |\n| 🔄 轉場話術 | 自然流暢的段落銜接語 |\n| 📢 CTA 結尾 | 訂閱、按讚、留言引導 |\n\n### 差異化優勢\n- **不是通用 AI 寫作**，是針對 YouTube 演算法邏輯優化的結構\n- **中文優先**：市場上 90% 的工具以英文為主，中文 YouTuber 嚴重缺乏工具支援\n- **一鍵複製**：直接貼進 Google Docs 就能用，零學習成本\n\n---",
       "stopped": false
     },
     {
