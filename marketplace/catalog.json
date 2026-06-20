@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-19T23:03:04.564172+00:00",
+  "generated_at": "2026-06-20T23:02:49.173841+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 60,
-    "unique_products": 38,
+    "total_reports": 61,
+    "unique_products": 39,
     "categories": {
       "內容創作": 6,
       "行銷與成長": 10,
       "客服與電商": 3,
-      "開發者工具": 5,
+      "開發者工具": 6,
       "商務與法務": 4,
       "職涯與生產力": 4,
       "其他": 6
@@ -188,33 +188,6 @@
       "stopped": false
     },
     {
-      "id": "competeradar",
-      "name": "CompeteRadar",
-      "tagline": "讓你在30分鐘內看穿競爭對手的全貌",
-      "category": "行銷與成長",
-      "model_type": "競品分析自動化工具",
-      "tier": "Enterprise",
-      "price": 9800,
-      "price_display": "NT$9,800",
-      "iterations": 2,
-      "source_dates": [
-        "2026-05-18",
-        "2026-06-20"
-      ],
-      "source_file": "results/2026-06-20/CompeteRadar-2026-06-20.md",
-      "completeness": 6,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）"
-      ],
-      "preview_md": "### 你在解決什麼問題？\n\n一個 SaaS 創辦人、行銷人員或產品經理，每次要做競品分析，平均需要花 **4-8 小時**：手動瀏覽競品官網、截圖、整理定價頁、讀評論、寫摘要。這件事重複、耗時、卻又不能不做。\n\n**CompeteRadar 把這 8 小時壓縮成 30 分鐘。**\n\n### 核心功能（MVP 版本，極度精簡）\n\n| 功能 | 說明 |\n|------|------|\n| 🔍 自動抓取競品資料 | 輸入競品網址，自動擷取首頁、定價頁、功能頁的文字內容 |\n| 🤖 AI 結構化分析 | 用 Claude API 自動輸出：定位、目標客群、核心賣點、定價策略、弱點 |\n| 📊 對比報告生成 | 多個競品並排比較，輸出可直接貼進 Notion / Google Docs 的 Markdown 表格 |\n| 📧 報告 Email 寄送 | 分析完成後寄到你的信箱，不需要留在網頁等待 |\n\n### 價值主張一句話\n\n> **「輸入網址，30 分鐘後你的競品分析報告就在信箱等你。」**\n\n### 差異化定位\n\n```\n傳統做法：手動 → 費時 → 格式不一 → 難以更新\nSimilarWeb：流量數據強，但不分析「文案定位與策略」\nChatGPT 自己問：沒有即時網頁資料，需要自己整理 prompt\nCompeteRadar：即時抓取 + AI 分析 + 結構化輸出，三合一\n```\n\n---",
-      "stopped": false
-    },
-    {
       "id": "letter",
       "name": "LetterOS",
       "tagline": "讓每個人都能經營屬於自己的知識訂閱王國",
@@ -351,6 +324,31 @@
         "風險與應對"
       ],
       "preview_md": "B2B 業務開發人員每天面對的最大痛點，不是「要寄多少封信」，而是「每封信讀起來都像範本」。收件人一眼看穿批量群發，直接按封鎖。ColdCraft AI 解決的正是這個問題：用戶輸入目標公司名稱或 LinkedIn 網址，系統自動爬取公開資訊（近期融資、產品更新、招聘動向、創辦人文章），再由 Claude API 生成一封針對該對象客製化的冷郵件，包含個人化開場白、痛點共鳴句、清晰 CTA。現在做的原因：企業 AI 工具採購急速成長，業務自動化需求旺盛，而多數競品仍停留在關鍵字替換層次，個人化深度嚴重不足。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "competeradar",
+      "name": "CompeteRadar",
+      "tagline": "讓你在30分鐘內完成過去需要3天的競品分析",
+      "category": "行銷與成長",
+      "model_type": "競品分析自動化工具",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 2,
+      "source_dates": [
+        "2026-05-18",
+        "2026-06-21"
+      ],
+      "source_file": "results/2026-06-21/CompeteRadar-2026-06-21.md",
+      "completeness": 4,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程"
+      ],
+      "preview_md": "### 痛點定義\n\n每一位創業者、產品經理、行銷人員在做決策前都需要競品分析。現實情況是：\n\n- 手動分析 5 個競品，至少需要 **8–16 小時**\n- 資訊散落在官網、App Store、Reddit、Twitter、G2、ProductHunt\n- 分析完就過時了，但沒有人力持續追蹤\n- 外包給顧問公司，一份報告動輒 **$3,000–$10,000 美金**\n\n### 核心功能（MVP 版本）\n\n```\n輸入：你的產品描述 + 最多 5 個競品名稱\n輸出：結構化競品分析報告（PDF + Notion 格式）\n```\n\n報告包含以下六個維度：\n\n| 分析維度 | 資料來源 | 自動化程度 |\n|---------|---------|-----------|\n| 產品功能對比 | 官網爬蟲 + AI 摘要 | ✅ 全自動 |\n| 定價策略分析 | 定價頁面解析 | ✅ 全自動 |\n| 用戶評價彙整 | G2 / Capterra / App Store | ✅ 全自動 |\n| 社群聲量追蹤 | Reddit / Twitter 關鍵字 | ✅ 全自動 |\n| SEO 關鍵字差距 | Ahrefs API / 免費替代方案 | 🔶 半自動 |\n| 獨特賣點摘要 | Claude AI 分析 | ✅ 全自動 |\n\n### 價值主張（一句話）\n\n> **「把競品分析從3天壓縮到30分鐘，而且每週自動更新。」**\n\n### 差異化定位\n\n與現有工具的核心差異：\n\n- **vs. SimilarWeb / SEMrush**：他們給原始數據，CompeteRadar 給可執行的洞察\n- **vs. 人工分析**：速度快 100 倍，成本低 95%\n- **vs. ChatGPT 手動查詢**：有結構、可重複、自動排程更新\n\n---",
       "stopped": false
     },
     {
@@ -672,6 +670,33 @@
         "風險與應對"
       ],
       "preview_md": "CodeSense 解決的是「沒有資深工程師同伴審查程式碼」的痛點。獨立開發者、外包接案工程師、學習中的初中階工程師，他們的程式碼往往缺乏系統性的 Code Review，導致上線後才踩到安全漏洞、效能瓶頸或維護地獄。傳統解法是找團隊、雇高薪資深工程師，但一人公司做不到。CodeSense 透過 Claude API，讓任何人貼上程式碼或連結 GitHub PR，就能獲得涵蓋安全性、效能、可讀性、最佳實踐的完整審查報告，還能針對每個問題一鍵生成修正建議。現在值得做的原因：Claude 4.x 系列在程式碼理解與推理上已達到資深工程師水準，同時開發者對 AI 輔助工具的付費意願在 2025-2026 年已大幅提升，市場時機成熟。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "docforge",
+      "name": "DocForge",
+      "tagline": "貼上程式碼，30 秒生成完整 API 文件",
+      "category": "開發者工具",
+      "model_type": "API 文件自動生成器",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-20"
+      ],
+      "source_file": "results/2026-06-20/DocForge-2026-06-20.md",
+      "completeness": 7,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）",
+        "風險與應對"
+      ],
+      "preview_md": "開發者寫完 API 之後，最痛苦的事就是寫文件——既無聊、又耗時，卻少了它就沒人敢用。DocForge 解決的正是這個問題：只要將 Route handler、Controller 或任何後端程式碼貼入，系統便自動辨識端點、參數型別、回傳格式，並在 30 秒內輸出結構完整、可直接部署的 Markdown / OpenAPI 3.0 / Postman Collection。現在是 AI 工具大爆炸、但文件品質普遍低落的時期，開發者對「一鍵搞定」有強烈需求且願意付錢，時機正對。\n\n---",
       "stopped": false
     },
     {
