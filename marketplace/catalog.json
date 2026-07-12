@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-07-11T23:08:42.855502+00:00",
+  "generated_at": "2026-07-12T23:04:17.807981+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 81,
-    "unique_products": 50,
+    "total_reports": 83,
+    "unique_products": 51,
     "categories": {
       "內容創作": 7,
       "行銷與成長": 11,
-      "客服與電商": 4,
+      "客服與電商": 5,
       "開發者工具": 6,
       "商務與法務": 4,
       "職涯與生產力": 4,
@@ -112,19 +112,20 @@
     {
       "id": "scriptflow",
       "name": "ScriptFlow",
-      "tagline": "讓任何人都能在 10 分鐘內寫出高點閱 YouTube 腳本",
+      "tagline": "讓每個 YouTuber 都有專業編劇",
       "category": "內容創作",
       "model_type": "YouTube 腳本生成工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 3,
+      "iterations": 4,
       "source_dates": [
         "2026-04-28",
         "2026-05-19",
-        "2026-05-31"
+        "2026-05-31",
+        "2026-07-13"
       ],
-      "source_file": "results/2026-05-31/ScriptFlow-2026-05-31.md",
+      "source_file": "results/2026-07-13/ScriptFlow-2026-07-13.md",
       "completeness": 5,
       "includes": [
         "產品核心與價值主張",
@@ -133,7 +134,7 @@
         "7 天上線時程",
         "變現方式"
       ],
-      "preview_md": "### 核心問題\n\nYouTube 創作者面臨的最大瓶頸不是拍攝，而是**寫腳本**。一支 10 分鐘的影片，平均需要 3–6 小時構思與撰寫。對於中小型創作者（訂閱數 1K–50K），這是最消耗時間、最容易放棄更新的環節。\n\n### 解決方案\n\nScriptFlow 是一個**高度結構化的 AI 腳本生成工具**，特別針對 YouTube 創作場景優化，而非通用 AI 寫作工具。\n\n| 功能 | 一般 ChatGPT/Claude | ScriptFlow |\n|---|---|---|\n| 輸出格式 | 散文 | 分段腳本（Hook / 正文 / CTA）|\n| YouTube SEO | ❌ | ✅ 內嵌標題建議、關鍵字密度 |\n| 風格記憶 | ❌ | ✅ 儲存創作者個人語氣 |\n| 時長控制 | 估算不準 | ✅ 精確到分鐘的字數對應 |\n| 操作門檻 | 需要提示詞技巧 | ✅ 填表即用 |\n\n### 價值主張一句話\n\n> **「輸入主題，10 分鐘拿到可以直接念的腳本。」**\n\n---",
+      "preview_md": "### 你在解決什麼問題？\n\n**台灣有超過 50 萬個 YouTube 頻道**，其中 90% 的創作者卡在同一個瓶頸：\n\n> *「我有想法，但不知道怎麼寫成吸引人的腳本。」*\n\n現有工具（ChatGPT、Gemini）雖然能寫文字，但：\n- 不懂 YouTube 的**鉤子結構（Hook → Body → CTA）**\n- 不會根據**頻道風格**調整語氣\n- 無法輸出**可直接拿去錄影**的格式\n\n### ScriptFlow 的差異\n\n| 功能 | ChatGPT 直接問 | ScriptFlow |\n|------|--------------|------------|\n| YouTube 結構優化 | ❌ 需要自己提示 | ✅ 內建 8 種腳本模板 |\n| 鉤子（Hook）生成 | ❌ 品質不穩定 | ✅ 專門訓練的 Hook 公式 |\n| 輸出格式 | ❌ 純文字 | ✅ 分段 + 時間軸 + 鏡頭提示 |\n| 頻道風格記憶 | ❌ 每次重新說明 | ✅ 儲存你的「創作人設定檔」 |\n| 中文 YouTuber 優化 | ❌ 英文邏輯為主 | ✅ 針對繁中觀眾習慣設計 |\n\n### 一句話價值主張\n\n> **「輸入一個主題，10 分鐘內拿到可以直接錄影的完整腳本。」**\n\n---",
       "stopped": false
     },
     {
@@ -621,6 +622,31 @@
       "stopped": false
     },
     {
+      "id": "smartshopbot",
+      "name": "SmartShopBot",
+      "tagline": "讓每間小電商都有 24 小時不下班的智能客服",
+      "category": "客服與電商",
+      "model_type": "小型電商智能客服",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-05-10"
+      ],
+      "source_file": "results/2026-05-10/SmartShopBot-2026-05-10.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 核心問題\n\n台灣與東南亞有數十萬間小型電商（Shopee、蝦皮賣家、獨立官網），**每天都在用人工回覆以下相同問題**：\n\n- 「這個有現貨嗎？」\n- 「我的包裹到哪了？」\n- 「可以換貨嗎？」\n- 「有沒有折扣碼？」\n\n一位賣家平均每天花 **2～4 小時** 在客服上，這些時間完全無法創造新價值。\n\n### 解決方案\n\n**SmartShopBot** 是一個「5 分鐘安裝、零技術門檻」的智能客服嵌入工具：\n\n```\n賣家上傳商品資料 → SmartShopBot 自動學習 → \n嵌入一段 <script> → 立即處理 80% 的重複問題\n```\n\n### 核心價值主張\n\n| 對象 | 傳統做法 | SmartShopBot |\n|------|----------|--------------|\n| 時間成本 | 每日 3 小時人工回覆 | 自動處理，節省 80% |\n| 回應速度 | 平均 2 小時後回覆 | 3 秒內即時回應 |\n| 夜間/假日 | 無人值守，流失訂單 | 24 小時不中斷 |\n| 建置成本 | 外包開發需 $50K+ | 月費 $299 起 |\n\n### 差異化定位\n\n> **「不是給大企業的 CRM，是給小賣家的最後一塊拼圖」**\n\n競品（如 Intercom、Zendesk）月費 $1,000+，介面複雜，根本不適合一個人經營的蝦皮賣場。SmartShopBot 的目標是：**比 Line 官方帳號更聰明，比外包工程師更便宜**。\n\n---",
+      "stopped": false
+    },
+    {
       "id": "debugmate",
       "name": "DebugMate",
       "tagline": "讓 AI 幫你找到 Bug 的根本原因，不只是猜",
@@ -1058,7 +1084,7 @@
       "name": "SlideForge AI",
       "tagline": "用一句話，秒出專業簡報",
       "category": "其他",
-      "model_type": "",
+      "model_type": "AI 生成式簡報製作工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
@@ -1186,7 +1212,7 @@
       "name": "GrantMind",
       "tagline": "讓非營利組織用 AI 寫出打動評審的補助申請書",
       "category": "其他",
-      "model_type": "",
+      "model_type": "非營利組織與小型政府機構 AI 補助金申請撰寫工具",
       "tier": "Pro",
       "price": 4800,
       "price_display": "NT$4,800",
