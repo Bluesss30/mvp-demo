@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-07-18T23:03:34.274527+00:00",
+  "generated_at": "2026-07-19T23:03:23.573747+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 89,
+    "total_reports": 90,
     "unique_products": 54,
     "categories": {
       "內容創作": 8,
@@ -112,18 +112,19 @@
     {
       "id": "rankforge",
       "name": "RankForge",
-      "tagline": "一鍵生成高排名 SEO 內容的 AI 寫作平台",
+      "tagline": "讓一個人也能打造 SEO 內容工廠",
       "category": "內容創作",
       "model_type": "SEO 內容自動生成工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-05-17",
-        "2026-07-16"
+        "2026-07-16",
+        "2026-07-19"
       ],
-      "source_file": "results/2026-07-16/RankForge-2026-07-16.md",
+      "source_file": "results/2026-07-19/RankForge-2026-07-19.md",
       "completeness": 7,
       "includes": [
         "產品核心與價值主張",
@@ -134,7 +135,7 @@
         "冷啟動策略（第一批用戶從哪來）",
         "風險與應對"
       ],
-      "preview_md": "中小型企業主和內容行銷人員每週需要產出大量 SEO 文章，卻面臨三重困境：雇用專業 SEO 寫手費用高昂（每篇 $50-$200 美元）、自己寫既耗時又不懂關鍵字佈局、用 ChatGPT 寫出的內容千篇一律缺乏結構優化。RankForge 直接串接 Google Search Console 資料與主流關鍵字資料庫，輸入一個主題後自動分析競品文章結構、抓取目標關鍵字叢集、生成符合 E-E-A-T 規範且帶有完整 Schema Markup 的長篇文章草稿。現在值得做的原因：2026 年 Google AI Overview 全面鋪開後，傳統 SEO 文章點擊率下滑 40%，市場急需能生成「被 AI Overview 引用」等級內容的工具，而現有競品尚未針對此需求做深度優化。\n\n---",
+      "preview_md": "中小型電商、部落格主和行銷顧問每個月需要產出大量符合 SEO 規範的文章，但聘請全職文案或 SEO 顧問成本高昂、效率低落，自己寫又費時費力且缺乏關鍵字策略。RankForge 讓使用者只需輸入「目標關鍵字 + 產業」，系統便自動分析搜尋意圖、生成結構完整的 SEO 文章（含 H1/H2/H3、meta description、內部連結建議），幫助個人創作者和小型企業在搜尋結果取得排名，無需具備 SEO 專業知識。現在做這件事的時機恰好：AI 生成內容品質已達到可發布水準，而大量競業仍在使用僵化的模板，差異化空間明確。\n\n---",
       "stopped": false
     },
     {
@@ -333,30 +334,30 @@
     },
     {
       "id": "postpilot",
-      "name": "PostPilot",
-      "tagline": "一人操控全平台，AI 幫你排好每週社群內容",
+      "name": "PostPilot AI",
+      "tagline": "讓一個人也能像團隊一樣經營社群",
       "category": "行銷與成長",
       "model_type": "社群媒體排程 AI 助理",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-05-28",
-        "2026-06-15"
+        "2026-06-15",
+        "2026-07-20"
       ],
-      "source_file": "results/2026-06-15/PostPilot-2026-06-15.md",
-      "completeness": 7,
+      "source_file": "results/2026-07-20/PostPilot-AI-2026-07-20.md",
+      "completeness": 6,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
         "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "冷啟動策略（第一批用戶從哪來）"
       ],
-      "preview_md": "現在的個人創作者、小型品牌主、自由工作者每週要在 Instagram、LinkedIn、X（Twitter）、Threads 同時發文，光是想文案就耗掉大半時間，還要手動排程、調整格式、追蹤成效。**PostPilot** 讓你輸入一個主題或產品描述，AI 自動生成一週七天、跨平台適配的貼文草稿，並直接排程發出。核心價值是「從想法到排程只要三分鐘」，讓一個人也能維持多平台穩定更新的節奏。現在做這件事的時機點剛好：各平台 API 趨於穩定、AI 生成文案品質已達商用標準，而市面上現有工具（Buffer、Hootsuite）要麼太貴、要麼 AI 功能太弱，中間有明顯缺口。\n\n---",
+      "preview_md": "### 📌 核心問題\n\n個人創作者、自由工作者、小型品牌每天面臨同樣的困境：\n\n- 「知道要發文，但不知道發什麼」\n- 「寫文案耗掉了比實際工作更多的時間」\n- 「跨平台格式不同，手動改很累」\n- 「忘記發文，或發文時間不對導致沒流量」\n\n現有工具（Buffer、Hootsuite）只解決「排程」問題，**沒有解決「想內容」這個最痛的環節**。\n\n---\n\n### 💡 PostPilot AI 的解法\n\n| 功能模組 | 說明 |\n|---------|------|\n| **AI 內容生成** | 輸入主題關鍵字 → 自動生成適合各平台的貼文草稿 |\n| **跨平台格式適配** | 同一則內容自動調整為 Twitter/X、LinkedIn、Instagram、Facebook 的字數與風格 |\n| **智慧排程** | 根據用戶帳號的歷史互動數據，推薦最佳發文時間 |\n| **內容月曆視覺化** | 一眼看清本週/本月所有預排貼文 |\n| **一鍵發布** | 排程時間到，自動發布，無需手動操作 |\n\n---\n\n### 🎯 價值主張一句話\n\n> **「告訴 AI 你今天想說什麼，它幫你說給所有平台聽。」**\n\n競爭差異：不只是排程工具，而是**從創意→文案→排程→發布的全流程自動化**。\n\n---",
       "stopped": false
     },
     {
@@ -679,32 +680,6 @@
       "stopped": false
     },
     {
-      "id": "codesense",
-      "name": "CodeSense AI",
-      "tagline": "讓每一行程式碼都有資深工程師把關",
-      "category": "開發者工具",
-      "model_type": "程式碼審查 AI 工具",
-      "tier": "Enterprise",
-      "price": 9800,
-      "price_display": "NT$9,800",
-      "iterations": 2,
-      "source_dates": [
-        "2026-06-14",
-        "2026-07-19"
-      ],
-      "source_file": "results/2026-07-19/CodeSense-AI-2026-07-19.md",
-      "completeness": 5,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式"
-      ],
-      "preview_md": "### 核心問題\n獨立開發者、小型團隊、以及非主修資工背景的程式學習者，**缺乏資深工程師即時 Code Review**。他們的痛點具體如下：\n\n| 痛點 | 現況困境 |\n|------|---------|\n| 沒有同事可以審查程式碼 | 一人公司、自由接案者無人互審 |\n| 找人 review 成本高 | 外包審查每次 $50–$300，門檻高 |\n| AI 工具給的建議太泛泛 | ChatGPT 只給方向，不給具體修改 |\n| PR 合併前沒有把關機制 | Bug 上到生產環境才發現 |\n\n### 價值主張（一句話）\n> **「貼上程式碼，30 秒拿到資深工程師等級的審查報告——包含安全漏洞、效能問題、可讀性建議，以及可直接複製的修正版本。」**\n\n### 差異化定位\n- ✅ **不只說問題，直接給修正後的程式碼**\n- ✅ **分級嚴重度**（Critical / Warning / Suggestion）\n- ✅ **支援繁中介面**，對台灣/華語市場友好\n- ✅ **無需帳號即可試用**，降低使用門檻\n\n---",
-      "stopped": false
-    },
-    {
       "id": "debugmate",
       "name": "DebugMate",
       "tagline": "讓 AI 幫你找到 Bug 的根本原因，不只是猜",
@@ -866,6 +841,33 @@
         "風險與應對"
       ],
       "preview_md": "CodeLens AI 解決的核心問題是：工程師每天花大量時間做 Code Review，但品質參差不齊、遺漏細節、新手開發者更常讓 Bug 溜進主線。現有 Linter 只能抓語法錯誤，無法理解業務邏輯與架構問題。CodeLens AI 整合 Claude API，讓開發者貼上程式碼或連接 GitHub PR，幾秒鐘內收到結構化的審查報告——涵蓋安全漏洞、效能瓶頸、命名規範、可維護性建議——用 AI 補足人力 Review 的盲區，現在值得做是因為 Claude 3.x 的 Code 理解能力已達企業可用門檻，而市面上同類工具 SaaS 化不足。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "codesense",
+      "name": "CodeSense",
+      "tagline": "一鍵 AI 程式碼審查，讓獨立開發者也有資深 CTO 審核程式",
+      "category": "開發者工具",
+      "model_type": "程式碼審查 AI 工具",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-06-14"
+      ],
+      "source_file": "results/2026-06-14/CodeSense-2026-06-14.md",
+      "completeness": 7,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）",
+        "風險與應對"
+      ],
+      "preview_md": "CodeSense 解決的是「沒有資深工程師同伴審查程式碼」的痛點。獨立開發者、外包接案工程師、學習中的初中階工程師，他們的程式碼往往缺乏系統性的 Code Review，導致上線後才踩到安全漏洞、效能瓶頸或維護地獄。傳統解法是找團隊、雇高薪資深工程師，但一人公司做不到。CodeSense 透過 Claude API，讓任何人貼上程式碼或連結 GitHub PR，就能獲得涵蓋安全性、效能、可讀性、最佳實踐的完整審查報告，還能針對每個問題一鍵生成修正建議。現在值得做的原因：Claude 4.x 系列在程式碼理解與推理上已達到資深工程師水準，同時開發者對 AI 輔助工具的付費意願在 2025-2026 年已大幅提升，市場時機成熟。\n\n---",
       "stopped": false
     },
     {
