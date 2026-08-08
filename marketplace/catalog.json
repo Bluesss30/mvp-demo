@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-07T23:03:51.629216+00:00",
+  "generated_at": "2026-08-08T23:03:45.281098+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 109,
+    "total_reports": 110,
     "unique_products": 65,
     "categories": {
       "內容創作": 9,
@@ -1421,29 +1421,29 @@
     },
     {
       "id": "slideforge",
-      "name": "SlideForge AI",
-      "tagline": "用一句話，秒出專業簡報",
+      "name": "SlideForge",
+      "tagline": "用一句話，生成你的完整簡報",
       "category": "其他",
       "model_type": "AI 生成式簡報製作工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 1,
+      "iterations": 2,
       "source_dates": [
-        "2026-06-10"
+        "2026-06-10",
+        "2026-08-09"
       ],
-      "source_file": "results/2026-06-10/SlideForge-AI-2026-06-10.md",
-      "completeness": 7,
+      "source_file": "results/2026-08-09/SlideForge-2026-08-09.md",
+      "completeness": 6,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
         "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "冷啟動策略（第一批用戶從哪來）"
       ],
-      "preview_md": "### 核心概念\n用戶輸入一段文字描述（或貼上文章、會議紀錄、報告草稿），SlideForge AI 自動生成結構完整、視覺清晰的簡報，並可一鍵匯出。\n\n### 解決什麼問題？\n| 現有痛點 | SlideForge AI 的解法 |\n|---|---|\n| 做一份簡報需要 2–4 小時 | 30 秒內生成初稿 |\n| 不懂設計，版型難看 | 內建專業模板自動套用 |\n| Gamma/Beautiful.ai 月費太貴（$20–$40） | 免費起步，付費解鎖進階功能 |\n| 生成內容不符合中文語境 | 以繁體中文為第一語言設計 |\n\n### 一句話價值主張\n> **「你負責想法，我負責簡報。」**\n\n---",
+      "preview_md": "### 核心問題\n製作一份專業簡報，平均耗費 **3–6 小時**。大多數人的痛點不是缺乏內容，而是：\n- 不知道如何排版讓它「看起來專業」\n- 反覆調整格式浪費大量時間\n- 簡報工具學習曲線高（Keynote、PPT 功能繁雜）\n\n### 產品定義\n**SlideForge** 是一款「輸入主題 → 30 秒生成完整簡報」的 Web 應用。\n\n用戶只需輸入：\n```\n「幫我做一份給投資人看的 SaaS 產品 Pitch Deck，產品是 AI 客服機器人，10 頁」\n```\n系統自動生成：結構完整、視覺統一、可直接下載的 PPTX / PDF 簡報。\n\n### 獨特價值主張（UVP）\n| 競品 | 痛點 | SlideForge 的解法 |\n|------|------|------------------|\n| Gamma.app | 英文介面、不符合台灣商業習慣 | **繁體中文優先**，內建台灣商業情境模板 |\n| Beautiful.ai | 月費 $12 起、功能過重 | **免費起手**，按張付費 |\n| 自己做 PPT | 耗時 3–6 小時 | **30 秒生成**，可再手動微調 |\n\n### 一句話定位\n> **「不會設計、沒有時間？你只需要告訴我主題。」**\n\n---",
       "stopped": false
     },
     {
