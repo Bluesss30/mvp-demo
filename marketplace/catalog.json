@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-12T23:04:13.536755+00:00",
+  "generated_at": "2026-08-13T23:04:06.326557+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 114,
+    "total_reports": 115,
     "unique_products": 67,
     "categories": {
       "內容創作": 9,
@@ -1369,6 +1369,32 @@
       "stopped": false
     },
     {
+      "id": "changelog",
+      "name": "ChangelogAI",
+      "tagline": "讓每一次 Git commit 自動變成專業版本公告",
+      "category": "其他",
+      "model_type": "AI 自動生成 Git Changelog 與版本更新公告 SaaS",
+      "tier": "Enterprise",
+      "price": 9800,
+      "price_display": "NT$9,800",
+      "iterations": 2,
+      "source_dates": [
+        "2026-06-29",
+        "2026-08-14"
+      ],
+      "source_file": "results/2026-08-14/ChangelogAI-2026-08-14.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 🔍 痛點描述\n\n每一位開發者都知道這個場景：\n\n- 產品要發版了，PM 問「這次更新了什麼？」\n- 你打開 Git log，看到一百條 `fix bug`、`update`、`test` 的 commit message\n- 花了兩小時整理 Changelog，還寫得不像人話\n- 寫給用戶看的版本公告又要再重寫一遍\n\n**這件事每次發版都要重複，卻沒有人喜歡做。**\n\n### 💡 解決方案\n\n**ChangelogAI** 接入你的 GitHub / GitLab Repository，自動：\n\n1. 抓取兩個版本之間的所有 commit\n2. 用 AI 分類（新功能 / 修復 / 效能 / 破壞性變更）\n3. 生成三種格式的輸出：\n   - **開發者版**（技術細節，適合 CHANGELOG.md）\n   - **用戶版**（白話文，適合 Release Notes / Email）\n   - **行銷版**（亮點式，適合 Twitter/X 發文或部落格）\n\n### 🏆 核心價值主張\n\n> **「30 秒完成過去需要 2 小時的版本公告，讓開發者專注在寫 code，不是寫文件。」**\n\n### 差異化優勢\n\n| 功能 | ChangelogAI | 手動整理 | 競品（如 Release Drafter）|\n|------|------------|---------|--------------------------|\n| AI 智能分類 | ✅ | ❌ | ❌（規則式） |\n| 多語言輸出 | ✅ 中/英 | ❌ 費時 | ❌ |\n| 三種受眾版本 | ✅ | ❌ | ❌ |\n| 零配置啟動 | ✅ | — | ❌（需設定 Label）|\n| SaaS Web UI | ✅ | — | ❌（只有 GitHub Action）|\n\n---",
+      "stopped": false
+    },
+    {
       "id": "influencelink",
       "name": "InfluenceLink",
       "tagline": "讓網紅合作從談判桌搬上雲端，一站搞定媒合到收款",
@@ -1472,31 +1498,6 @@
         "冷啟動策略（第一批用戶從哪來）"
       ],
       "preview_md": "### 核心問題\n製作一份專業簡報，平均耗費 **3–6 小時**。大多數人的痛點不是缺乏內容，而是：\n- 不知道如何排版讓它「看起來專業」\n- 反覆調整格式浪費大量時間\n- 簡報工具學習曲線高（Keynote、PPT 功能繁雜）\n\n### 產品定義\n**SlideForge** 是一款「輸入主題 → 30 秒生成完整簡報」的 Web 應用。\n\n用戶只需輸入：\n```\n「幫我做一份給投資人看的 SaaS 產品 Pitch Deck，產品是 AI 客服機器人，10 頁」\n```\n系統自動生成：結構完整、視覺統一、可直接下載的 PPTX / PDF 簡報。\n\n### 獨特價值主張（UVP）\n| 競品 | 痛點 | SlideForge 的解法 |\n|------|------|------------------|\n| Gamma.app | 英文介面、不符合台灣商業習慣 | **繁體中文優先**，內建台灣商業情境模板 |\n| Beautiful.ai | 月費 $12 起、功能過重 | **免費起手**，按張付費 |\n| 自己做 PPT | 耗時 3–6 小時 | **30 秒生成**，可再手動微調 |\n\n### 一句話定位\n> **「不會設計、沒有時間？你只需要告訴我主題。」**\n\n---",
-      "stopped": false
-    },
-    {
-      "id": "changelog",
-      "name": "ChangelogAI",
-      "tagline": "讓每一次 Git Push 自動變成專業版本公告",
-      "category": "其他",
-      "model_type": "AI 自動生成 Git Changelog 與版本更新公告 SaaS",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 1,
-      "source_dates": [
-        "2026-06-29"
-      ],
-      "source_file": "results/2026-06-29/ChangelogAI-2026-06-29.md",
-      "completeness": 5,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式"
-      ],
-      "preview_md": "### 痛點描述\n\n每個開發者或小型團隊都面臨同一個問題：**寫 Changelog 是一件又無聊、又容易被拖延的事**。\n\n- 技術性的 commit message（如 `fix: null pointer exception in auth module`）無法直接給用戶看\n- 手寫版本公告耗時 30～90 分鐘，但內容往往乾燥無趣\n- 開發者忘記更新 CHANGELOG.md 是常態，不是例外\n- SaaS 產品、開源專案、獨立開發者都需要「對外溝通版本變化」，但沒有人喜歡做這件事\n\n### 解決方案\n\n**ChangelogAI** 連接你的 GitHub / GitLab Repository，分析 commit 歷史，自動生成：\n\n| 輸出格式 | 說明 |\n|----------|------|\n| 📄 技術 Changelog | 給開發者看的 CHANGELOG.md 標準格式 |\n| 📢 用戶公告 | 給一般用戶看的白話版更新說明 |\n| 🐦 社群貼文 | 適合發 Twitter/X、LinkedIn 的版本宣傳文 |\n| 📧 Email 電子報段落 | 可直接貼入 Mailchimp / ConvertKit |\n\n### 核心價值主張\n\n> **「30 秒完成你本來要花 1 小時寫的版本公告」**\n\n不是摘要工具，是**語氣轉換引擎** — 同一批 commit，自動輸出四種截然不同的受眾語言。\n\n---",
       "stopped": false
     },
     {
