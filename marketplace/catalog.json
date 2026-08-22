@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-21T23:04:17.164766+00:00",
+  "generated_at": "2026-08-22T23:04:03.286190+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 123,
+    "total_reports": 124,
     "unique_products": 70,
     "categories": {
       "內容創作": 9,
@@ -419,30 +419,29 @@
     },
     {
       "id": "postpilot",
-      "name": "PostPilot",
-      "tagline": "一人操控全平台，AI 幫你排好每週社群內容",
+      "name": "PostPilot AI",
+      "tagline": "讓一個人也能經營出百萬粉絲的發文節奏",
       "category": "行銷與成長",
       "model_type": "社群媒體排程 AI 助理",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-05-28",
-        "2026-06-15"
+        "2026-06-15",
+        "2026-08-23"
       ],
-      "source_file": "results/2026-06-15/PostPilot-2026-06-15.md",
-      "completeness": 7,
+      "source_file": "results/2026-08-23/PostPilot-AI-2026-08-23.md",
+      "completeness": 5,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "變現方式"
       ],
-      "preview_md": "現在的個人創作者、小型品牌主、自由工作者每週要在 Instagram、LinkedIn、X（Twitter）、Threads 同時發文，光是想文案就耗掉大半時間，還要手動排程、調整格式、追蹤成效。**PostPilot** 讓你輸入一個主題或產品描述，AI 自動生成一週七天、跨平台適配的貼文草稿，並直接排程發出。核心價值是「從想法到排程只要三分鐘」，讓一個人也能維持多平台穩定更新的節奏。現在做這件事的時機點剛好：各平台 API 趨於穩定、AI 生成文案品質已達商用標準，而市面上現有工具（Buffer、Hootsuite）要麼太貴、要麼 AI 功能太弱，中間有明顯缺口。\n\n---",
+      "preview_md": "### 🎯 核心痛點\n\n獨立創作者、自媒體經營者、小型品牌主每天面對三個殺手級問題：\n\n| 問題 | 實際情境 |\n|------|----------|\n| **不知道發什麼** | 腦袋空白，拖延到晚上 11 點才隨便貼一張圖 |\n| **不知道何時發** | 憑感覺發文，觸及率忽高忽低 |\n| **同時管多平台** | Instagram、LinkedIn、Threads 各有格式，手動改到崩潰 |\n\n### 💡 PostPilot AI 解法\n\n> **輸入一個主題 → AI 生成多平台內容草稿 → 自動排程最佳時段發布**\n\n三個核心功能，缺一不可：\n\n1. **AI 內容生成器**：輸入關鍵詞或語音備忘，Claude API 自動產出 Instagram 貼文、LinkedIn 長文、Threads 短句，語氣可調（專業／輕鬆／幽默）\n2. **智慧排程引擎**：根據平台演算法黃金時段 + 用戶歷史互動數據，推薦最佳發布時間\n3. **一鍵多平台分發**：單一介面管理三平台，格式自動適配（字數、hashtag 數量、圖片比例提示）\n\n### 🏆 差異化定位\n\n```\n競品定位矩陣：\n\n高 AI 能力\n    │\n    │  [PostPilot AI] ★\n    │  輕量＋AI原生\n    │\n    ├──────────────────── 低價/免費\n    │                高價\n    │  Buffer/Hootsuite    Later\n    │  （老牌，AI 是附加）\n低 AI 能力\n```\n\n**我們不是 Buffer 加 AI**，我們是**從 AI 出發的排程工具**，內容產製才是核心，排程是服務。\n\n---",
       "stopped": false
     },
     {
