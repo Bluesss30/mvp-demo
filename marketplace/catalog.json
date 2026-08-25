@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-24T23:04:23.141844+00:00",
+  "generated_at": "2026-08-25T23:03:51.726966+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 126,
+    "total_reports": 127,
     "unique_products": 70,
     "categories": {
       "內容創作": 9,
@@ -822,21 +822,22 @@
     {
       "id": "debugmate",
       "name": "DebugMate",
-      "tagline": "讓 AI 幫你找到 Bug 的根本原因，不只是猜",
+      "tagline": "讓 AI 在 30 秒內讀懂你的 Bug，給出可執行的修復方案",
       "category": "開發者工具",
       "model_type": "開發者 Debug 助理 SaaS",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 5,
+      "iterations": 6,
       "source_dates": [
         "2026-05-08",
         "2026-05-16",
         "2026-06-02",
         "2026-06-04",
-        "2026-07-05"
+        "2026-07-05",
+        "2026-08-26"
       ],
-      "source_file": "results/2026-07-05/DebugMate-2026-07-05.md",
+      "source_file": "results/2026-08-26/DebugMate-2026-08-26.md",
       "completeness": 5,
       "includes": [
         "產品核心與價值主張",
@@ -845,7 +846,7 @@
         "7 天上線時程",
         "變現方式"
       ],
-      "preview_md": "### 痛點定義\n\n每個開發者平均花費 **35–50% 的工作時間在 Debug**。現有工具（ChatGPT、Copilot）只能「猜測答案」，無法真正理解完整的錯誤上下文：Stack Trace、相關程式碼、環境變數、執行歷史。\n\n> **核心問題**：開發者貼一段錯誤訊息給 AI，AI 給出的答案往往是「可能是這個原因」——但這樣的回答需要反覆來回，浪費大量時間。\n\n### DebugMate 的解法\n\nDebugMate 是一個**結構化 Debug 工作流平台**，不是聊天機器人。\n\n| 功能 | 說明 |\n|------|------|\n| **錯誤解剖器** | 貼入 Stack Trace，自動拆解每一層錯誤、定位根本原因（Root Cause）|\n| **上下文收集器** | 引導用戶逐步提供相關程式碼、依賴版本、執行環境 |\n| **解法排名** | 給出 3 個解法方案，標注置信度與副作用 |\n| **Debug 筆記本** | 每次 Debug 記錄存檔，可搜尋、可分享給團隊 |\n| **語言支援** | 優先支援 Python、JavaScript/TypeScript、Go |\n\n### 一句話價值主張\n\n> **「把你的報錯貼進來，30 秒得到有根據的解法，不是猜測。」**\n\n### 差異化定位\n\n```\nChatGPT / Claude.ai  →  通用聊天，需要自己組織問題\nGitHub Copilot       →  寫程式為主，Debug 為輔\nSentry               →  錯誤監控，不提供解法\nDebugMate            →  專門為 Debug 設計的結構化工作流 ✓\n```\n\n---",
+      "preview_md": "### 核心痛點\n獨立開發者與小型團隊每天平均花費 **2–4 小時** 在 Debug 上，其中超過 60% 的時間是在：\n- 讀 Stack Trace 但看不懂根本原因\n- 貼錯誤到 Google，找到 5 年前的 Stack Overflow 答案\n- 反覆詢問通用 ChatGPT，卻得到脫離上下文的建議\n\n### 產品定義\nDebugMate 是一個**貼上錯誤 → 立即獲得結構化診斷報告**的 SaaS 工具。\n\n```\n用戶輸入：\n  - 錯誤訊息 / Stack Trace\n  - 語言 & 框架（可選）\n  - 相關程式碼片段（可選）\n\nDebugMate 輸出：\n  ① 根本原因（用人話解釋）\n  ② 3 個可能的觸發場景\n  ③ 逐步修復方案（含程式碼）\n  ④ 如何避免下次再發生\n  ⑤ 相關官方文件連結\n```\n\n### 差異化定位\n\n| 比較對象 | 差異點 |\n|----------|--------|\n| ChatGPT / Claude 直接問 | DebugMate 有結構化輸出、歷史記錄、團隊分享 |\n| Stack Overflow | 即時回應、針對你的具體程式碼、不需要等人回覆 |\n| GitHub Copilot | Copilot 補程式碼，DebugMate 專注「診斷已存在的問題」 |\n| Sentry / Datadog | 監控工具，不提供修復建議 |\n\n**一句話價值主張：** *「把你的 Bug 丟給 DebugMate，它是你永遠在線的資深同事。」*\n\n---",
       "stopped": false
     },
     {
