@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-26T23:04:11.938233+00:00",
+  "generated_at": "2026-08-27T23:03:51.577033+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 128,
+    "total_reports": 129,
     "unique_products": 70,
     "categories": {
       "內容創作": 9,
@@ -140,22 +140,23 @@
     },
     {
       "id": "scriptflow",
-      "name": "ScriptFlow AI",
-      "tagline": "讓每位 YouTuber 都能快速產出高品質腳本",
+      "name": "ScriptFlow",
+      "tagline": "30分鐘內產出專業YouTube腳本的AI寫作夥伴",
       "category": "內容創作",
       "model_type": "YouTube 腳本生成工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 5,
+      "iterations": 6,
       "source_dates": [
         "2026-04-28",
         "2026-05-19",
         "2026-05-31",
         "2026-07-14",
-        "2026-07-18"
+        "2026-07-18",
+        "2026-08-28"
       ],
-      "source_file": "results/2026-07-18/ScriptFlow-AI-2026-07-18.md",
+      "source_file": "results/2026-08-28/ScriptFlow-2026-08-28.md",
       "completeness": 7,
       "includes": [
         "產品核心與價值主張",
@@ -166,7 +167,7 @@
         "冷啟動策略（第一批用戶從哪來）",
         "風險與應對"
       ],
-      "preview_md": "ScriptFlow AI 解決的是中小型 YouTuber 每次錄影前最耗時的痛點——寫腳本。一個 10 分鐘的影片，光是構思架構、撰寫開場、串聯段落，往往需要 3 到 6 小時，讓許多有想法的創作者卡在起跑線上。ScriptFlow AI 讓使用者只需輸入影片主題、目標觀眾、影片長度，系統即自動生成符合 YouTube 演算法邏輯的完整腳本（含開場 Hook、主體段落、Call to Action），並支援風格選擇（教學型、娛樂型、說書型）。現在做這件事的時機點在於：AI 生成品質已達可直接使用的水準，但市面上針對繁體中文 YouTuber 的專屬工具幾乎空白，是明確的利基缺口。\n\n---",
+      "preview_md": "### 核心問題\n台灣與華語圈的 YouTube 創作者面臨一個共同痛點：**腳本卡關是放棄更新的第一殺手**。根據創作者社群調查，超過 60% 的頻道在開張 3 個月內斷更，主因不是沒想法，而是**把想法變成結構化腳本太耗時**（平均 4–8 小時/支影片）。\n\n### 解決方案\nScriptFlow 讓創作者輸入一個主題關鍵字或粗略想法，**在 30 分鐘內取得可直接使用的完整腳本**，包含：\n\n| 輸出項目 | 說明 |\n|---|---|\n| 🎬 開場 Hook（前 30 秒） | 依頻道風格生成抓眼球的開頭 |\n| 📋 章節大綱 | 自動切分段落、標記時間節點 |\n| ✍️ 完整逐字稿 | 口語化、自然、符合台灣用語習慣 |\n| 📌 結尾 CTA | 訂閱/按讚引導話術 |\n| 🏷️ 標題建議 × 5 | 含關鍵字、高點擊率寫法 |\n\n### 差異化定位\n> **不是通用 AI 寫作工具，是專為 YouTuber 設計的腳本流水線**\n\n- 競品（ChatGPT、Jasper）：通用文字生成，需要用戶自己設計 Prompt\n- ScriptFlow：**內建 YouTube 腳本專屬結構模板**，創作者零門檻使用\n- 語言優勢：**深度優化繁體中文口語表達**，不是翻譯腔\n\n---",
       "stopped": false
     },
     {
