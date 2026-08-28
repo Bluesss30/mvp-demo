@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-27T23:04:12.821932+00:00",
+  "generated_at": "2026-08-28T23:03:50.785539+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 129,
+    "total_reports": 130,
     "unique_products": 70,
     "categories": {
       "內容創作": 9,
@@ -420,29 +420,29 @@
     {
       "id": "postpilot",
       "name": "PostPilot",
-      "tagline": "一人操控全平台，AI 幫你排好每週社群內容",
+      "tagline": "一個人就能搞定的 AI 社群排程助理",
       "category": "行銷與成長",
       "model_type": "社群媒體排程 AI 助理",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-05-28",
-        "2026-06-15"
+        "2026-06-15",
+        "2026-08-29"
       ],
-      "source_file": "results/2026-06-15/PostPilot-2026-06-15.md",
-      "completeness": 7,
+      "source_file": "results/2026-08-29/PostPilot-2026-08-29.md",
+      "completeness": 6,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
         "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "冷啟動策略（第一批用戶從哪來）"
       ],
-      "preview_md": "現在的個人創作者、小型品牌主、自由工作者每週要在 Instagram、LinkedIn、X（Twitter）、Threads 同時發文，光是想文案就耗掉大半時間，還要手動排程、調整格式、追蹤成效。**PostPilot** 讓你輸入一個主題或產品描述，AI 自動生成一週七天、跨平台適配的貼文草稿，並直接排程發出。核心價值是「從想法到排程只要三分鐘」，讓一個人也能維持多平台穩定更新的節奏。現在做這件事的時機點剛好：各平台 API 趨於穩定、AI 生成文案品質已達商用標準，而市面上現有工具（Buffer、Hootsuite）要麼太貴、要麼 AI 功能太弱，中間有明顯缺口。\n\n---",
+      "preview_md": "### 🎯 一句話定位\n**「告訴 AI 你想說什麼，它幫你寫好、排好、發好。」**\n\n### 痛點描述\n中小型創作者、自由工作者、獨立顧問每天面對的真實困境：\n\n| 痛點 | 現況 | PostPilot 解法 |\n|------|------|----------------|\n| 不知道要發什麼內容 | 每天對著空白發呆 | AI 根據主題自動生成多平台文案 |\n| 各平台格式不同 | 同一篇文章要手動改三次 | 自動轉換 Instagram / LinkedIn / X 格式 |\n| 忘記發文 | 靈感來了沒時間發，有時間又忘了 | 視覺化排程日曆，定時自動發布 |\n| 工具太貴 | Buffer / Hootsuite 月費 $18–$99 | 定價壓在 $9 以下 |\n\n### 核心價值主張\n> PostPilot 是專為「一個人在經營品牌」設計的 AI 排程工具。不是給社群團隊用的企業軟體，是給**你一個人**用的超級助手。\n\n### 差異化特色（MVP 階段就要有）\n- ✅ **一鍵三平台**：輸入主題 → AI 生成 Instagram caption + LinkedIn 長文 + X 短推文\n- ✅ **語氣記憶**：學習你的寫作風格，越用越像你\n- ✅ **最佳發文時間建議**：根據平台演算法建議排程時段\n- ✅ **內容日曆視覺化**：一眼看清楚本週/本月排程\n\n---",
       "stopped": false
     },
     {
