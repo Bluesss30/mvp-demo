@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-29T23:03:56.588819+00:00",
+  "generated_at": "2026-08-30T23:03:55.526644+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 131,
+    "total_reports": 132,
     "unique_products": 70,
     "categories": {
       "內容創作": 9,
@@ -555,27 +555,26 @@
     {
       "id": "letterstack",
       "name": "LetterStack",
-      "tagline": "讓每一位創作者都能擁有自己的訂閱帝國",
+      "tagline": "讓每個人都能靠知識訂閱養活自己",
       "category": "行銷與成長",
       "model_type": "個人品牌訂閱電子報平台",
       "tier": "Pro",
       "price": 4800,
       "price_display": "NT$4,800",
-      "iterations": 1,
+      "iterations": 2,
       "source_dates": [
-        "2026-04-27"
+        "2026-04-27",
+        "2026-08-31"
       ],
-      "source_file": "results/2026-04-27/LetterStack-2026-04-27.md",
-      "completeness": 6,
+      "source_file": "results/2026-08-31/LetterStack-2026-08-31.md",
+      "completeness": 4,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）"
+        "7 天上線時程"
       ],
-      "preview_md": "### 核心問題\n\n目前市場上的電子報平台（Substack、Revue、ConvertKit）存在三大痛點：\n\n| 痛點 | 現有平台狀況 | LetterStack 解法 |\n|------|-------------|-----------------|\n| 抽成過高 | Substack 抽 10% 付費訂閱收入 | 固定月費，收入 100% 歸創作者 |\n| 品牌自主性低 | 網址帶平台名稱、版型受限 | 自訂網域、完整品牌白標 |\n| 中文生態差 | 介面與金流以英文市場為主 | 原生繁中介面、串接綠界/藍新金流 |\n\n### 一句話價值主張\n\n> **「你的讀者、你的品牌、你的收入——不被平台抽成。」**\n\n### 差異化定位\n\n```\n定位座標：\n高品牌自主性 ↑\n                    ★ LetterStack\n                         （目標位置）\n低收費 ←————————————————→ 高收費\n         Ghost（自架成本高）\n         Substack（抽成高）\n低品牌自主性 ↓\n```\n\n---",
+      "preview_md": "### 核心定位\n\n**LetterStack 是專為華語創作者設計的付費電子報平台**，填補市場空白：Substack 介面全英文、台灣金流不友善；自架解決方案又技術門檻過高。LetterStack 讓任何人在 10 分鐘內開張，接受台灣本地金流，一鍵發信。\n\n### 三句話說清楚價值\n\n| 對象 | 痛點 | LetterStack 解法 |\n|------|------|-----------------|\n| 創作者 | Substack 抽 10%、金流卡關 | 抽 5%、支援綠界／街口 |\n| 讀者 | 訂閱管理分散 | 單一收件匣，統一管理 |\n| 一人創辦人 | 開發費用燒光 | $0 啟動，Claude Code 搞定 |\n\n### 差異化護城河\n\n```\n競品地圖：\nSubstack      → 英文介面、美金收費、10% 抽成\n方格子         → 文章平台為主、電子報非核心\nConvertKit    → 行銷工具為主、不適合華語小創作者\n                        ↓\nLetterStack   → 華語介面 + 本地金流 + 低抽成 + 極簡上手\n```\n\n---",
       "stopped": false
     },
     {
