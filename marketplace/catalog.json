@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-01T23:06:43.451903+00:00",
+  "generated_at": "2026-09-02T23:04:14.225876+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 134,
-    "unique_products": 70,
+    "total_reports": 135,
+    "unique_products": 71,
     "categories": {
       "內容創作": 9,
       "行銷與成長": 14,
       "客服與電商": 6,
-      "開發者工具": 10,
+      "開發者工具": 11,
       "商務與法務": 5,
       "職涯與生產力": 6,
       "其他": 20
@@ -1063,6 +1063,32 @@
         "風險與應對"
       ],
       "preview_md": "開發者寫完 API 之後，最痛苦的事就是寫文件——既無聊、又耗時，卻少了它就沒人敢用。DocForge 解決的正是這個問題：只要將 Route handler、Controller 或任何後端程式碼貼入，系統便自動辨識端點、參數型別、回傳格式，並在 30 秒內輸出結構完整、可直接部署的 Markdown / OpenAPI 3.0 / Postman Collection。現在是 AI 工具大爆炸、但文件品質普遍低落的時期，開發者對「一鍵搞定」有強烈需求且願意付錢，時機正對。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "docupilot",
+      "name": "DocuPilot",
+      "tagline": "讓你的 API 文件在 30 秒內自動生成完畢",
+      "category": "開發者工具",
+      "model_type": "API 文件自動生成器",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-09-03"
+      ],
+      "source_file": "results/2026-09-03/DocuPilot-2026-09-03.md",
+      "completeness": 6,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
+      ],
+      "preview_md": "### 核心問題\n每個後端開發者都知道這個痛點：**寫 API 文件是一件極度無聊、耗時、卻絕對不能省略的事**。一個中型專案的 API 文件，手工撰寫往往需要 2–5 天，而且每次 API 更新，文件就立刻過期。\n\n### 產品定位\n**DocuPilot** 是一個一鍵式 API 文件生成器。用戶貼上程式碼（或上傳檔案），30 秒內獲得：\n\n- 標準 Markdown / OpenAPI 3.0 格式的完整文件\n- 自動推導的請求/回應範例（含 curl、Python、JavaScript 範本）\n- 參數說明、錯誤碼對照表\n- 可直接部署的靜態文件網站（HTML 輸出）\n\n### 獨特價值主張（UVP）\n> *「不需要讀懂你的程式碼，DocuPilot 自己讀懂。」*\n\n| 對比對象 | 痛點 | DocuPilot 的優勢 |\n|----------|------|-----------------|\n| 手寫文件 | 耗時 2–5 天 | 30 秒輸出初稿 |\n| Swagger UI | 需要手動標注 annotation | 自動從原始碼推導 |\n| Postman Docs | 需要先建 Collection | 直接貼程式碼即可 |\n| GPT 手動問 | 每次都要重新描述脈絡 | 結構化輸出，格式一致 |\n\n---",
       "stopped": false
     },
     {
