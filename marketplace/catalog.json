@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-12T23:04:15.836206+00:00",
+  "generated_at": "2026-09-13T23:04:10.761656+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 145,
+    "total_reports": 146,
     "unique_products": 75,
     "categories": {
       "內容創作": 9,
@@ -1478,27 +1478,27 @@
     {
       "id": "changelog",
       "name": "ChangelogAI",
-      "tagline": "讓每一次 Git commit 自動變成專業版本公告",
+      "tagline": "讓 Git Commit 自動變成漂亮的版本公告",
       "category": "其他",
       "model_type": "AI 自動生成 Git Changelog 與版本更新公告 SaaS",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-06-29",
-        "2026-08-14"
+        "2026-08-14",
+        "2026-09-14"
       ],
-      "source_file": "results/2026-08-14/ChangelogAI-2026-08-14.md",
-      "completeness": 5,
+      "source_file": "results/2026-09-14/ChangelogAI-2026-09-14.md",
+      "completeness": 4,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式"
+        "7 天上線時程"
       ],
-      "preview_md": "### 🔍 痛點描述\n\n每一位開發者都知道這個場景：\n\n- 產品要發版了，PM 問「這次更新了什麼？」\n- 你打開 Git log，看到一百條 `fix bug`、`update`、`test` 的 commit message\n- 花了兩小時整理 Changelog，還寫得不像人話\n- 寫給用戶看的版本公告又要再重寫一遍\n\n**這件事每次發版都要重複，卻沒有人喜歡做。**\n\n### 💡 解決方案\n\n**ChangelogAI** 接入你的 GitHub / GitLab Repository，自動：\n\n1. 抓取兩個版本之間的所有 commit\n2. 用 AI 分類（新功能 / 修復 / 效能 / 破壞性變更）\n3. 生成三種格式的輸出：\n   - **開發者版**（技術細節，適合 CHANGELOG.md）\n   - **用戶版**（白話文，適合 Release Notes / Email）\n   - **行銷版**（亮點式，適合 Twitter/X 發文或部落格）\n\n### 🏆 核心價值主張\n\n> **「30 秒完成過去需要 2 小時的版本公告，讓開發者專注在寫 code，不是寫文件。」**\n\n### 差異化優勢\n\n| 功能 | ChangelogAI | 手動整理 | 競品（如 Release Drafter）|\n|------|------------|---------|--------------------------|\n| AI 智能分類 | ✅ | ❌ | ❌（規則式） |\n| 多語言輸出 | ✅ 中/英 | ❌ 費時 | ❌ |\n| 三種受眾版本 | ✅ | ❌ | ❌ |\n| 零配置啟動 | ✅ | — | ❌（需設定 Label）|\n| SaaS Web UI | ✅ | — | ❌（只有 GitHub Action）|\n\n---",
+      "preview_md": "### 痛點描述\n\n每個開發者或小型團隊在發布新版本時，都必須手動整理 Git commit log，再將技術語言翻譯成用戶看得懂的更新公告。這件事**重複、枯燥、耗時，卻又不能省略**。\n\n典型的痛點流程如下：\n\n```\ngit log v1.2.0..v1.3.0 --oneline\n→ 複製 50 條 commit\n→ 手動分類：Bug Fix / Feature / Breaking Change\n→ 改寫成人話\n→ 貼到 GitHub Release / 官網 / Slack / 電子報\n→ 每次發版重複一次\n```\n\n### 解決方案\n\nChangelogAI 透過三個步驟自動完成這一切：\n\n1. **接入**：用戶提供 GitHub / GitLab repo 授權或 webhook\n2. **生成**：AI 分析 commit message，自動分類、改寫為人類可讀的更新說明\n3. **發布**：一鍵輸出到多個渠道（Markdown、HTML、Slack 通知、電子報草稿）\n\n### 核心價值主張\n\n| 對象 | 省下的時間 | 得到的好處 |\n|------|-----------|-----------|\n| 獨立開發者 | 每次發版省 30–90 分鐘 | 維持專業形象，用戶感受到產品在進步 |\n| 小型 SaaS 團隊 | 不再需要 PM 手動整理 | 發版更頻繁，changelog 品質更一致 |\n| 開源維護者 | 省去翻譯技術語言的心力 | 吸引更多非技術貢獻者與用戶 |\n\n### 差異化定位\n\n> **「給開發者看的是 commit，給用戶看的是故事。ChangelogAI 負責翻譯。」**\n\n競品（如 Release Drafter、Changesets）只做**格式整理**，不做**語言改寫**。ChangelogAI 的核心差異在於：\n- 輸出的不是技術 log，而是**用戶語言的更新公告**\n- 支援多種語調（正式 / 輕鬆 / 行銷風格）\n- 多渠道一鍵發布，不只是 GitHub Release\n\n---",
       "stopped": false
     },
     {
