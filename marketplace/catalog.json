@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-25T23:04:15.414053+00:00",
+  "generated_at": "2026-09-26T23:04:10.099651+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 158,
+    "total_reports": 159,
     "unique_products": 80,
     "categories": {
       "內容創作": 9,
@@ -1668,31 +1668,30 @@
     },
     {
       "id": "podslice",
-      "name": "PodSlice",
-      "tagline": "一鍵把你的播客變成全平台爆款內容",
+      "name": "PodSlice AI",
+      "tagline": "一鍵將播客剪輯成各平台爆款短片",
       "category": "其他",
       "model_type": "播客內容多平台剪輯 AI 助手",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 3,
+      "iterations": 4,
       "source_dates": [
         "2026-06-09",
         "2026-07-12",
-        "2026-08-22"
+        "2026-08-22",
+        "2026-09-27"
       ],
-      "source_file": "results/2026-08-22/PodSlice-2026-08-22.md",
-      "completeness": 7,
+      "source_file": "results/2026-09-27/PodSlice-AI-2026-09-27.md",
+      "completeness": 5,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "變現方式"
       ],
-      "preview_md": "### 你在解決什麼問題？\n\n播客主每錄一集節目，平均花 **3–6 小時** 做後製剪輯、寫文案、切短影音，這是重複性極高卻耗盡創作能量的苦工。大多數獨立播客主因此無力經營多平台，錯失大量曝光機會。\n\n### PodSlice 怎麼解決？\n\n上傳一個音頻檔（MP3/WAV），PodSlice 自動完成：\n\n| 輸出物 | 說明 |\n|--------|------|\n| 🎬 短影音腳本 | 抓出 3–5 個高亮片段，生成 60 秒 Reels/TikTok 腳本 |\n| 📝 逐字稿 | 全文字幕，支援中英混合 |\n| 🧵 Twitter/X 串文 | 10 則推文的完整討論串 |\n| 📄 部落格文章 | SEO 優化的長文，含標題與段落結構 |\n| 📱 IG 貼文 | 5 張輪播圖的文案 + Hashtag 組合 |\n| 📧 電子報摘要 | 精華段落 + 行動呼籲 |\n\n### 核心價值主張（一句話）\n\n> **「錄一次，到處都有你。」**\n\n---",
+      "preview_md": "### 核心問題\n\n播客創作者錄完一集節目後，往往面臨同樣的痛苦：\n\n> 「我有 60 分鐘精彩內容，但要剪成 Instagram Reels、YouTube Shorts、TikTok、LinkedIn 片段……光這件事就要花我 4–6 小時。」\n\n這個「二次創作瓶頸」讓大量好內容被浪費，也讓中小型播客主因為精力不足而無法成長。\n\n---\n\n### PodSlice AI 的解法\n\n用戶只需要上傳播客音檔（MP3/WAV）或貼上 YouTube/Spotify 連結，系統自動完成以下流程：\n\n```\n音檔輸入\n    ↓\n語音轉文字（Whisper API）\n    ↓\nAI 分析精華片段（Claude API）\n    ↓\n自動生成字幕 + 格式裁切\n    ↓\n輸出各平台規格短片 + 文案\n```\n\n### 輸出物清單（一次上傳，全部產出）\n\n| 平台 | 規格 | 內容 |\n|------|------|------|\n| Instagram Reels | 9:16 / 60秒 | 燒錄字幕版影片 |\n| YouTube Shorts | 9:16 / 60秒 | 燒錄字幕版影片 |\n| TikTok | 9:16 / 60秒 | 燒錄字幕版影片 |\n| LinkedIn | 16:9 / 90秒 | 橫版字幕版影片 |\n| Twitter/X | 文字摘要 | 精華金句 5 則 |\n| Podcast 文字稿 | Markdown | SEO 友善全文稿 |\n\n### 核心差異化\n\n- **不是通用剪輯工具**：專為播客格式設計，懂得識別「論點轉折點」、「金句爆發點」、「故事高潮」\n- **中文播客優先**：市場上 Descript、Opus Clip 對中文支援差，這是明確的市場缺口\n- **一人可操作**：介面極簡，不需要任何影片剪輯知識\n\n---",
       "stopped": false
     },
     {
