@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-01T23:04:27.993578+00:00",
+  "generated_at": "2026-10-02T23:04:21.083760+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 164,
+    "total_reports": 165,
     "unique_products": 81,
     "categories": {
       "內容創作": 9,
@@ -993,6 +993,33 @@
       "stopped": false
     },
     {
+      "id": "reviewmind",
+      "name": "ReviewMind",
+      "tagline": "讓 AI 幫你在合併前抓出所有問題",
+      "category": "開發者工具",
+      "model_type": "程式碼審查 AI 工具",
+      "tier": "Enterprise",
+      "price": 9800,
+      "price_display": "NT$9,800",
+      "iterations": 2,
+      "source_dates": [
+        "2026-07-26",
+        "2026-10-03"
+      ],
+      "source_file": "results/2026-10-03/ReviewMind-2026-10-03.md",
+      "completeness": 6,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
+      ],
+      "preview_md": "### 核心問題\n每位開發者每天都在做 Code Review，但這件事又慢、又累、又容易漏看。資深工程師的時間被大量消耗在「找低級錯誤」上，而初級工程師的 PR 往往等待數天才能得到回饋。\n\n### 產品定義\n**ReviewMind** 是一個接入 GitHub / GitLab 的 AI 程式碼審查工具。當開發者開啟 Pull Request，ReviewMind 自動分析差異（diff），並在幾秒內產生結構化的審查意見，包含：\n\n- 🐛 潛在 Bug 與邏輯錯誤\n- 🔒 安全性漏洞（SQL injection、XSS、硬編碼密鑰等）\n- ⚡ 效能瓶頸建議\n- 📖 可讀性與命名規範\n- ✅ 整體通過 / 需修改 的判定\n\n### 一句話價值主張\n> **「你的第一位審查者，24 小時在線，從不疲憊。」**\n\n### 差異化定位\n| 競品 | 痛點 | ReviewMind 做法 |\n|------|------|----------------|\n| GitHub Copilot | 只補全，不審查 | 專注 PR 審查流程 |\n| CodeRabbit | 月費 $29+ 起跳 | Freemium，個人永久免費 |\n| 人工 Review | 慢、主觀、時區問題 | 秒級回饋，客觀標準 |\n\n---",
+      "stopped": false
+    },
+    {
       "id": "bugwhisperer",
       "name": "BugWhisperer",
       "tagline": "讓 AI 在 30 秒內讀懂你的 Bug，給出可直接執行的修復方案",
@@ -1149,33 +1176,6 @@
         "冷啟動策略（第一批用戶從哪來）"
       ],
       "preview_md": "### 核心問題\n每個後端開發者都知道這個痛點：**寫 API 文件是一件極度無聊、耗時、卻絕對不能省略的事**。一個中型專案的 API 文件，手工撰寫往往需要 2–5 天，而且每次 API 更新，文件就立刻過期。\n\n### 產品定位\n**DocuPilot** 是一個一鍵式 API 文件生成器。用戶貼上程式碼（或上傳檔案），30 秒內獲得：\n\n- 標準 Markdown / OpenAPI 3.0 格式的完整文件\n- 自動推導的請求/回應範例（含 curl、Python、JavaScript 範本）\n- 參數說明、錯誤碼對照表\n- 可直接部署的靜態文件網站（HTML 輸出）\n\n### 獨特價值主張（UVP）\n> *「不需要讀懂你的程式碼，DocuPilot 自己讀懂。」*\n\n| 對比對象 | 痛點 | DocuPilot 的優勢 |\n|----------|------|-----------------|\n| 手寫文件 | 耗時 2–5 天 | 30 秒輸出初稿 |\n| Swagger UI | 需要手動標注 annotation | 自動從原始碼推導 |\n| Postman Docs | 需要先建 Collection | 直接貼程式碼即可 |\n| GPT 手動問 | 每次都要重新描述脈絡 | 結構化輸出，格式一致 |\n\n---",
-      "stopped": false
-    },
-    {
-      "id": "reviewmind",
-      "name": "ReviewMind",
-      "tagline": "AI 驅動的程式碼審查夥伴，讓每個開發者都有資深工程師在身旁",
-      "category": "開發者工具",
-      "model_type": "程式碼審查 AI 工具",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 1,
-      "source_dates": [
-        "2026-07-26"
-      ],
-      "source_file": "results/2026-07-26/ReviewMind-2026-07-26.md",
-      "completeness": 7,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
-      ],
-      "preview_md": "ReviewMind 解決的是獨立開發者、初級工程師、以及中小型團隊中「缺乏資深審查者」的痛點。寫完程式碼之後，大多數人要麼自己盲目檢查、要麼把 code 丟給 ChatGPT 得到不一致的建議、要麼等隊友有空才能合併 PR。ReviewMind 是一個 GitHub-native 的 AI 程式碼審查工具：開 PR 後 60 秒內自動收到結構化審查報告，涵蓋安全漏洞、效能問題、邏輯錯誤與最佳實踐建議，並以 inline comment 形式標記到具體程式碼行。現在值得做的原因：Claude 3.5 Sonnet 的程式碼理解能力已超越大多數人類初階審查者，GitHub Apps API 成熟穩定，而開發者願意為「省時省力」的工具直接刷卡，客單價低摩擦高。\n\n---",
       "stopped": false
     },
     {
