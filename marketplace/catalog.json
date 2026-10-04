@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-03T23:04:23.455252+00:00",
+  "generated_at": "2026-10-04T23:04:19.139444+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 166,
+    "total_reports": 167,
     "unique_products": 81,
     "categories": {
       "內容創作": 9,
@@ -338,6 +338,34 @@
       "stopped": false
     },
     {
+      "id": "letterstack",
+      "name": "LetterStack",
+      "tagline": "讓每一位創作者都能擁有自己的訂閱電子報帝國",
+      "category": "行銷與成長",
+      "model_type": "個人品牌訂閱電子報平台",
+      "tier": "Enterprise",
+      "price": 9800,
+      "price_display": "NT$9,800",
+      "iterations": 3,
+      "source_dates": [
+        "2026-04-27",
+        "2026-08-31",
+        "2026-10-05"
+      ],
+      "source_file": "results/2026-10-05/LetterStack-2026-10-05.md",
+      "completeness": 6,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）"
+      ],
+      "preview_md": "### 核心問題\n目前市場上的電子報工具（Substack、Beehiiv、ConvertKit）有三個痛點：\n1. **抽成過高**：Substack 對付費訂閱抽取 10%，長期侵蝕創作者收益\n2. **品牌自主性低**：域名、介面風格受平台限制，難以建立真正的個人品牌\n3. **數據不透明**：訂閱者數據被平台鎖住，創作者無法完整掌握受眾\n\n### 價值主張\n**「你的電子報，完全屬於你」**\n\nLetterStack 提供：\n- ✅ 自訂域名綁定（品牌完全自主）\n- ✅ 零抽成付費訂閱（收多少留多少）\n- ✅ 訂閱者數據完整匯出\n- ✅ 一鍵 AI 輔助撰寫（Claude API 整合）\n- ✅ 極簡操作介面，10 分鐘內發出第一封信\n\n### 差異化定位\n```\n競品對比矩陣：\n\n              抽成    品牌自主    AI輔助    價格\nSubstack      10%      低         無       免費起\nBeehiiv        0%      中         有       $42/月起\nLetterStack    0%      高         有       $19/月\n```\n\n---",
+      "stopped": false
+    },
+    {
       "id": "mailforge",
       "name": "MailForge",
       "tagline": "30 秒生成一封讓對方真的想回覆的冷郵件",
@@ -558,31 +586,6 @@
         "風險評估"
       ],
       "preview_md": "**ContentFlow Pro** 是一個專為獨立創作者、知識工作者與中小型媒體品牌打造的數位內容訂閱管理平台。核心價值在於將內容創作、訂閱管理、付款收款、受眾分析四大流程整合於單一工作台，讓創作者無需串接多個工具即可完整運營訂閱制業務。\n\n**核心價值主張：**\n- **創作者端**：降低技術門檻，5 分鐘內建立付費訂閱牆，支援文章、音頻、影片、PDF 等多種格式\n- **讀者端**：統一訂閱管理介面，單一帳號管理多位創作者訂閱，跨平台無縫閱讀\n- **數據端**：提供訂閱留存率、閱讀熱力圖、流失預警等深度分析儀表板\n\n---",
-      "stopped": false
-    },
-    {
-      "id": "letterstack",
-      "name": "LetterStack",
-      "tagline": "讓每個人都能靠知識訂閱養活自己",
-      "category": "行銷與成長",
-      "model_type": "個人品牌訂閱電子報平台",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 2,
-      "source_dates": [
-        "2026-04-27",
-        "2026-08-31"
-      ],
-      "source_file": "results/2026-08-31/LetterStack-2026-08-31.md",
-      "completeness": 4,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程"
-      ],
-      "preview_md": "### 核心定位\n\n**LetterStack 是專為華語創作者設計的付費電子報平台**，填補市場空白：Substack 介面全英文、台灣金流不友善；自架解決方案又技術門檻過高。LetterStack 讓任何人在 10 分鐘內開張，接受台灣本地金流，一鍵發信。\n\n### 三句話說清楚價值\n\n| 對象 | 痛點 | LetterStack 解法 |\n|------|------|-----------------|\n| 創作者 | Substack 抽 10%、金流卡關 | 抽 5%、支援綠界／街口 |\n| 讀者 | 訂閱管理分散 | 單一收件匣，統一管理 |\n| 一人創辦人 | 開發費用燒光 | $0 啟動，Claude Code 搞定 |\n\n### 差異化護城河\n\n```\n競品地圖：\nSubstack      → 英文介面、美金收費、10% 抽成\n方格子         → 文章平台為主、電子報非核心\nConvertKit    → 行銷工具為主、不適合華語小創作者\n                        ↓\nLetterStack   → 華語介面 + 本地金流 + 低抽成 + 極簡上手\n```\n\n---",
       "stopped": false
     },
     {
