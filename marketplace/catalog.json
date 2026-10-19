@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-18T23:04:45.413052+00:00",
+  "generated_at": "2026-10-19T23:04:53.861484+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 181,
-    "unique_products": 89,
+    "total_reports": 182,
+    "unique_products": 90,
     "categories": {
       "內容創作": 9,
       "行銷與成長": 14,
       "客服與電商": 7,
       "開發者工具": 12,
-      "商務與法務": 6,
+      "商務與法務": 7,
       "職涯與生產力": 7,
       "其他": 34
     }
@@ -1269,6 +1269,33 @@
         "風險評估"
       ],
       "preview_md": "AgentFlow 是一個「自動化服務代理」平台，讓中小企業（SME）無需雇用全職員工，即可將客服回覆、訂單處理、發票開立、社群媒體排程、數據報表等重複性流程完全交給 AI 代理執行。\n\n**核心價值主張：**\n- 以月費 $299 USD 取代 1~2 名全職人力（市場薪資 $3,000~$5,000/月）\n- 24/7 無間斷執行，錯誤率低於 0.3%\n- 5 分鐘內完成部署，無需 IT 背景\n- 與 Shopify、LINE、Gmail、Google Sheets、Slack 原生整合\n\n差異化定位：不是賣「AI 工具」，而是賣「已完成設定的 AI 員工」——開箱即用，成效保證。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "contractscan",
+      "name": "ContractScan Pro",
+      "tagline": "讓每個人都有自己的 AI 合約律師",
+      "category": "商務與法務",
+      "model_type": "合約審查 AI",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-10-20"
+      ],
+      "source_file": "results/2026-10-20/ContractScan-Pro-2026-10-20.md",
+      "completeness": 7,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式",
+        "冷啟動策略（第一批用戶從哪來）",
+        "風險與應對"
+      ],
+      "preview_md": "中小企業主、自由工作者、創業者每天都在簽各式合約，但聘請律師審閱一份合約動輒數千元，大多數人只能靠直覺或朋友推薦「大概沒問題」。ContractScan Pro 讓用戶上傳任何合約 PDF，AI 在 60 秒內標出高風險條款、解釋法律含義、提供修改建議，並給出整體風險評分。不取代律師，而是讓用戶帶著清楚的問題清單去找律師——節省 70% 諮詢費用。現在做的理由：Claude API 在長文件理解和法律推理上已達到專業可用水準，而企業主對合約糾紛的恐懼從未降低。\n\n---",
       "stopped": false
     },
     {
