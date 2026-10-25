@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-10-24T23:05:13.797400+00:00",
+  "generated_at": "2026-10-25T23:04:48.329325+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 187,
-    "unique_products": 92,
+    "total_reports": 188,
+    "unique_products": 93,
     "categories": {
       "內容創作": 9,
       "行銷與成長": 14,
       "客服與電商": 7,
-      "開發者工具": 12,
+      "開發者工具": 13,
       "商務與法務": 7,
       "職涯與生產力": 7,
       "其他": 36
@@ -1158,6 +1158,30 @@
         "風險與應對"
       ],
       "preview_md": "開發者寫完 API 之後，最痛苦的事就是寫文件——既無聊、又耗時，卻少了它就沒人敢用。DocForge 解決的正是這個問題：只要將 Route handler、Controller 或任何後端程式碼貼入，系統便自動辨識端點、參數型別、回傳格式，並在 30 秒內輸出結構完整、可直接部署的 Markdown / OpenAPI 3.0 / Postman Collection。現在是 AI 工具大爆炸、但文件品質普遍低落的時期，開發者對「一鍵搞定」有強烈需求且願意付錢，時機正對。\n\n---",
+      "stopped": false
+    },
+    {
+      "id": "docuflowapi",
+      "name": "DocuFlow API",
+      "tagline": "讓你的 API 文件在 60 秒內自動生成",
+      "category": "開發者工具",
+      "model_type": "API 文件自動生成器",
+      "tier": "Pro",
+      "price": 4800,
+      "price_display": "NT$4,800",
+      "iterations": 1,
+      "source_dates": [
+        "2026-10-26"
+      ],
+      "source_file": "results/2026-10-26/DocuFlow-API-2026-10-26.md",
+      "completeness": 4,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程"
+      ],
+      "preview_md": "### 🎯 核心問題\n\n每個開發者都寫過 API，但 90% 的人痛恨寫 API 文件。現有解決方案要麼太複雜（Swagger 需要大量手動標注），要麼太貴（Readme.io 每月 $99+），要麼生成品質太差（模板化、沒有人味）。\n\n### 💡 我們的解法\n\n**上傳程式碼 → 自動生成專業 API 文件，包含範例、錯誤碼、使用說明**\n\n使用者只需貼上或上傳以下任一種輸入：\n- 原始程式碼（Python / Node.js / Go / Ruby）\n- Postman Collection JSON\n- OpenAPI / Swagger YAML（品質優化）\n- cURL 指令集合\n\n系統透過 Claude API 解析語意，輸出：\n- 結構化的 Markdown / HTML 文件\n- 互動式 API Playground（可直接測試）\n- 多語言呼叫範例（Python、JS、cURL、PHP）\n- 自動偵測錯誤碼並生成對應說明\n\n### 🏆 差異化定位\n\n| 競品 | 問題 | DocuFlow API 優勢 |\n|------|------|-------------------|\n| Swagger UI | 需手動寫 YAML | **全自動，貼程式碼即可** |\n| Readme.io | $99/月起跳 | **免費方案可用** |\n| Postman Docs | 綁定 Postman 生態 | **工具無關，任何格式皆可** |\n| 手寫 Notion | 費時 3-8 小時 | **60 秒完成初稿** |\n\n### 📌 一句話定位\n\n> *「Swagger 太複雜、Notion 太慢？把程式碼貼給我，60 秒後你有一份專業 API 文件。」*\n\n---",
       "stopped": false
     },
     {
