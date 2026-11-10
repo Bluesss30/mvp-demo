@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-09T23:05:41.716620+00:00",
+  "generated_at": "2026-11-10T23:05:12.714837+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 203,
+    "total_reports": 204,
     "unique_products": 98,
     "categories": {
       "內容創作": 9,
@@ -890,13 +890,13 @@
     {
       "id": "debugmate",
       "name": "DebugMate",
-      "tagline": "讓開發者把 Bug 丟給 AI，自己去喝咖啡",
+      "tagline": "讓每個開發者都有一位隨時待命的 Debug 夥伴",
       "category": "開發者工具",
       "model_type": "開發者 Debug 助理 SaaS",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 7,
+      "iterations": 8,
       "source_dates": [
         "2026-05-08",
         "2026-05-16",
@@ -904,20 +904,20 @@
         "2026-06-04",
         "2026-07-05",
         "2026-08-26",
-        "2026-09-30"
+        "2026-09-30",
+        "2026-11-11"
       ],
-      "source_file": "results/2026-09-30/DebugMate-2026-09-30.md",
-      "completeness": 7,
+      "source_file": "results/2026-11-11/DebugMate-2026-11-11.md",
+      "completeness": 6,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
         "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
+        "冷啟動策略（第一批用戶從哪來）"
       ],
-      "preview_md": "### 核心問題\n開發者平均每天花 **4.5 小時** 在 Debug 上。Stack Overflow 搜尋、讀錯誤訊息、試了 10 種解法還是不行——這個痛點真實、高頻、且讓人抓狂。\n\n### 產品定義\n**DebugMate** 是一個「貼上錯誤，秒得答案」的 SaaS 工具。\n\n不是泛用 AI 聊天，而是專為 Debug 流程設計的垂直工具：\n\n```\n用戶輸入：錯誤訊息 + 相關程式碼片段 + 技術棧\nDebugMate 輸出：\n  ├── 根本原因分析（Root Cause）\n  ├── 分步驟修復方案（可直接複製貼上）\n  ├── 為什麼會發生這個錯誤（理解而非死記）\n  └── 預防性建議（避免下次再踩）\n```\n\n### 差異化價值主張\n| 對比對象 | DebugMate 的優勢 |\n|---------|----------------|\n| 直接問 ChatGPT | 有 Debug 專用介面、歷史記錄、格式化輸出 |\n| Stack Overflow | 即時回應、針對你的程式碼、不用等人回答 |\n| GitHub Copilot | 不需要 IDE 插件、任何語言任何環境都能用 |\n| 自己慢慢查 | 省下 80% 時間，答案品質更穩定 |\n\n### 一句話電梯簡報\n> \"把你的錯誤訊息貼進來，30 秒內知道怎麼修。\"\n\n---",
+      "preview_md": "### 核心問題\n開發者平均每天花費 **1.5～4 小時** 在 Debug 上。這些時間中：\n- 50% 浪費在「看錯誤訊息卻不知道從哪下手」\n- 30% 花在搜尋 Stack Overflow / 文件\n- 20% 花在重現問題、撰寫最小復現範例\n\n現有工具（GitHub Copilot、ChatGPT）是通才，不是 Debug 專科。開發者把錯誤貼進去，得到的往往是**模糊的通用建議**，還要自己整理脈絡。\n\n### DebugMate 的核心差異\n\n| 能力 | ChatGPT / Copilot | DebugMate |\n|------|-------------------|-----------|\n| 錯誤訊息解讀 | 通用回答 | 語言 + 框架 + 版本三層定位 |\n| 根因分析 | 給答案 | 給推理鏈（Why → Where → Fix） |\n| 修復建議 | 一個方案 | 三個方案 + 風險評估 |\n| 歷史記憶 | 無 | 記住你的 Stack，避免重複提問 |\n| 學習閉環 | 無 | 每次 Debug 後生成「防錯筆記」 |\n\n### 一句話價值主張\n> **「貼上錯誤，30 秒內得到帶推理過程的修復方案——不是猜測，是診斷。」**\n\n---",
       "stopped": false
     },
     {
