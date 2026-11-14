@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-13T23:05:30.375575+00:00",
+  "generated_at": "2026-11-14T23:05:17.571751+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 207,
+    "total_reports": 208,
     "unique_products": 99,
     "categories": {
       "內容創作": 9,
@@ -115,28 +115,28 @@
     {
       "id": "rankflow",
       "name": "RankFlow",
-      "tagline": "讓一個人也能產出百篇高品質 SEO 內容",
+      "tagline": "讓一個人也能產出 SEO 內容工廠",
       "category": "內容創作",
       "model_type": "SEO 內容自動生成工具",
       "tier": "Enterprise",
       "price": 9800,
       "price_display": "NT$9,800",
-      "iterations": 2,
+      "iterations": 3,
       "source_dates": [
         "2026-05-03",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-11-15"
       ],
-      "source_file": "results/2026-05-30/RankFlow-2026-05-30.md",
-      "completeness": 6,
+      "source_file": "results/2026-11-15/RankFlow-2026-11-15.md",
+      "completeness": 5,
       "includes": [
         "產品核心與價值主張",
         "目標用戶",
         "Claude Code 實作計畫",
         "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）"
+        "變現方式"
       ],
-      "preview_md": "### 核心定義\n\nRankFlow 是一款「關鍵字進、SEO 文章出」的自動化內容工具。使用者輸入目標關鍵字，系統自動完成：\n\n- **關鍵字研究** → 分析搜尋意圖、長尾關鍵字建議\n- **文章架構生成** → 符合 Google E-E-A-T 原則的標題層級（H1/H2/H3）\n- **全文撰寫** → 2,000–4,000 字完整文章，自然植入關鍵字\n- **Meta 資料輸出** → Title Tag、Meta Description、Schema Markup\n- **一鍵匯出** → Markdown / HTML / WordPress XML 三種格式\n\n### 核心價值主張\n\n| 對象 | 舊痛點 | RankFlow 解法 |\n|------|--------|---------------|\n| 中小電商主 | 請外包寫手每篇 $1,500–3,000 | 每篇成本降至 $30 以下 |\n| 行銷顧問 | 每週手動產出 5–10 篇已是極限 | 單日可交付 50+ 篇草稿 |\n| 部落客 | 不懂 SEO 技術，排名上不去 | 自動套用最佳化結構 |\n\n### 差異化定位\n\n> **「不只是 AI 寫文章，是幫你贏得 Google 排名的內容引擎」**\n\n市面上 Jasper、Copy.ai 主打「寫得好」，RankFlow 主打「排得上」——每一個輸出都綁定搜尋意圖分析與競品缺口洞察。\n\n---",
+      "preview_md": "### 核心問題\n中小型企業、個人品牌主、自媒體創作者都知道「SEO 內容很重要」，但他們面臨的現實是：\n\n- 聘請 SEO 文案團隊月費 NT$30,000 起跳\n- 自己寫文章耗時 4–8 小時/篇，且不知道關鍵字策略對不對\n- 坊間 AI 寫作工具寫出的文章「像 AI 寫的」，Google 越來越難收錄\n\n### RankFlow 的解法\n**一個關鍵字進去，一篇可發布的 SEO 文章出來。**\n\n具體輸出包含：\n- ✅ 關鍵字叢集分析（主關鍵字 + 長尾關鍵字建議）\n- ✅ SERP 意圖分析（資訊型 / 商業型 / 導航型）\n- ✅ 完整文章結構（H1 / H2 / H3 大綱）\n- ✅ 2,000 字以上全文生成（繁體中文）\n- ✅ Meta Title / Meta Description 自動產出\n- ✅ 內部連結建議錨文字\n\n### 差異化定位\n| 功能 | RankFlow | Surfer SEO | Jasper |\n|------|----------|------------|--------|\n| 繁體中文優化 | ✅ 核心功能 | ❌ 弱 | ❌ 弱 |\n| 一鍵全流程 | ✅ | ❌ 需多步驟 | ❌ |\n| 月費 | NT$590 | USD$89 | USD$49 |\n| 無需 SEO 知識 | ✅ | ❌ 有學習曲線 | ❌ |\n\n**核心價值主張：「不懂 SEO 的老闆，也能每週產出 5 篇 Google 喜歡的文章。」**\n\n---",
       "stopped": false
     },
     {
