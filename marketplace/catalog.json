@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-23T23:05:44.238158+00:00",
+  "generated_at": "2026-11-24T23:05:28.903796+00:00",
   "currency": "TWD",
   "stats": {
-    "total_reports": 217,
+    "total_reports": 218,
     "unique_products": 100,
     "categories": {
       "內容創作": 9,
@@ -896,6 +896,32 @@
       "stopped": false
     },
     {
+      "id": "codesense",
+      "name": "CodeSense",
+      "tagline": "讓每一行程式碼都有資深工程師把關",
+      "category": "開發者工具",
+      "model_type": "程式碼審查 AI 工具",
+      "tier": "Enterprise",
+      "price": 9800,
+      "price_display": "NT$9,800",
+      "iterations": 2,
+      "source_dates": [
+        "2026-06-14",
+        "2026-11-25"
+      ],
+      "source_file": "results/2026-11-25/CodeSense-2026-11-25.md",
+      "completeness": 5,
+      "includes": [
+        "產品核心與價值主張",
+        "目標用戶",
+        "Claude Code 實作計畫",
+        "7 天上線時程",
+        "變現方式"
+      ],
+      "preview_md": "### 核心問題\n\n中小型開發團隊與獨立開發者面臨一個共同困境：**沒有足夠資深的工程師做 Code Review**。結果是技術債快速累積、安全漏洞被忽略、程式碼品質參差不齊。\n\n市場現有工具（GitHub Copilot、SonarQube）要麼太貴、要麼只做靜態分析，缺少「真正像資深工程師一樣給建議」的體驗。\n\n### 產品定義\n\n**CodeSense** 是一個輕量級 AI Code Review 工具，開發者貼上程式碼或連接 GitHub PR，立即獲得：\n\n| 審查維度 | 具體輸出 |\n|----------|----------|\n| 🐛 Bug 偵測 | 指出潛在錯誤與邊界條件 |\n| 🔒 安全性 | SQL Injection、XSS 等常見漏洞標記 |\n| ⚡ 效能建議 | 時間複雜度分析、不必要的重複運算 |\n| 📖 可讀性 | 命名規範、函式拆分建議 |\n| ✅ 最佳實踐 | 語言慣用寫法、設計模式建議 |\n\n### 一句話價值主張\n\n> **「五秒鐘，獲得資深工程師等級的 Code Review，不需要排隊等人審查。」**\n\n### 差異化定位\n\n- vs SonarQube：**不需要設定、不需要 DevOps 知識，貼上就用**\n- vs GitHub Copilot：**專注審查而非補全，給出完整分析報告而非片段建議**\n- vs ChatGPT 直接問：**有結構化輸出、可分享的報告頁面、歷史記錄**\n\n---",
+      "stopped": false
+    },
+    {
       "id": "debugmate",
       "name": "DebugMate",
       "tagline": "讓每個開發者都有一位隨時待命的 Debug 夥伴",
@@ -1115,33 +1141,6 @@
         "風險與應對"
       ],
       "preview_md": "CodeLens AI 解決的核心問題是：工程師每天花大量時間做 Code Review，但品質參差不齊、遺漏細節、新手開發者更常讓 Bug 溜進主線。現有 Linter 只能抓語法錯誤，無法理解業務邏輯與架構問題。CodeLens AI 整合 Claude API，讓開發者貼上程式碼或連接 GitHub PR，幾秒鐘內收到結構化的審查報告——涵蓋安全漏洞、效能瓶頸、命名規範、可維護性建議——用 AI 補足人力 Review 的盲區，現在值得做是因為 Claude 3.x 的 Code 理解能力已達企業可用門檻，而市面上同類工具 SaaS 化不足。\n\n---",
-      "stopped": false
-    },
-    {
-      "id": "codesense",
-      "name": "CodeSense",
-      "tagline": "一鍵 AI 程式碼審查，讓獨立開發者也有資深 CTO 審核程式",
-      "category": "開發者工具",
-      "model_type": "程式碼審查 AI 工具",
-      "tier": "Pro",
-      "price": 4800,
-      "price_display": "NT$4,800",
-      "iterations": 1,
-      "source_dates": [
-        "2026-06-14"
-      ],
-      "source_file": "results/2026-06-14/CodeSense-2026-06-14.md",
-      "completeness": 7,
-      "includes": [
-        "產品核心與價值主張",
-        "目標用戶",
-        "Claude Code 實作計畫",
-        "7 天上線時程",
-        "變現方式",
-        "冷啟動策略（第一批用戶從哪來）",
-        "風險與應對"
-      ],
-      "preview_md": "CodeSense 解決的是「沒有資深工程師同伴審查程式碼」的痛點。獨立開發者、外包接案工程師、學習中的初中階工程師，他們的程式碼往往缺乏系統性的 Code Review，導致上線後才踩到安全漏洞、效能瓶頸或維護地獄。傳統解法是找團隊、雇高薪資深工程師，但一人公司做不到。CodeSense 透過 Claude API，讓任何人貼上程式碼或連結 GitHub PR，就能獲得涵蓋安全性、效能、可讀性、最佳實踐的完整審查報告，還能針對每個問題一鍵生成修正建議。現在值得做的原因：Claude 4.x 系列在程式碼理解與推理上已達到資深工程師水準，同時開發者對 AI 輔助工具的付費意願在 2025-2026 年已大幅提升，市場時機成熟。\n\n---",
       "stopped": false
     },
     {
